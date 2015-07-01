@@ -1,0 +1,16 @@
+.queue {
+  border: 1px solid blue;
+}
+
+.queue-item {
+  border: 1px solid green;
+  margin: 2px;
+}
+
+.queue-item.not-ready {
+  background-color: green;
+}
+
+div.queue-item p {
+  margin: 1px;
+}

@@ -1,5 +1,5 @@
 {
-    "name": "nw-demo",
-      "version": "0.0.1",
-        "main": "index.html"
+    "name": "tunes",
+    "version": "0.0.1",
+    "main": "index.html"
 }

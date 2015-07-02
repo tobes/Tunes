@@ -71,7 +71,7 @@ define(['event', 'config'],
 
 
     function processRequest(request, response) {
-      console.log('Webserver request', request.url);
+      //console.log('Webserver request', request.url);
       var urlPath = path.basename(request.url);
       if (urlPath === '') {
         urlPath = 'index.html';

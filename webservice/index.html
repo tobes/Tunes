@@ -4,10 +4,27 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="tunes.css">
+  <script src="zepto.min.js"></script>
+  <script src="tunes.js"></script>
   <title>Tunes!</title>
 </head>
 
 <body>
-<p>Welcome to <strong>Tunes!</strong></p>
-
+  <div id="container">
+    <h1> Tunes! </h1>
+    <div id="playing">
+      <div id="currentArtist"></div>
+      <div id="currentTrack"></div>
+      <img src="613.jpg">
+      <div id="currentAlbum"></div>
+      <div id="currentProgressLabel">
+        <span id="currentPosition"></span>
+        ~
+        <span id="currentDuration"></span>
+      </div>
+      <progress id="currentProgress" value="0" max="100"></progress>
+    </div>
+  </div>
 </body>

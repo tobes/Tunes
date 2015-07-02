@@ -1,16 +1,12 @@
 /*global define */
 
-define(['db'],function(db) {
+define(['db'], function(db) {
 
   var fs = require('fs');
   var path = require('path');
-  console.log('requirejs');
-  console.log(typeof requirejs);
- // var db = requirejs(['db']);
-
-  console.log(typeof db);
 
   var extensions = ['.mp3', '.flac', '.ogg', '.wav'];
+
 
   var walk = function(dir, done) {
     var results = [];
@@ -68,8 +64,11 @@ define(['db'],function(db) {
     });
   };
 
+
   console.log('import loaded');
+
   return {
     walk: walk
   };
+
 });

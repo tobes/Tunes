@@ -1,6 +1,6 @@
 /*global define */
 
-define(['jquery', 'event'], function($, event) {
+define(['jquery', 'event', 'qrcode', 'webservice'], function($, event, qrcode, webservice) {
 
   var parts = {};
 
@@ -88,10 +88,27 @@ define(['jquery', 'event'], function($, event) {
     event.attach(controls);
   }
 
+  function initWebservice() {
+    var url = webservice.url();
+    if (url) {
+      var $qrcode = $('<div>');
+      new qrcode($qrcode[0], {
+        text: url,
+        width: 128,
+        height: 128,
+        colorDark: '#000',
+        colorLight: '#fff',
+        correctLevel: qrcode.CorrectLevel.L
+      });
+      $('#webservice').append($qrcode);
+    }
+  }
+
   function init2() {
     build('playing', '#playing', initPlaying);
     build('queue', '#queue', initQueue);
     build('controls', '#controls', initControls);
+    initWebservice();
   }
 
   function init() {

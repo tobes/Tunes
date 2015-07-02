@@ -4,6 +4,12 @@ requirejs.config({
   baseUrl: 'static',
   paths: {
     jquery: 'vendor/jquery-2.1.4.min',
+    qrcode: 'vendor/qrcode.min'
+  },
+  shim: {
+    'qrcode': {
+      exports: 'QRCode'
+    }
   }
 });
 
@@ -14,6 +20,6 @@ requirejs(['db'], function(db) {
     // database is initiated
     console.log('DB ready');
     // start things up
-    requirejs(['player', 'interface']);
+    requirejs(['player', 'interface', 'webservice']);
   });
 });

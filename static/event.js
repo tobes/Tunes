@@ -1,4 +1,4 @@
-/*global define */
+/*global define, window */
 
 define(['jquery', 'config'],
   function($, config) {
@@ -45,6 +45,13 @@ define(['jquery', 'config'],
       trigger('tick');
     }
 
+
+    // exit event
+    window.addEventListener('beforeunload', function() {
+      console.log('********************************');
+      trigger('exit');
+      console.log('********************************');
+    }, false);
 
     setInterval(clock, config.tickTime);
 

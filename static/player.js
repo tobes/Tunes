@@ -2,6 +2,7 @@
 
 define('player', ['jquery', 'event', 'queue', 'config'],
   function($, event, queue, config) {
+
     var players = [];
     var waitlock = false;
     var activePlayer = 0;
@@ -9,14 +10,17 @@ define('player', ['jquery', 'event', 'queue', 'config'],
     var current = null;
     var started = false;
 
+
     function fadeSteps() {
       return Math.ceil(config.fadeTime / config.tickTime);
     }
+
 
     function fadePlayer(player, direction) {
       player.dataset.fade = fadeSteps();
       player.dataset.direction = direction;
     }
+
 
     function fadeAction(player) {
       var volume;
@@ -33,8 +37,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
           volume = 0;
         }
       }
-      fade--;
-      if (fade === -1) {
+      if (fade-- === 0) {
         if (direction !== 'up') {
           player.pause();
         }
@@ -45,15 +48,13 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       player.volume = volume;
     }
 
+
     function createPlayer() {
       var $player = $('<audio controls data-direction="none">');
       $('body').append($player);
       players.push($player[0]);
     }
 
-    // create players
-    createPlayer();
-    createPlayer();
 
     function addTrack(item) {
       var player = players[nextPlayer];
@@ -75,6 +76,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       event.trigger('playingChange', current);
     }
 
+
     function nextTrack() {
       if (!players[nextPlayer].paused) {
         console.log('no player ready');
@@ -86,6 +88,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
         addTrack(next);
       });
     }
+
 
     function tick() {
       if (!started) {
@@ -109,11 +112,10 @@ define('player', ['jquery', 'event', 'queue', 'config'],
             fadeAction(player);
           }
         }
-
-
         event.trigger('playingUpdate', current);
       }
     }
+
 
     function play() {
       var player = players[activePlayer];
@@ -122,6 +124,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       }
     }
 
+
     function pause() {
       var player = players[activePlayer];
       if (!player.paused) {
@@ -129,10 +132,15 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       }
     }
 
+
     event.add('controlSkip', nextTrack);
     event.add('controlPlay', play);
     event.add('controlPause', pause);
     event.add('tick', tick);
+
+    // create players
+    createPlayer();
+    createPlayer();
 
     console.log('Player: loaded');
 

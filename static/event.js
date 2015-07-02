@@ -2,9 +2,9 @@
 
 define(['jquery', 'config'],
   function($, config) {
+
     var silentEvents = ['tick', 'playingUpdate'];
     var callbacks = {};
-
 
 
     function add(name, callback) {
@@ -31,6 +31,7 @@ define(['jquery', 'config'],
       }
     }
 
+
     function attach(selector) {
       $(selector + ' [data-event]').each(function() {
         $(this).click(function() {
@@ -44,8 +45,8 @@ define(['jquery', 'config'],
       trigger('tick');
     }
 
-    setInterval(clock, config.tickTime);
 
+    setInterval(clock, config.tickTime);
 
 
     return {

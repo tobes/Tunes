@@ -18,6 +18,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       event.trigger('playlistUpdate', queue);
     }
 
+
     function queueAdd(item) {
       console.log('queue add', item);
       queue.push({
@@ -36,6 +37,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       event.trigger('playlistUpdate', queue);
     }
 
+
     function removeIndex(list, index) {
       var i;
       var out = [];
@@ -46,6 +48,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       }
       return out;
     }
+
 
     function get(callback) {
       // get next playable item
@@ -62,6 +65,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
         }
       }
     }
+
 
     function tick() {
       // add track if needed
@@ -85,6 +89,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       }
       console.log('---------------');
     }
+
 
     //  event.add('playlistUpdate', logQueue);
     event.add('tick', tick);

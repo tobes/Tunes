@@ -17,6 +17,7 @@ define(['event', 'config'],
       '.png': 'image/png',
       '.jpg': 'image/jpg',
       '.wav': 'audio/wav',
+      '.ogg': 'audio/ogg',
     };
 
     function getIPAdress() {

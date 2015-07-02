@@ -115,8 +115,23 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       }
     }
 
+    function play() {
+      var player = players[activePlayer];
+      if (player.paused) {
+        player.play();
+      }
+    }
+
+    function pause() {
+      var player = players[activePlayer];
+      if (!player.paused) {
+        player.pause();
+      }
+    }
 
     event.add('controlSkip', nextTrack);
+    event.add('controlPlay', play);
+    event.add('controlPause', pause);
     event.add('tick', tick);
 
     console.log('Player: loaded');

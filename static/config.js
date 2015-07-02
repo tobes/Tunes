@@ -9,6 +9,9 @@ define(function() {
     volume: 0.3,
     webservicePort: 1969,
     webserviceActive: 1,
+    webserviceSecure: 1,
+    webserviceSecureKey: 'ssl/key.pem',
+    webserviceSecureCert: 'ssl/cert.pem',
   };
 
 });

@@ -74,10 +74,21 @@ define(['event', 'config'],
         console.log('No IP address webservice not started');
         return;
       }
-      var http = require("http");
       var port = config.webservicePort;
-      url = 'http://' + ipAddress[0].ip + ':' + port;
-      server = http.createServer(processRequest).listen(port);
+      var protocol = config.webserviceSecure ? 'https' : 'http';
+      if (config.webserviceSecure) {
+        var options = {
+          key: fs.readFileSync(config.webserviceSecureKey),
+          cert: fs.readFileSync(config.webserviceSecureCert)
+        };
+        var https = require("https");
+        server = https.createServer(options, processRequest).listen(port);
+      } else {
+        var http = require("http");
+        server = http.createServer(processRequest).listen(port);
+      }
+
+      url = protocol + '://' + ipAddress[0].ip + ':' + port;
       console.log('Webservice serving on ' + url);
     }
 

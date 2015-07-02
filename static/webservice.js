@@ -8,6 +8,7 @@ define(['event', 'config'],
     var path = require('path');
     var fs = require('fs');
     var url;
+    var feed = {current: {}};
 
     var CONTENT_TYPES = {
       '.html': 'text/html',
@@ -55,6 +56,19 @@ define(['event', 'config'],
       });
     }
 
+    function playingUpdate(current) {
+      feed.current = current;
+    }
+
+
+    function serveJSON(urlPath, response, contentType) {
+      var content = JSON.stringify(feed);
+      response.writeHead(200, {
+        'Content-Type': contentType
+      });
+      response.end(content, 'utf-8');
+    }
+
 
     function processRequest(request, response) {
       console.log('Webserver request', request.url);
@@ -65,8 +79,12 @@ define(['event', 'config'],
       var extname = path.extname(urlPath);
       var contentType = CONTENT_TYPES[extname];
 
-      var file = path.join('webservice', path.sep, urlPath);
-      serveFile(file, response, contentType);
+      if (extname === '.json') {
+        serveJSON(urlPath, response, contentType);
+      } else {
+        var file = path.join('webservice', path.sep, urlPath);
+        serveFile(file, response, contentType);
+      }
     }
 
 
@@ -110,6 +128,7 @@ define(['event', 'config'],
 
     if (config.webserviceActive) {
       event.add('exit', stopServer);
+      event.add('playingUpdate', playingUpdate);
       getIPAdress();
       startWebservice();
     }

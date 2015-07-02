@@ -9,6 +9,15 @@ define(['event', 'config'],
     var fs = require('fs');
     var url;
 
+    var CONTENT_TYPES = {
+      '.html': 'text/html',
+      '.js': 'text/javascript',
+      '.css': 'text/css',
+      '.json': 'application/json',
+      '.png': 'image/png',
+      '.jpg': 'image/jpg',
+      '.wav': 'audio/wav',
+    };
 
     function getIPAdress() {
       var ifaces = require('os').networkInterfaces();
@@ -25,22 +34,13 @@ define(['event', 'config'],
     }
 
 
-    function processRequest(request, response) {
-      var urlPath = request.url;
-      if (urlPath === '/') {
-        urlPath = '/index.html';
-      }
-      var file = path.join('webservice', urlPath);
-
-      console.log('~~~', file);
-      var contentType = 'text/html';
-
-
+    function serveFile(file, response, contentType) {
+      // serve a file
       fs.readFile(file, function(error, content) {
         if (error) {
           if (error.code === 'ENOENT') {
             response.writeHead(404);
-            response.end('Sorry page not found', 'utf-8');
+            response.end('Sorry page not found');
           } else {
             response.writeHead(500);
             response.end('Sorry, check with the site admin for error: ' + error.code + ' ..\n');
@@ -52,6 +52,20 @@ define(['event', 'config'],
           response.end(content, 'utf-8');
         }
       });
+    }
+
+
+    function processRequest(request, response) {
+      console.log('Webserver request', request.url);
+      var urlPath = path.basename(request.url);
+      if (urlPath === '') {
+        urlPath = 'index.html';
+      }
+      var extname = path.extname(urlPath);
+      var contentType = CONTENT_TYPES[extname];
+
+      var file = path.join('webservice', path.sep, urlPath);
+      serveFile(file, response, contentType);
     }
 
 
@@ -77,7 +91,7 @@ define(['event', 'config'],
     }
 
 
-    function getUrl(){
+    function getUrl() {
       return url;
     }
 

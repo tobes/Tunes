@@ -1,3 +1,5 @@
 **.swp
 /converted/
 /node_modules/
+/covers/[1-9]
+/covers/[1-9][0-9]*

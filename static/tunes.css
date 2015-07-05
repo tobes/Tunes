@@ -5,6 +5,7 @@
 .queue-item {
   border: 1px solid green;
   margin: 2px;
+  overflow: auto;
 }
 
 .queue-item.not-ready {
@@ -13,4 +14,18 @@
 
 div.queue-item p {
   margin: 1px;
+}
+
+
+.queue-image-div {
+    float: left;
+    padding:5px;
+}
+.queue-cover {
+    display: block;
+ width:50px;
+ height:50px;
+}
+.queue-content {
+    margin-left: 60px
 }

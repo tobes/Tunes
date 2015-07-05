@@ -1,7 +1,7 @@
 /*global define, window*/
 
 define(function() {
-  // window.indexedDB.deleteDatabase("tunes");
+  //     window.indexedDB.deleteDatabase("tunes");
 
   var db = null;
   var active = false;
@@ -29,18 +29,40 @@ define(function() {
   };
 
   dbOpen.onupgradeneeded = function(evt) {
+    var objectStore;
     db = evt.target.result;
-    var objectStore = db.createObjectStore("track", {
+
+    // Track
+    objectStore = db.createObjectStore("track", {
       keyPath: 'id',
       autoIncrement: true
     });
     objectStore.createIndex("path", "path", {
       unique: true
     });
-    console.log('db update');
+
+    // Album
+    objectStore = db.createObjectStore("album", {
+      keyPath: 'id',
+      autoIncrement: true
+    });
+    objectStore.createIndex("path", "path", {
+      unique: true
+    });
+
+    // Artist
+    objectStore = db.createObjectStore("artist", {
+      keyPath: 'id',
+      autoIncrement: true
+    });
+    objectStore.createIndex("name", "name", {
+      unique: true
+    });
+    console.log('db updated');
     active = true;
     activation();
   };
+
 
   function activate(callback) {
     // db needs to initialise before it's first use
@@ -48,40 +70,6 @@ define(function() {
     activateQueue.push(callback);
   }
 
-  function addTrack(data) {
-    var transaction = db.transaction(["track"], "readwrite");
-    transaction.oncomplete = function() {
-      console.log("Track Success");
-    };
-    transaction.onerror = function() {
-      console.log("Track Error");
-    };
-    return transaction.objectStore("track").add(data);
-  }
-
-
-  function trackcur() {
-    var count = 0;
-    var transaction = db.transaction(["track"]);
-    var dbObjectStore = transaction.objectStore("track");
-    var dbCursorRequest = dbObjectStore.openCursor();
-    dbCursorRequest.onsuccess = function(evt) {
-      var curCursor = evt.target.result;
-      if (curCursor) {
-        count += 1;
-        /* Grab the current employee object from the cursor's value property (we could also grab the key) */
-        var track = curCursor.value;
-        //      console.log(track.file)
-        //    // ...do something with objEmployee...
-
-        // Cause onsuccess to fire again with the next item
-        curCursor.continue();
-      } // End if
-    };
-    transaction.oncomplete = function(evt) {
-      console.log(count, 'records');
-    };
-  }
 
   function count(store, callback) {
     var transaction = db.transaction([store], "readonly")
@@ -92,16 +80,84 @@ define(function() {
     };
   }
 
+
   function cursor(store, callback) {
     var transaction = db.transaction([store]);
     var request = transaction.objectStore(store).openCursor();
     request.onsuccess = function(event) {
       callback(event.target.result);
     };
-    transaction.oncomplete = function() {
-      console.log('cursor completed');
+    transaction.onerror = function() {
+      console.log("Error");
+      callback();
     };
   }
+
+
+  function all(store, filter, callback) {
+    var results = [];
+    var out;
+    var i;
+    cursor(store, function(result) {
+      if (result) {
+        if (filter) {
+          out = [];
+          for (i = 0; i < filter.length; i++) {
+            out.push(result.value[filter[i]]);
+          }
+          results.push(out);
+        } else {
+          results.push(result.value);
+        }
+        result.continue();
+      }
+    });
+    callback(results);
+  }
+
+
+  function add(store, data, callback) {
+    var transaction = db.transaction([store], "readwrite");
+    var request = transaction.objectStore(store).add(data);
+    request.onsuccess = function(event) {
+      callback(event.target.result);
+    };
+    transaction.onerror = function() {
+      console.log("Error adding " + store);
+      callback();
+    };
+  }
+
+
+  function addOrId(store, data, unique, callback) {
+    var transaction = db.transaction([store], "readwrite");
+    var objStore = transaction.objectStore(store);
+    var request = objStore.add(data);
+    request.onsuccess = function(event) {
+      callback(event.target.result);
+    };
+    transaction.onerror = function() {
+      var index = objStore.index(unique);
+      value = data[unique];
+      getIndexed(store, unique, value, function(event) {
+        callback(event.id);
+      });
+    };
+  }
+
+
+  function getIndexed(store, index, key, callback) {
+    var transaction = db.transaction([store], "readonly");
+    var request = transaction.objectStore(store).index(index).get(key);
+    request.onsuccess = function(event) {
+      callback(event.target.result);
+    };
+    transaction.onerror = function() {
+      console.log("Error");
+      callback();
+    };
+  }
+
 
   function get(store, key, callback) {
     var transaction = db.transaction([store], "readonly");
@@ -109,37 +165,22 @@ define(function() {
     request.onsuccess = function(event) {
       callback(event.target.result);
     };
+    transaction.onerror = function() {
+      console.log("Error");
+      callback();
+    };
   }
 
-  function trackget() {
 
-      var dbIndex = dbObjectStore.index("EmpName");
-      var dbGetRequest = dbIndex.get("Sam Smith");
-      dbGetRequest.onsuccess = function(evt) {
-        var objEmployee = evt.target.result;
-        /* do something with the result */
-      }
-
-    }
-    //var dbCursorRequest = dbIndex.openCursor();
-    //dbCursorRequest.onsuccess = function (evt) {
-    //var curCursor = evt.target.result;
-    //if (curCursor) {
-    ///* Grab the current employee object from the cursor's value property (we could also grab the key). Do something with the object */
-    //var objEmployee = curCursor.value;
-    //
-    //// Cause onsuccess to fire again with the next item
-    //curCursor.continue();
-    //} // End if
-    //}
   console.log('database loaded');
 
   return {
-    addTrack: addTrack,
-   // trackcur: trackcur,
     count: count,
     cursor: cursor,
     get: get,
+    add: add,
+    addOrId: addOrId,
+    all: all,
     activate: activate,
     active: active,
   };

@@ -5,6 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name=viewport content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="normalize.css">
   <link rel="stylesheet" type="text/css" href="tunes.css">
   <script src="zepto.min.js"></script>
   <script src="tunes.js"></script>
@@ -12,19 +13,47 @@
 </head>
 
 <body>
-  <div id="container">
-    <h1> Tunes! </h1>
-    <div id="playing">
-      <div id="currentArtist"></div>
-      <div id="currentTrack"></div>
-      <img src="613.jpg">
-      <div id="currentAlbum"></div>
-      <div id="currentProgressLabel">
-        <span id="currentPosition"></span>
-        ~
-        <span id="currentDuration"></span>
+  <div id="page">
+    <div id="header">
+      <div id="menu-button">
+        <h1>X</h1>
       </div>
-      <progress id="currentProgress" value="0" max="100"></progress>
+      <div id="header-title">
+
+        <h1> Tunes! </h1>
+      </div>
+    </div>
+    <div id="container">
+
+      <div class="menu">
+        <ul id="menu">
+          <li><button data-page="artists">Artists</button></li>
+          <li><button data-cmd="play">Play</button></li>
+          <li><button data-cmd="pause">Pause</button></li>
+          <li><button data-cmd="skip">Skip</button></li>
+          <li><button data-page="playing">Playing</button></li>
+          <li><button data-page="queue">Queue</button></li>
+          <li><button data-page="">Search</button></li>
+          <li><button data-page="">...</button></li>
+        </ul>
+      </div>
+      <div class="page listing" id="tracks"></div>
+      <div class="page listing" id="queue"></div>
+      <div class="page listing" id="artists"></div>
+
+      <div class="page" id="playing">
+        <div id="currentArtist"></div>
+        <div id="currentTrack"></div>
+        <img id="currentCover">
+        <div id="currentAlbum"></div>
+        <div id="currentProgressLabel">
+          <span id="currentPosition"></span>
+          ~
+          <span id="currentDuration"></span>
+        </div>
+        <progress id="currentProgress" value="0" max="100"></progress>
+      </div>
+
     </div>
   </div>
 </body>

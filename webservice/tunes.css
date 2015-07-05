@@ -1,23 +1,83 @@
 body {
-  background-color: #639;
   font-family: Verdana, Geneva, sans-serif;
-  font-size: 1.2em;
+  font-size: 1.3em;
+  padding: 0;
+  margin:0;
+  background-color: #FFF;
 }
-h1 {
+#page {
+
+  width: 100%;
+  max-width: 600px;
+}
+#header h1 {
   color: Cornsilk;
   text-align: center;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
+#header {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  max-width: 600px;
+  top: 0;
+  background-color: #639;
+  border-bottom: 5px solid #FFF;
+  height: 70px;
+}
+#header-title {
+  overflow: auto;
+}
+#header-title {
+  margin-right: 100px;
+  display: block;
+}
+#menu-button {
+  width: 100px;
+  float: right;
+  display: block;
+}
+
+#menu {
+  padding:0;
+  box-sizing: border-box;
+}
+#menu li {
+  font-size: 1.5em;
+  display: block;
+  border: 1px solid #FFF;
+  padding: 10px;
+  width:50%;
+  float:left;
+  box-sizing: border-box;
+}
+
+button {
+    border-radius: 14px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px 0 12px;
+    text-align: center;
+    width:100%;
+}
+
+#menu button[data-page] {
+  background-color: #639;
+  color: Cornsilk;
+}
+#menu button[data-cmd] {
+  background-color: #F0F;
+  color: #666;
+}
+
 #container {
   width: 100%;
   max-width: 600px;
-  color: #FFF;
-}
-#playing {
-  border: 1px solid #666;
-  display: none;
-  padding: 5px;
+  color: #639;
+  margin-top: 70px;
   background-color: #FFF;
-  color: #326;
+  height: 100%;
 }
 #playing img {
   border: 1px solid #639;
@@ -52,6 +112,7 @@ progress::-webkit-progress-value {
 }
 progress {
   color: #639;
+  box-sizing: border-box;
 }
 #currentProgressLabel {
   display: none;
@@ -59,3 +120,82 @@ progress {
   left: 0%;
   width: 100%;
 }
+
+.page{
+  display: none;
+  padding: 5px;
+  background-color: #FFF;
+  color: #326;
+  box-sizing: border-box;
+}
+
+.listing > div {
+  border-bottom: 2px solid #639;
+  margin-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow: auto;
+  //min-height:3.5em;
+}
+.listing h1 {
+  color: #639;
+}
+
+.listing b {
+  color: #639;
+  font-size:1.3em;
+}
+
+.listing p {
+  margin: 1px;
+  color: #333;
+}
+.queue-place {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #639;
+  color: #FFF;
+  text-align: center;
+}
+.queue-content {
+  margin-left: 45px;
+}
+
+
+
+
+
+@-webkit-keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+.animation-flash {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+
+

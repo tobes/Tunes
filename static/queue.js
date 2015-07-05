@@ -21,7 +21,13 @@ define('queue', ['convert', 'event', 'random', 'config'],
 
     function queueAdd(item) {
       console.log('queue add', item);
-      queue.push({
+      var art
+      if (item.art){
+        art = item.albumId;
+      } else {
+        art = 0;
+      }
+      var queueItem = {
         type: 'jukebox',
         ready: false,
         id: item.id,
@@ -31,8 +37,11 @@ define('queue', ['convert', 'event', 'random', 'config'],
         track: item.basename,
         trackNo: '#',
         duration: '-:--',
-        art: '',
-      });
+        art: art,
+        albumId: item.albumId,
+        artistId: item.artistId,
+      };
+      queue.push(queueItem);
       convert.convert(item, setReady, item.id);
       event.trigger('playlistUpdate', queue);
     }

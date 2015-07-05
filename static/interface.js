@@ -41,6 +41,7 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
       $('#currentAlbum').html(item.album);
       $('#currentArtist').html(item.artist);
       $('#currentTrack').html(item.track);
+      $('#currentCover').attr('src', 'covers/' + item.art);
     }
 
     function playingUpdate(current) {
@@ -68,6 +69,7 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
         $list.find('.queue-track').html(item.track);
         $list.find('.queue-track-no').html(item.trackNo);
         $list.find('.queue-duration').html(item.duration);
+        $list.find('.queue-cover').attr('src', 'covers/' + item.art);
         if (!item.ready) {
           $list.addClass('not-ready');
         }

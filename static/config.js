@@ -12,6 +12,10 @@ define(function() {
     webserviceSecure: 1,
     webserviceSecureKey: 'ssl/key.pem',
     webserviceSecureCert: 'ssl/cert.pem',
+
+    importAudioExtensions: ['.mp3', '.flac', '.ogg', '.wav'],
+    importImageExtensions: ['.jpg', '.png', '.gif'],
+    importLimiter: 100,
   };
 
 });

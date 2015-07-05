@@ -92,9 +92,11 @@ define('player', ['jquery', 'event', 'queue', 'config'],
 
     function tick() {
       if (!started) {
-        queue.get(function(next) {
-          addTrack(next);
-        });
+        if (config.autoPlay){
+          queue.get(function(next) {
+            addTrack(next);
+          });
+        }
       } else {
         // have we got near the end of the track?
         var player = players[activePlayer];

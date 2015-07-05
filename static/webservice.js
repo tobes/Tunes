@@ -1,14 +1,16 @@
 /*global define, document*/
 
-define(['event', 'config'],
-  function(event, config) {
+define(['event', 'config', 'db'],
+  function(event, config, db) {
 
     var ipAddress = [];
     var server;
     var path = require('path');
     var fs = require('fs');
     var url;
-    var feed = {current: {}};
+    var feedCurrent = {};
+    var feedQueue = [];
+    var queueVersion = 0;
 
     var CONTENT_TYPES = {
       '.html': 'text/html',
@@ -20,6 +22,21 @@ define(['event', 'config'],
       '.wav': 'audio/wav',
       '.ogg': 'audio/ogg',
     };
+
+    var feedArtist;
+    db.all('artist', ['id', 'name'], function(result){
+          feedArtist = {artists: result};
+    });
+
+    var feedAlbum;
+    db.all('album', ['id', 'title', 'artistId','art','various'], function(result){
+          feedAlbum = {album: result};
+    });
+
+    var feedTrack;
+    db.all('track', ['id', 'title', 'artistId', 'albumId'], function(result){
+          feedTrack = {tracks: result};
+    });
 
     function getIPAdress() {
       var ifaces = require('os').networkInterfaces();
@@ -56,33 +73,96 @@ define(['event', 'config'],
       });
     }
 
+
     function playingUpdate(current) {
-      feed.current = current;
+      feedCurrent = current;
+      feedCurrent.queue = queueVersion
     }
 
+    function playlistUpdate(queue) {
+      feedQueue = {
+        queue: queue,
+        version: ++queueVersion,
+      };
+    }
 
     function serveJSON(urlPath, response, contentType) {
-      var content = JSON.stringify(feed);
+      var content;
+      switch (urlPath) {
+        case 'feed.json':
+          content = JSON.stringify(feedCurrent);
+          break;
+        case 'queue.json':
+          content = JSON.stringify(feedQueue);
+          break;
+          case 'album.json':
+            content = JSON.stringify(feedAlbum);
+            break;
+        case 'artist.json':
+          content = JSON.stringify(feedArtist);
+          break;
+        case 'track.json':
+          content = JSON.stringify(feedTrack);
+          break;
+          content = {};
+          default:
+      }
       response.writeHead(200, {
         'Content-Type': contentType
       });
       response.end(content, 'utf-8');
     }
 
+    function serveCommand(cmd, response, contentType) {
+      console.log(cmd);
+      var content = {
+        result: 'success'
+      };
+      switch (cmd[1]) {
+        case 'play':
+          event.trigger('controlPlay');
+          break;
+        case 'pause':
+          event.trigger('controlPause');
+          break;
+        case 'skip':
+          event.trigger('controlSkip');
+          break;
+        default:
+      }
+      response.writeHead(200, {
+        'Content-Type': contentType
+      });
+      response.end(JSON.stringify(content), 'utf-8');
+    }
 
     function processRequest(request, response) {
-      //console.log('Webserver request', request.url);
-      var urlPath = path.basename(request.url);
-      if (urlPath === '') {
-        urlPath = 'index.html';
+      var contentType;
+      var file;
+      var url = request.url;
+      var parse = /^\/cmd\/(.*)$/.exec(url);
+      if (parse) {
+        return serveCommand(parse, response, contentType)
       }
-      var extname = path.extname(urlPath);
-      var contentType = CONTENT_TYPES[extname];
+      var parse = /^\/covers\/(\d*)$/.exec(url);
+      if (parse) {
 
+        file = path.join('covers', parse[1]);
+        contentType = 'image/png';
+      } else {
+        var urlPath = path.basename(url);
+        if (urlPath === '') {
+          urlPath = 'index.html';
+        }
+        var extname = path.extname(urlPath);
+        var contentType = CONTENT_TYPES[extname];
+      }
       if (extname === '.json') {
         serveJSON(urlPath, response, contentType);
       } else {
-        var file = path.join('webservice', path.sep, urlPath);
+        if (!file) {
+          file = path.join('webservice', path.sep, urlPath);
+        }
         serveFile(file, response, contentType);
       }
     }
@@ -129,9 +209,12 @@ define(['event', 'config'],
     if (config.webserviceActive) {
       event.add('exit', stopServer);
       event.add('playingUpdate', playingUpdate);
+      event.add('playlistUpdate', playlistUpdate);
       getIPAdress();
       startWebservice();
     }
+
+
 
     return {
       url: getUrl

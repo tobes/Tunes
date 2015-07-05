@@ -19,8 +19,11 @@ define('queue', ['convert', 'event', 'random', 'config'],
     }
 
 
-    function queueAdd(item) {
+    function queueAdd(item, source) {
       console.log('queue add', item);
+      if (source === 'auto' && queue.length == config.queueAutoMin) {
+        return;
+      }
       var art
       if (item.art){
         art = item.albumId;
@@ -81,7 +84,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       if (queue.length < config.queueAutoMin) {
         random.randomTrack(function(track) {
           console.log('Adding random track');
-          queueAdd(track);
+          queueAdd(track, 'auto');
         });
       }
     }

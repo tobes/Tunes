@@ -9,6 +9,7 @@ body {
 
   width: 100%;
   max-width: 600px;
+  height:100%;
 }
 #header h1 {
   color: Cornsilk;
@@ -17,7 +18,6 @@ body {
   margin-bottom: 15px;
 }
 #header {
-  position: fixed;
   z-index: 100;
   width: 100%;
   max-width: 600px;
@@ -75,9 +75,8 @@ button {
   width: 100%;
   max-width: 600px;
   color: #639;
-  margin-top: 70px;
   background-color: #FFF;
-  height: 100%;
+  overflow:auto;
 }
 #playing img {
   border: 1px solid #639;

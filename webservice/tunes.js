@@ -99,16 +99,26 @@ function processQueue(data) {
 }
 
 function processFeed(current) {
+  if (!current.item){
+    return;
+  }
   playingUpdate(current);
   if (current.item.id !== currentTrack) {
     playingChange(current);
   }
   if (queueVersion !== current.queue) {
+
     $.getJSON('queue.json', processQueue);
   }
   feedLock = false;
 }
 
+function resize() {
+    var height = $(window).height() - $('#header').height();
+    $('#container').height(height - 5);
+};
+
+window.onresize = resize;
 
 function tick() {
   if (feedLock) {
@@ -269,6 +279,7 @@ function buildTrackList(data) {
   }
   info.artistTracks = lookup;
   info.tracks = lookup2;
+  buildArtistList();
 }
 
 $(function() {
@@ -276,5 +287,5 @@ $(function() {
   $('#menu-button').click(toggleMenu);
   $('#menu li button').click(menuClick);
   //  setInterval(tick, TICK_INTERVAL);
-  $.getJSON('artist.json', buildArtistList);
+  resize();
 });

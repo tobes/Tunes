@@ -7,7 +7,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
     var waitlock = false;
     var activePlayer = 0;
     var nextPlayer = 1;
-    var current = null;
+    var current = {};
     var started = false;
 
 
@@ -67,9 +67,10 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       if (nextPlayer >= players.length) {
         nextPlayer = 0;
       }
-      current = {
-        item: item
-      };
+
+      current.item = item;
+      current.position = 0;
+
       waitlock = false;
       started = true;
       console.log('add track', item.src);
@@ -91,6 +92,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
 
 
     function tick() {
+      current.paused = players[activePlayer].paused;
       if (!started) {
         if (config.autoPlay){
           queue.get(function(next) {
@@ -114,15 +116,19 @@ define('player', ['jquery', 'event', 'queue', 'config'],
             fadeAction(player);
           }
         }
-        event.trigger('playingUpdate', current);
       }
+      event.trigger('playingUpdate', current);
     }
 
 
     function play() {
-      var player = players[activePlayer];
-      if (player.paused) {
-        player.play();
+      if (current.item){
+        var player = players[activePlayer];
+        if (player.paused) {
+          player.play();
+        }
+      } else {
+        nextTrack();
       }
     }
 
@@ -135,14 +141,18 @@ define('player', ['jquery', 'event', 'queue', 'config'],
     }
 
 
-    event.add('controlSkip', nextTrack);
-    event.add('controlPlay', play);
-    event.add('controlPause', pause);
-    event.add('tick', tick);
+    function init(){
+      // create players
+      createPlayer();
+      createPlayer();
+      event.add('tick', tick);
+      event.add('controlSkip', nextTrack);
+      event.add('controlPlay', play);
+      event.add('controlPause', pause);
+    }
 
-    // create players
-    createPlayer();
-    createPlayer();
+
+    event.add('init', init);
 
     console.log('Player: loaded');
 

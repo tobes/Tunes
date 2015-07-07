@@ -24,18 +24,24 @@ define(['event', 'config', 'db'],
     };
 
     var feedArtist;
-    db.all('artist', ['id', 'name'], function(result){
-          feedArtist = {artists: result};
+    db.all('artist', ['id', 'name'], function(result) {
+      feedArtist = {
+        artists: result
+      };
     });
 
     var feedAlbum;
-    db.all('album', ['id', 'title', 'artistId','art','various'], function(result){
-          feedAlbum = {album: result};
+    db.all('album', ['id', 'title', 'artistId', 'art', 'various'], function(result) {
+      feedAlbum = {
+        album: result
+      };
     });
 
     var feedTrack;
-    db.all('track', ['id', 'title', 'artistId', 'albumId'], function(result){
-          feedTrack = {tracks: result};
+    db.all('track', ['id', 'title', 'artistId', 'albumId'], function(result) {
+      feedTrack = {
+        tracks: result
+      };
     });
 
     function getIPAdress() {
@@ -95,9 +101,9 @@ define(['event', 'config', 'db'],
         case 'queue.json':
           content = JSON.stringify(feedQueue);
           break;
-          case 'album.json':
-            content = JSON.stringify(feedAlbum);
-            break;
+        case 'album.json':
+          content = JSON.stringify(feedAlbum);
+          break;
         case 'artist.json':
           content = JSON.stringify(feedArtist);
           break;
@@ -105,7 +111,7 @@ define(['event', 'config', 'db'],
           content = JSON.stringify(feedTrack);
           break;
           content = {};
-          default:
+        default:
       }
       response.writeHead(200, {
         'Content-Type': contentType

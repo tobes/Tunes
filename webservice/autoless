@@ -1,0 +1,8 @@
+#!/bin/bash
+# Detect changes in .less file and automatically compile into .css
+inotifywait . -m -e close_write | while read x op f; do
+    if [ "$f" == "tunes.less" ]; then
+                echo "Change detected. Recompiling...";
+        lessc $f > tunes.css && echo "`date`: COMPILED";
+    fi
+done

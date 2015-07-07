@@ -15,7 +15,7 @@
 <body>
   <div id="page">
     <div id="header">
-      <div id="menu-button">
+      <div id="menu-toggle">
         <h1>X</h1>
       </div>
       <div id="header-title">
@@ -25,21 +25,28 @@
     </div>
     <div id="container">
 
-      <div class="menu listing">
-        <ul id="menu">
+      <div class="page listing" id="menu">
+        <ul>
+          <li><button data-page="alpha">A - Z</button></li>
           <li><button data-page="artists">Artists</button></li>
-          <li><button data-cmd="play">Play</button></li>
-          <li><button data-cmd="pause">Pause</button></li>
-          <li><button data-cmd="skip">Skip</button></li>
+          <li><button data-page="controls">Controls</button></li>
           <li><button data-page="playing">Playing</button></li>
           <li><button data-page="queue">Queue</button></li>
           <li><button data-page="">Search</button></li>
           <li><button data-page="">...</button></li>
         </ul>
       </div>
+      <div class="page listing" id="controls">
+        <ul>
+          <li><button data-cmd="play">Play</button></li>
+          <li><button data-cmd="pause">Pause</button></li>
+          <li><button data-cmd="skip">Skip</button></li>
+        </ul>
+      </div>
       <div class="page listing" id="tracks"></div>
       <div class="page listing" id="queue"></div>
       <div class="page listing" id="artists"></div>
+      <div class="page listing" id="alpha"></div>
 
       <div class="page" id="playing">
         <div id="currentArtist"></div>

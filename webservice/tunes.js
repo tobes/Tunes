@@ -89,9 +89,9 @@ function processQueue(data) {
     $indicator = $item.find('.queue-place');
     $indicator.html(i + 1);
     if (item.ready) {
-      $indicator.removeClass('animation-flash')
+      $indicator.removeClass('animation-flash');
     } else {
-      $indicator.addClass('animation-flash')
+      $indicator.addClass('animation-flash');
     }
     $queue.append($item);
   }
@@ -99,25 +99,28 @@ function processQueue(data) {
   queueVersion = data.version;
 }
 
+function errorFeed() {
+  setTimeout(function () {feedLock = false;}, ERROR_TIMEOUT);
+}
+
 function processFeed(current) {
-  if (!current.item){
-    return;
-  }
-  playingUpdate(current);
-  if (current.item.id !== currentTrack) {
-    playingChange(current);
+  if (current.item) {
+    playingUpdate(current);
+    if (current.item.id !== currentTrack) {
+      playingChange(current);
+    }
   }
   if (queueVersion !== current.queue) {
-
     $.getJSON('queue.json', processQueue);
   }
   feedLock = false;
 }
 
+
 function resize() {
-    var height = $(window).height() - $('#header').height();
-    $('#container').height(height - 5);
-};
+  var height = $(window).height() - $('#header').height();
+  $('#container').height(height - 5);
+}
 
 window.onresize = resize;
 
@@ -270,7 +273,7 @@ function buildALbumList(data) {
 
 function buildTrackList(data) {
   var track;
-  var tracks = data.tracks
+  var tracks = data.tracks;
   var i;
   var lookup = {};
   var lookup2 = {};

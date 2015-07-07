@@ -110,8 +110,8 @@ define(['event', 'config', 'db', 'queue'],
         case 'track.json':
           content = JSON.stringify(feedTrack);
           break;
-          content = {};
         default:
+          content = {};
       }
       response.writeHead(200, {
         'Content-Type': contentType

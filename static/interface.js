@@ -46,6 +46,7 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
 
     function playingUpdate(current) {
       var progress;
+      if (!current.paused){
       $('#currentPosition').html(formatTime(current.position));
       $('#currentDuration').html(formatTime(current.duration));
       if (current.duration) {
@@ -54,6 +55,7 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
         progress = 0;
       }
       $('#currentProgress').val(progress);
+      }
     }
 
     function playlistChange(queue) {

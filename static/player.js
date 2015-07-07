@@ -9,6 +9,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
     var nextPlayer = 1;
     var current = {};
     var started = false;
+    var masterVolume = config.volume;
 
 
     function fadeSteps() {
@@ -28,7 +29,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       var direction = dataset.direction;
       var steps = fadeSteps();
       var fade = parseInt(dataset.fade, 10);
-      var delta = config.volume / steps;
+      var delta = masterVolume / steps;
       if (direction === 'up') {
         volume = (steps - fade) * delta;
       } else {
@@ -140,6 +141,29 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       }
     }
 
+    function setVol(){
+      var player = players[activePlayer];
+      if (player.dataset.direction === 'none'){
+        player.volume = masterVolume;
+      }
+    }
+
+    function volUp(){
+      masterVolume += 0.05;
+      if (masterVolume > 1.0){
+        masterVolume = 1.0;
+      }
+      setVol();
+    }
+
+
+    function volDown(){
+      masterVolume -= 0.05;
+      if (masterVolume < 0.0){
+        masterVolume = 0.0;
+      }
+      setVol();
+    }
 
     function init(){
       // create players
@@ -149,6 +173,8 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       event.add('controlSkip', nextTrack);
       event.add('controlPlay', play);
       event.add('controlPause', pause);
+      event.add('controlVolUp', volUp);
+      event.add('controlVolDown', volDown);
     }
 
 

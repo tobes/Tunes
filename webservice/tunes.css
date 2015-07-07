@@ -2,28 +2,28 @@ body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 1.3em;
   padding: 0;
-  margin:0;
-  background-color: #FFF;
+  margin: 0;
+  background-color: #ffffff;
 }
 #page {
-
   width: 100%;
   max-width: 600px;
-  height:100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 #header h1 {
-  color: Cornsilk;
   text-align: center;
   margin-top: 5px;
   margin-bottom: 15px;
 }
 #header {
+  color: #ffffff;
   z-index: 100;
   width: 100%;
   max-width: 600px;
   top: 0;
-  background-color: #639;
-  border-bottom: 5px solid #FFF;
+  background-color: #663399;
+  border-bottom: 5px solid #ffffff;
   height: 70px;
 }
 #header-title {
@@ -33,56 +33,72 @@ body {
   margin-right: 100px;
   display: block;
 }
-#menu-button {
+#menu-toggle {
   width: 100px;
   float: right;
   display: block;
 }
-
-#menu {
-  padding:0;
+#_menu {
+  padding: 0;
   box-sizing: border-box;
 }
-#menu li {
+li {
   font-size: 1.5em;
   display: block;
-  border: 1px solid #FFF;
-  padding: 10px;
-  width:50%;
-  float:left;
+  float: left;
   box-sizing: border-box;
 }
-
+#menu {
+  display: block;
+}
+ul {
+  padding: 0;
+}
+ul.button-small li {
+  width: 20%;
+  padding: 5px 10px;
+}
+li {
+  width: 50%;
+  padding: 10px;
+}
 button {
-    border-radius: 14px;
-    border-style: solid;
-    border-width: 1px;
-    padding: 10px 0 12px;
-    text-align: center;
-    width:100%;
+  border-radius: 14px;
+  border: 1px solid #663399;
+  padding: 5px 0 5px;
+  text-align: center;
+  width: 100%;
+  background-color: #e6d9f2;
 }
-
+/*
+button[data-alpha] {
+  background-color: @main-color, 20%);
+  color: @main-bg;
+}
 #menu button[data-page] {
-  background-color: #639;
-  color: Cornsilk;
+  background-color: @main-color;
+  color: @main-bg;
 }
+*/
 #menu button[data-cmd] {
-  background-color: #F0F;
-  color: #666;
+  background-color: #ffffff;
+  color: #663399;
 }
-
 #container {
   width: 100%;
   max-width: 600px;
-  color: #639;
-  background-color: #FFF;
-  overflow:auto;
+  color: #663399;
+  background-color: #ffffff;
+  overflow: auto;
 }
 #playing img {
-  border: 1px solid #639;
+  border: 1px solid #663399;
   padding: 3px;
-  width: 100%;
-  box-sizing: border-box;
+  width: 80%;
+  box-sizing: margin-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 #currentTrack {
   text-align: center;
@@ -94,23 +110,25 @@ button {
 #currentAlbum {
   text-align: center;
 }
-#currentArtist {} #playing div {} #currentProgress {
-  color: #639;
-  border: 1px solid #639;
-  background-color: #FFF;
+#currentProgress {
+  color: #663399;
+  border: 1px solid #663399;
+  background-color: #ffffff;
   width: 100%;
   height: 0.5em;
   padding: 2px;
+  box-sizing: margin-box;
 }
 progress::-moz-progress-bar {
-  background: #639;
+  background: #663399;
 }
 progress::-webkit-progress-value {
-  background: #639;
-  color: #FFF;
+  background: #663399;
+  color: #ffffff;
 }
 progress {
-  color: #639;
+  color: #663399;
+  width: 90%;
   box-sizing: border-box;
 }
 #currentProgressLabel {
@@ -118,56 +136,76 @@ progress {
   position: relative;
   left: 0%;
   width: 100%;
+  box-sizing: border-box;
 }
-
-.page{
+.page {
   display: none;
   padding: 5px;
-  background-color: #FFF;
+  background-color: #ffffff;
   color: #326;
   box-sizing: border-box;
 }
-
 .listing > div {
-  border-bottom: 2px solid #639;
-  margin-bottom: 5px;
+  border-bottom: 2px solid #663399;
+  margin-bottom: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   overflow: auto;
-  //min-height:3.5em;
 }
 .listing h1 {
-  color: #639;
+  color: #663399;
 }
-
 .listing b {
-  color: #639;
-  font-size:1.3em;
+  color: #663399;
+  font-size: 1.3em;
 }
-
 .listing p {
   margin: 1px;
   color: #333;
+  margin-bottom: 10px;
+}
+.listing p span {
+  color: #333;
+  background-color: #e6d9f2;
+  padding: 3px 20px;
+  border-radius: 14px;
+  float: right;
 }
 .queue-place {
   float: left;
   padding: 5px;
   width: 30px;
   height: 30px;
-  background-color: #639;
+  background-color: #663399;
   color: #FFF;
   text-align: center;
 }
 .queue-content {
   margin-left: 45px;
 }
-
-
-
-
-
+.track-list {
+  clear: both;
+  margin-top: 5px;
+  background-color: #f5f1f8;
+  margin-bottom: -10px;
+}
+.track-list > div {
+  padding-left: 20px;
+  border-bottom: 1px solid #999;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.track-cmd {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.track-cmd button {
+  width: 20%;
+}
 @-webkit-keyframes flash {
-  0%, 50%, 100% {
+  0%,
+  50%,
+  100% {
     opacity: 1;
   }
   25%,
@@ -176,7 +214,9 @@ progress {
   }
 }
 @keyframes flash {
-  0%, 50%, 100% {
+  0%,
+  50%,
+  100% {
     opacity: 1;
   }
   25%,
@@ -196,5 +236,3 @@ progress {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-
-

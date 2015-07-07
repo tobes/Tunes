@@ -1,6 +1,7 @@
 /*global $, document, window*/
 
 var TICK_INTERVAL = 500;
+var ERROR_TIMEOUT = 10000;
 
 var feedLock = false;
 var currentTrack;
@@ -125,7 +126,11 @@ function tick() {
     return;
   }
   feedLock = true;
-  $.getJSON('feed.json', processFeed);
+  $.ajax({
+    url:'feed.json',
+    success: processFeed,
+    error: errorFeed
+  });
 }
 
 

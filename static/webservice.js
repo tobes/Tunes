@@ -1,7 +1,7 @@
 /*global define, document*/
 
-define(['event', 'config', 'db'],
-  function(event, config, db) {
+define(['event', 'config', 'db', 'queue'],
+  function(event, config, db, queue) {
 
     var ipAddress = [];
     var server;
@@ -124,7 +124,8 @@ define(['event', 'config', 'db'],
       var content = {
         result: 'success'
       };
-      switch (cmd[1]) {
+      var data = cmd[1].split('-');
+      switch (data[0]) {
         case 'play':
           event.trigger('controlPlay');
           break;
@@ -133,6 +134,11 @@ define(['event', 'config', 'db'],
           break;
         case 'skip':
           event.trigger('controlSkip');
+          break;
+        case 'add':
+          db.get('track', parseInt(data[1], 10), function(track) {
+            queue.add(track);
+          });
           break;
         default:
       }

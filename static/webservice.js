@@ -143,6 +143,12 @@ define(['event', 'config', 'db', 'queue'],
         case 'skip':
           event.trigger('controlSkip');
           break;
+        case 'vol:up':
+          event.trigger('controlVolUp');
+          break;
+        case 'vol:down':
+          event.trigger('controlVolDown');
+          break;
         case 'add':
           db.get('track', parseInt(data[1], 10), function(track) {
             queue.add(track);

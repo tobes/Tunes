@@ -146,6 +146,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       if (player.dataset.direction === 'none'){
         player.volume = masterVolume;
       }
+      console.log('vol ' + masterVolume)
     }
 
     function volUp(){

@@ -1,4 +1,5 @@
 npm install ffluent-ffmpeg
+npm install musicmetadata
 mkdir converted
 # open firewall port (1969) on local network for webservice
 # fedora `firewall-config`

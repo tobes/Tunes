@@ -88,7 +88,7 @@ define(function() {
       callback(event.target.result);
     };
     transaction.onerror = function() {
-      console.log("Error");
+      console.log("Error", store);
       callback();
     };
   }
@@ -110,9 +110,10 @@ define(function() {
           results.push(result.value);
         }
         result.continue();
+      } else {
+        callback(results);
       }
     });
-    callback(results);
   }
 
 

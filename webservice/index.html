@@ -7,8 +7,7 @@
   <meta name=viewport content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="normalize.css">
   <link rel="stylesheet" type="text/css" href="tunes.css">
-  <script src="zepto.min.js"></script>
-  <script src="tunes.js"></script>
+  <script data-main="tunes.js" src="require.js"></script>
   <title>Tunes!</title>
 </head>
 
@@ -25,6 +24,7 @@
     </div>
     <div id="container">
 
+
       <div class="page listing" id="menu">
         <ul>
           <li><button data-page="alpha">A - Z</button></li>
@@ -32,18 +32,37 @@
           <li><button data-page="controls">Controls</button></li>
           <li><button data-page="playing">Playing</button></li>
           <li><button data-page="queue">Queue</button></li>
-          <li><button data-page="">Search</button></li>
+          <li><button data-page="search">Search</button></li>
+          <li><button data-page="results">Results</button></li>
           <li><button data-page="">...</button></li>
         </ul>
       </div>
+      <div class="page listing" id="hash"> </div>
       <div class="page listing" id="controls">
         <ul>
-          <li><button data-cmd="play">Play</button></li>
-          <li><button data-cmd="pause">Pause</button></li>
+          <li><button id="play-pause" data-cmd="play">Play</button></li>
           <li><button data-cmd="skip">Skip</button></li>
+        </ul>
+        <div class="clearfix"></div>
+        <ul>
+          <li><button data-cmd="vol:up">Vol +</button></li>
+          <li><button data-cmd="vol:down">Vol -</button></li>
         </ul>
       </div>
       <div class="page listing" id="tracks"></div>
+      <div class="page listing" id="search">
+        <h1>Search</h1>
+        <p>
+        <form>
+        <input id="search-text" type="text">
+      </form>
+        </p>
+        <p>
+        <button class="button-big" data-action="search">search</button>
+        </p>
+      </div>
+      <div class="page listing" id="results"></div>
+
       <div class="page listing" id="queue"></div>
       <div class="page listing" id="artists"></div>
       <div class="page listing" id="alpha"></div>

@@ -4,6 +4,7 @@ define(['db', 'config'], function(db, config) {
 
   var fs = require('fs');
   var path = require('path');
+  var mm = require('musicmetadata');
 
 
   function getDirs(dir, callback) {
@@ -207,6 +208,102 @@ define(['db', 'config'], function(db, config) {
       });
     }
     next()
+  }
+
+
+  function readId3(callback) {
+    db.all('track', null, function(result) {
+      var i = 0;
+      var id3 = [];
+
+      function next() {
+        var track = result[i];
+        if (!track) {
+          callback(id3);
+          return;
+
+        }
+        if (track.id3) {
+          i++;
+          next();
+        } else {
+          var parser = mm(fs.createReadStream(result[i].path), {
+            duration: true
+          }, function(err, metadata) {
+            if (err) throw err;
+            id3.push({
+              track: result[i],
+              id3: metadata
+            });
+            console.log('id3: ' + i + ' - ' + metadata.artist[0]);
+            i++;
+            next();
+          });
+        }
+      }
+      next();
+    });
+  }
+
+  function processId3(data) {
+    var artistId;
+    var info;
+    var i = 0;
+    var updated;
+    var artist;
+    var title;
+    var trackNo;
+    var album;
+    var duration;
+    var genre;
+    var year;
+
+    function work() {
+      info = data[i];
+      if (!info) {
+        console.log('Id3 scan complete!')
+        return;
+      }
+
+
+      title = info.id3.title || info.track.basename;
+      album = info.id3.album || info.track.pathAlbum;
+      artist = info.id3.artist[0] || info.track.pathArtist;
+      trackNo = info.id3.track.no;
+      duration = info.id3.duration;
+      year = info.id3.year;
+      genre = info.id3.genre.join('|');
+
+      if (artistId === undefined) {
+        db.addOrId('artist', {
+            name: info.id3.artist[0],
+          },
+          'name',
+          function(id) {
+            artistId = id;
+            work();
+          });
+      } else {
+        console.log(i + ' track: ' + title);
+        updated = info.track;
+        updated.artistId = artistId;
+        updated.artist = artist;
+        updated.title = title;
+        updated.trackno = trackNo;
+        updated.album = album;
+        updated.duration = duration;
+        updated.genre = genre;
+        updated.year = year;
+        updated.id3 = true;
+
+        artistId = undefined;
+        i++;
+
+        db.put('track', updated, work);
+      }
+    }
+    work();
+
   }
 
 

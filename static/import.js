@@ -161,6 +161,7 @@ define(['db', 'config'], function(db, config) {
       }
 
       var setAlbum = function(artistId) {
+        var various = (info.artist.toLowerCase() === 'various');
         db.addOrId('album', {
             path: dir,
             art: art,
@@ -169,7 +170,7 @@ define(['db', 'config'], function(db, config) {
             artistId: artistId,
             pathArtist: info.artist,
             pathAlbum: info.album,
-            various: false,
+            various: various,
           },
           'path',
           function(albumId) {

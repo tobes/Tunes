@@ -1,12 +1,14 @@
 /*global define */
 
-define(['info'], function(info) {
+define(['info', 'latin'], function(info, latin) {
+
 
   var searchIndex = {};
   var searchPartialIndex = {};
 
 
   function searchPreprocess(text) {
+    text = latin.convert(text);
     text = text.toLowerCase();
     text = text.replace(/[^a-z0-9 ]/g, '');
     return text.replace(/\W+/g, " ").split(' ');

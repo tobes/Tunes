@@ -20,11 +20,15 @@ define('queue', ['convert', 'event', 'random', 'config'],
 
 
     function queueAdd(item, source) {
-      console.log('queue add', item);
-      if (source === 'auto' && queue.length == config.queueAutoMin) {
-        return;
+      if (!item){
+        console.log('no item to add', item);
+        return false;
       }
-      var art
+      console.log('queue add', item);
+      if (source === 'auto' && queue.length === config.queueAutoMin) {
+        return false;
+      }
+      var art;
       if (item.art){
         art = item.albumId;
       } else {
@@ -47,6 +51,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       queue.push(queueItem);
       convert.convert(item, setReady, item.id);
       event.trigger('playlistUpdate', queue);
+      return true;
     }
 
 

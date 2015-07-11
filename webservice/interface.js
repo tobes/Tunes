@@ -92,6 +92,8 @@ define(['zepto', 'build', 'info', 'index'],
 
     function trackInfo(event) {
       event.stopPropagation();
+      var out;
+      var i;
       var $element = $(this);
       var track = $element.data('track');
       var album = $element.data('album');
@@ -103,7 +105,7 @@ define(['zepto', 'build', 'info', 'index'],
       // remove any open controls
       $element.parent().find('div.track-cmd').remove();
       if (track) {
-        var out = ['<div data-auto="delete" class="track-cmd">'];
+        out = ['<div data-auto="delete" class="track-cmd">'];
         if (!info.inQueue(track)) {
           out.push('<button data-cmd="add-' + track + '">Play</button>');
         } else {
@@ -112,13 +114,13 @@ define(['zepto', 'build', 'info', 'index'],
         out.push('</div>');
       }
       if (album) {
-        var out = ['<div data-auto="delete" class="track-cmd">'];
-        var albumTracks = info.info.albumTracks[album];
+        out = ['<div data-auto="delete" class="track-cmd">'];
+        var albumTracks = info.album(album).getTracks();
         console.log(albumTracks);
         for (i = 0; i < albumTracks.length; i++) {
           console.log(albumTracks[i]);
-          var track = info.info.tracks[parseInt(albumTracks[i], 10)];
-          out.push('<div data-track="' + track[0] + '"><p>' + track[1] + '</p></div>');
+          track = info.track(albumTracks[i]);
+          out.push('<div data-track="' + track.id + '"><p>' + track.title + '</p></div>');
         }
         out.push('</div>');
       }
@@ -129,53 +131,52 @@ define(['zepto', 'build', 'info', 'index'],
 
 
     function artistTrackSort(a, b) {
-      a = info.info.tracks[a];
-      b = info.info.tracks[b];
-      var aa = info.info.album[a[3]];
-      var ab = info.info.album[b[3]];
+      a = info.track(a);
+      b = info.track(b);
+      var aa = a.getAlbum();
+      var ab = b.getAlbum();
       // various
-      if (aa[3] !== ab[3]) {
-        return aa[3] > ab[3];
+      if (aa.various !== ab.various) {
+        return aa.various > ab.various;
       }
-      // album name
-      if (aa[0] !== ab[0]) {
-        return aa[0] > ab[0];
+      // album title
+      if (aa.title !== ab.title) {
+        return aa.title > ab.title;
       }
-      if (aa[3]) { // various?
+      if (aa.various) { // various?
         // title
-        return a[0] > b[0];
+        return a.title > b.title;
       } else {
         // trackNo
-        return a[4] > b[4];
+        return a.trackNo > b.trackNo;
       }
     }
 
 
-    function tracklistArtist(artist) {
-      var various;
+    function tracklistArtist(artistId) {
       var album;
       var track;
       var i;
-      var albumId;
+      var lastAlbumId;
       var out = [];
-      var tracks = info.info.artistTracks[artist];
+      var tracks = info.artist(artistId).getTracks();
 
       tracks.sort(artistTrackSort);
       for (i = 0; i < tracks.length; i++) {
-        track = info.info.tracks[tracks[i]];
-        if (track[3] !== albumId) {
-          albumId = track[3];
-          album = info.info.album[albumId];
-          various = info.album(album, 'various');
-          if (!various) {
-            out.push('<div class="clearfix" data-album="' + albumId + '">');
-            out.push('<img src="/covers/' + info.album(album, 'art') + '">');
-            out.push('<p><b>' + info.album(album, 'title') + '</p></b>');
+        track = info.track(tracks[i]);
+        if (track.albumId !== lastAlbumId) {
+          lastAlbumId = track.albumId;
+          album = track.getAlbum();
+          console.log('@@', album);
+          if (!album.various) {
+            out.push('<div class="clearfix" data-album="' + album.id + '">');
+            out.push('<img src="/covers/' + album.art + '">');
+            out.push('<p><b>' + album.title + '</p></b>');
             out.push('</div>');
           }
         }
-        if (various) {
-          out.push('<div data-track="' + track[0] + '"><p>' + track[1] + '</p></div>');
+        if (album.various) {
+          out.push('<div data-track="' + track.id + '"><p>' + track.title + '</p></div>');
         }
       }
       return out.join('');
@@ -187,12 +188,12 @@ define(['zepto', 'build', 'info', 'index'],
         $element.next().remove();
         return;
       }
-      var artist = $element.data('artist');
+      var artistId = $element.data('artist');
       $('div.track-list').remove();
       var listing = [];
       listing = listing.concat([
         '<div class="track-list">',
-        tracklistArtist(artist),
+        tracklistArtist(artistId),
         '</div>'
       ]);
       $element.after(listing.join(''));

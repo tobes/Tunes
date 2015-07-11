@@ -17,15 +17,15 @@ define(['info', 'latin'], function(info, latin) {
 
   function buildIndex(track) {
     var id = track[0];
-    var data = track[1] + ' ' + info.info.artist[track[2]] + ' ' + info.info.album[track[3]];
+    var data = track[1] + ' ' + info.artist(track.artistId).name + ' ' + info.album(track.albumId).title;
     data = searchPreprocess(data);
     track.push(data.length);
     var i;
     for (i = 0; i < data.length; i++) {
       if (typeof(searchIndex[data[i]]) !== 'object') {
-        searchIndex[data[i]] = [id];
+        searchIndex[data[i]] = [track.id];
       } else {
-        searchIndex[data[i]].push(id);
+        searchIndex[data[i]].push(track.id);
       }
     }
   }
@@ -62,12 +62,10 @@ define(['info', 'latin'], function(info, latin) {
 
   function buildIndexes() {
     searchIndex = {};
-    var track;
-    var tracks = info.info.tracks;
-    for (track in tracks) {
-      if (tracks.hasOwnProperty(track)) {
-        buildIndex(tracks[track]);
-      }
+    var i;
+    var tracks = info.trackList();
+    for (i = 0; i < tracks.length; i++) {
+      buildIndex(info.track(tracks[i]));
     }
     buildPartialIndex();
   }

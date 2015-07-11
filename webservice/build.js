@@ -11,16 +11,16 @@ define(['zepto', 'info'], function($, info) {
       if (i > 100){
         break;
       }
-      track = info.info.tracks[results[i].id];
-      out.push('<div data-track="' + track[0] + '">');
+      track = info.track(results[i].id);
+      out.push('<div data-track="' + track.id + '">');
       out.push('<p>');
-      out.push(track[1]);
+      out.push(track.title);
       out.push('</p>');
       out.push('<p><b>');
-      out.push(info.info.artist[track[2]]);
+      out.push(track.getArtist().name);
       out.push('</b></p>');
       out.push('<p>');
-      out.push(info.info.album[track[3]]);
+      out.push(track.getAlbum().title);
       out.push('</p>');
       out.push('</div>');
     }
@@ -31,42 +31,37 @@ define(['zepto', 'info'], function($, info) {
   function buildArtistList(minTracks) {
     var alpha;
     var alphaLast = '';
-    var artistId;
-    var artistName;
+    var artist;
     var artistTracks;
-    var artistList = info.info.artistList;
+    var artistList = info.artistList();
     var $artist = $('#artists');
     var listing;
     var i;
     minTracks = minTracks || 1;
     for (i = 0; i < artistList.length; i++) {
-      artistId = artistList[i];
+      artist = info.artist(artistList[i]);
+    //  console.log(artist);
       // artists with albums only
-      if (info.info.albumArtists.indexOf(artistId) === -1){
+      if (!artist.hasAlbum()){
         continue;
       }
-      if (info.info.artistTracks[artistId]) {
-        artistTracks = info.info.artistTracks[artistId].length;
-      } else {
-        artistTracks = 0;
-      }
+      artistTracks = artist.getTracks().length;
       // minimum number of tracks
       if (artistTracks < minTracks){
         continue;
       }
       listing = ['<div>'];
-      artistName = info.info.artist[artistId];
 
-      alpha = info.alphaBit(artistName);
+      alpha = info.alphaBit(artist.name);
       if (alpha !== alphaLast) {
         listing.push('<a id="artist-alpha-' + alpha + '"></a>');
         alphaLast = alpha;
       }
       listing = listing.concat([
         '<p data-artist="',
-        artistId,
+        artist.id,
         '" ><b>',
-        artistName,
+        artist.name,
         '</b> <span>',
         artistTracks,
         '</span></p></div>'

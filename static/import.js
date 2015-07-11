@@ -307,6 +307,11 @@ define(['db', 'config'], function(db, config) {
   }
 
 
+  function scanId3() {
+    readId3(processId3);
+  }
+
+
   console.log('import loaded');
 
   return {

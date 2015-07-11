@@ -116,9 +116,7 @@ define(['zepto', 'build', 'info', 'index'],
       if (album) {
         out = ['<div data-auto="delete" class="track-cmd">'];
         var albumTracks = info.album(album).getTracks();
-        console.log(albumTracks);
         for (i = 0; i < albumTracks.length; i++) {
-          console.log(albumTracks[i]);
           track = info.track(albumTracks[i]);
           out.push('<div data-track="' + track.id + '"><p>' + track.title + '</p></div>');
         }
@@ -167,7 +165,6 @@ define(['zepto', 'build', 'info', 'index'],
         if (track.albumId !== lastAlbumId) {
           lastAlbumId = track.albumId;
           album = track.getAlbum();
-          console.log('@@', album);
           if (!album.various) {
             out.push('<div class="clearfix" data-album="' + album.id + '">');
             out.push('<img src="/covers/' + album.art + '">');

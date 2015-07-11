@@ -32,7 +32,6 @@ define(function() {
     }
     info.artistTracks = artistTracks;
     info.albumTracks = albumTracks;
-    console.log(albumTracks);
     info.tracks = lookup2;
   }
 

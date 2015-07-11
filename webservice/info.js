@@ -161,15 +161,22 @@ define(function() {
       obj.getArtist = function() {
         return artist(this.artistId);
       };
+      obj.getIndex = function() {
+        return this.title + ' ' + this.getArtist().name + ' ' + this.getAlbum().title;
+      };
+      obj.getWords = function() {
+        return this.getIndex().split(' ').length;
+      };
     }
     return obj;
   }
 
   function trackList() {
+    var t;
     var list = [];
-    for (track in info.tracks) {
-      if (tracks.hasOwnProperty(track)) {
-        list.push(track[0]);
+    for (t in info.tracks) {
+      if (info.tracks.hasOwnProperty(t)) {
+        list.push(t);
       }
     }
     return list;

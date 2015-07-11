@@ -16,10 +16,7 @@ define(['info', 'latin'], function(info, latin) {
 
 
   function buildIndex(track) {
-    var id = track[0];
-    var data = track[1] + ' ' + info.artist(track.artistId).name + ' ' + info.album(track.albumId).title;
-    data = searchPreprocess(data);
-    track.push(data.length);
+    var data = searchPreprocess(track.getIndex());
     var i;
     for (i = 0; i < data.length; i++) {
       if (typeof(searchIndex[data[i]]) !== 'object') {
@@ -100,7 +97,7 @@ define(['info', 'latin'], function(info, latin) {
     var out = [];
     for (result in results) {
       if (results.hasOwnProperty(result)) {
-        words = info.info.tracks[result][4];
+        words = info.track(result).getWords();
         rank = results[result].rank + (1 / words);
         out.push({
           id: result,

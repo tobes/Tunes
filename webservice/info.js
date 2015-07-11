@@ -52,10 +52,10 @@ define(function() {
       // fix art
       album[indexArt] = album[indexArt] ? album[0] : 0;
       artist = album[indexArtist];
-      if (!album[indexVarious] && albumArtists.indexOf(artist) === -1){
+      if (!album[indexVarious] && albumArtists.indexOf(artist) === -1) {
         albumArtists.push(artist);
       }
-      lookup[album.shift()] = album;
+      lookup[album[0]] = album;
     }
     info.album = lookup;
     info.albumArtists = albumArtists;
@@ -76,7 +76,7 @@ define(function() {
     var artistList = [];
     for (i = 0; i < artists.length; i++) {
       artist = artists[i];
-      lookup[artist[0]] = artist[1];
+      lookup[artist[0]] = artist;
       artistList.push(artist[0]);
       alpha = alphaBit(artist[1]);
       if (alpha !== alphaLast) {
@@ -108,22 +108,77 @@ define(function() {
     return false;
   }
 
-  function album(item, field){
-    var index = feedData.album.indexOf(field);
-    if (index === -1){
-      return;
+  function artist(id) {
+    var i;
+    var item = info.artist[id];
+    var obj;
+    if (item) {
+      obj = {};
+      for (i = 0; i < feedData.artist.length; i++) {
+        obj[feedData.artist[i]] = item[i];
+      }
+      // helpers
+      obj.hasAlbum = function() {
+        return (info.albumArtists.indexOf(this.id) !== -1);
+      };
+      obj.getTracks = function() {
+        return info.artistTracks[this.id] || [];
+      };
     }
-    return item[index -1];
+    return obj;
   }
 
-
-  function track(item, field){
-    var index = feedData.track.indexOf(field);
-    if (index === -1){
-      return;
+  function album(id) {
+    var i;
+    var item = info.album[id];
+    var obj;
+    if (item) {
+      obj = {};
+      for (i = 0; i < feedData.album.length; i++) {
+        obj[feedData.album[i]] = item[i];
+      }
+      // helpers
+      obj.getTracks = function() {
+        return info.albumTracks[this.id] || [];
+      };
     }
-    return item[index -1];
+    return obj;
   }
+
+  function track(id) {
+    var i;
+    var item = info.tracks[id];
+    var obj;
+    if (item) {
+      obj = {};
+      for (i = 0; i < feedData.track.length; i++) {
+        obj[feedData.track[i]] = item[i];
+      }
+      // helpers
+      obj.getAlbum = function() {
+        return album(this.albumId);
+      };
+      obj.getArtist = function() {
+        return artist(this.artistId);
+      };
+    }
+    return obj;
+  }
+
+  function trackList() {
+    var list = [];
+    for (track in info.tracks) {
+      if (tracks.hasOwnProperty(track)) {
+        list.push(track[0]);
+      }
+    }
+    return list;
+  }
+
+  function artistList() {
+    return info.artistList;
+  }
+
 
   function process(data) {
     feedData = data.feed;
@@ -138,9 +193,14 @@ define(function() {
     alphas: alphas,
     queue: queue,
     inQueue: inQueue,
+
+    trackList: trackList,
+    artistList: artistList,
+
     album: album,
-    track: track,
-    info: info
+    artist: artist,
+    track: track
+
   };
 
 });

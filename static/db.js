@@ -130,6 +130,19 @@ define(function() {
   }
 
 
+
+  function put(store, data, callback) {
+    var transaction = db.transaction([store], "readwrite");
+    var request = transaction.objectStore(store).put(data);
+    request.onsuccess = function(event) {
+      callback(event.target.result);
+    };
+    transaction.onerror = function() {
+      console.log("Error adding " + store);
+      callback();
+    };
+  }
+
   function addOrId(store, data, unique, callback) {
     var transaction = db.transaction([store], "readwrite");
     var objStore = transaction.objectStore(store);
@@ -179,6 +192,7 @@ define(function() {
     count: count,
     cursor: cursor,
     get: get,
+    put: put,
     add: add,
     addOrId: addOrId,
     all: all,

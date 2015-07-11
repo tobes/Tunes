@@ -7,6 +7,8 @@ define(['event', 'config', 'db', 'queue'],
     var server;
     var path = require('path');
     var fs = require('fs');
+    var qs = require('querystring');
+
     var url;
     var feedCurrent = {};
     var feedQueue = [];
@@ -149,6 +151,22 @@ define(['event', 'config', 'db', 'queue'],
     }
 
     function processRequest(request, response) {
+    var post;
+    if (request.method === 'POST') {
+      var data = '';
+      request.on('data', function(chunk) {
+        data += chunk;
+      });
+      request.on('end', function() {
+        post = qs.parse(data);
+        processRequest2(request, response, post);
+      });
+    } else {
+      processRequest2(request, response);
+    }
+    }
+
+    function processRequest2(request, response, post) {
       var contentType;
       var file;
       var url = request.url;

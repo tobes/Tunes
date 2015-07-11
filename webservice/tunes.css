@@ -69,6 +69,7 @@ button {
   text-align: center;
   width: 100%;
   background-color: #e6d9f2;
+  overflow: hidden;
 }
 /*
 button[data-alpha] {
@@ -171,6 +172,31 @@ progress {
   border-radius: 14px;
   float: right;
 }
+.listing img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+}
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+input {
+  width: 95%;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  box-sizing: border-box;
+}
+button.button-big {
+  width: 50%;
+  font-size: 2em;
+}
+#search p {
+  text-align: center;
+}
 .queue-place {
   float: left;
   padding: 5px;
@@ -186,10 +212,16 @@ progress {
 .track-list {
   clear: both;
   margin-top: 5px;
-  background-color: #f5f1f8;
   margin-bottom: -10px;
 }
 .track-list > div {
+  padding-left: 20px;
+  border-bottom: 1px solid #999;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.track-list div[data-track] {
+  background-color: #f5f1f8;
   padding-left: 20px;
   border-bottom: 1px solid #999;
   padding-top: 10px;

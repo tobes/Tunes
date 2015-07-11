@@ -3,7 +3,7 @@
 define(function() {
 
   return {
-    queueAutoMin: 2,
+    queueAutoMin: 1,
     autoPlay: false,
     fadeTime: 7000,
     tickTime: 100,

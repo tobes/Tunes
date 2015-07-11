@@ -3,12 +3,12 @@
 define(['event', 'config', 'db', 'queue'],
   function(event, config, db, queue) {
 
-    var ipAddress = [];
-    var server;
     var path = require('path');
     var fs = require('fs');
     var qs = require('querystring');
 
+    var ipAddress = [];
+    var server;
     var url;
     var feedCurrent = {};
     var feedQueue = [];
@@ -25,25 +25,25 @@ define(['event', 'config', 'db', 'queue'],
       '.ogg': 'audio/ogg',
     };
 
+    var FEEDS = {
+      artist: ['id', 'name'],
+      album: ['id', 'title', 'artistId', 'art', 'various'],
+      track: ['id', 'title', 'artistId', 'albumId', 'trackno'],
+    }
+
     var feedArtist;
-    db.all('artist', ['id', 'name'], function(result) {
-      feedArtist = {
-        artists: result
-      };
+    db.all('artist', FEEDS.artist, function(result) {
+      feedArtist = result;
     });
 
     var feedAlbum;
-    db.all('album', ['id', 'title', 'artistId', 'art', 'various'], function(result) {
-      feedAlbum = {
-        album: result
-      };
+    db.all('album', FEEDS.album, function(result) {
+      feedAlbum = result;
     });
 
     var feedTrack;
-    db.all('track', ['id', 'title', 'artistId', 'albumId'], function(result) {
-      feedTrack = {
-        tracks: result
-      };
+    db.all('track', FEEDS.track, function(result) {
+      feedTrack = result;
     });
 
     function getIPAdress() {
@@ -84,7 +84,7 @@ define(['event', 'config', 'db', 'queue'],
 
     function playingUpdate(current) {
       feedCurrent = current;
-      feedCurrent.queue = queueVersion
+      feedCurrent.queue = queueVersion;
     }
 
     function playlistUpdate(queue) {
@@ -94,23 +94,29 @@ define(['event', 'config', 'db', 'queue'],
       };
     }
 
-    function serveJSON(urlPath, response, contentType) {
+
+    function getFeed(post){
+      var feed = {current: feedCurrent};
+      if (post.queue  && post.queue < queueVersion){
+        feed.queue = feedQueue;
+      }
+      return JSON.stringify(feed);
+    }
+
+
+    function serveJSON(urlPath, post, response, contentType) {
       var content;
       switch (urlPath) {
         case 'feed.json':
-          content = JSON.stringify(feedCurrent);
+          content = getFeed(post);
           break;
-        case 'queue.json':
-          content = JSON.stringify(feedQueue);
-          break;
-        case 'album.json':
-          content = JSON.stringify(feedAlbum);
-          break;
-        case 'artist.json':
-          content = JSON.stringify(feedArtist);
-          break;
-        case 'track.json':
-          content = JSON.stringify(feedTrack);
+        case 'data.json':
+          content = JSON.stringify({
+          album:feedAlbum,
+          artist:feedArtist,
+          track:feedTrack,
+          feed:FEEDS
+        });
           break;
         default:
           content = {};
@@ -188,7 +194,7 @@ define(['event', 'config', 'db', 'queue'],
         var contentType = CONTENT_TYPES[extname];
       }
       if (extname === '.json') {
-        serveJSON(urlPath, response, contentType);
+        serveJSON(urlPath, post, response, contentType);
       } else {
         if (!file) {
           file = path.join('webservice', path.sep, urlPath);

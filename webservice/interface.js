@@ -1,23 +1,24 @@
-/*global define, document, window */
+/*global define, document, window, location */
 
 
 define(['zepto', 'build', 'info', 'index'],
   function($, build, info, textsearch) {
     var isFullscreen = false;
+    var scrolls = {};
+    var lastHash;
 
     var activePage;
     var menuDivs = [
-      'controls',
       'playing',
       'queue',
-      'artists',
-      'search',
-      'results',
+      'artist',
+      'album',
       'hash',
-      'alpha'
     ];
 
-
+    function isNumeric(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
 
     function showPage(page) {
       var i;
@@ -40,18 +41,21 @@ define(['zepto', 'build', 'info', 'index'],
         $menu.hide();
         showPage(activePage);
       } else {
+        var hash = location.hash.split('-')[0];
+        var $alpha = $('#menu-alpha');
+        if (hash === '#artist') {
+          $alpha.attr('href', '#alpha-artist');
+          $alpha.parent().show();
+        } else if (hash === '#album') {
+          $alpha.attr('href', '#alpha-album');
+          $alpha.parent().show();
+        } else {
+          $alpha.parent().hide();
+        }
+
         $menu.show();
         showPage();
       }
-    }
-
-
-    function search() {
-      var text = $('#search-text').val();
-      var results = textsearch.search(text); //FIXME
-      $('#results').empty().append(build.buildResults(results));
-      $('#results').on('click', 'div', trackInfo);
-      showPage('results');
     }
 
 
@@ -59,20 +63,16 @@ define(['zepto', 'build', 'info', 'index'],
       var $element = $(this);
       var page = $element.data('page');
       if (page) {
-       // location.hash = '#' + page;
+        // location.hash = '#' + page;
         showPage(page);
         // hide menu
         $('#menu').hide();
-       // $('#hash').show();
+        // $('#hash').show();
         return;
       }
       var cmd = $element.data('cmd');
       if (cmd) {
         $.getJSON('cmd/' + cmd);
-      }
-      var action = $element.data('action');
-      if (action) {
-        search();
       }
       if ($element.parent().data('auto') === 'delete') {
         $element.parent().remove();
@@ -82,7 +82,6 @@ define(['zepto', 'build', 'info', 'index'],
 
 
     function artistScroll(name) {
-      showPage('artists');
       var node = document.getElementById(name);
       node.scrollIntoView();
     }
@@ -92,9 +91,10 @@ define(['zepto', 'build', 'info', 'index'],
 
     function trackInfo(event) {
       event.stopPropagation();
-      var out;
+      var out = [];
       var i;
       var $element = $(this);
+      console.log($element);
       var track = $element.data('track');
       var album = $element.data('album');
       // close if showing
@@ -105,16 +105,25 @@ define(['zepto', 'build', 'info', 'index'],
       // remove any open controls
       $element.parent().find('div.track-cmd').remove();
       if (track) {
-        out = ['<div data-auto="delete" class="track-cmd">'];
-        if (!info.inQueue(track)) {
-          out.push('<button data-cmd="add-' + track + '">Play</button>');
+        track = info.track(track);
+        out.push('<div data-auto="delete" class="track-cmd clearfix">');
+        out.push('<ul>');
+        if (!info.inQueue(track.id)) {
+          out.push('<li><a data-cmd="add-' + track.id + '">Play</a></li>');
         } else {
-          out.push('<span>cued</span>');
+          out.push('<li><span>cued</span></li>');
         }
+        if ($element.find('.track-artist').length){
+          out.push('<li><a href="#artist-' + track.getArtist().id + '">Artist</a></li>');
+        }
+        if ($element.find('.track-album').length){
+          out.push('<li><a href="#album-' + track.getAlbum().id + '">Album</a></li>');
+        }
+        out.push('</ul>');
         out.push('</div>');
       }
       if (album) {
-        out = ['<div data-auto="delete" class="track-cmd">'];
+        out.push('<div data-auto="delete" class="track-cmd">');
         var albumTracks = info.album(album).getTracks();
         for (i = 0; i < albumTracks.length; i++) {
           track = info.track(albumTracks[i]);
@@ -124,29 +133,30 @@ define(['zepto', 'build', 'info', 'index'],
       }
       $element.append(out.join(''));
 
-      $element.on('click', 'button', buttonClick);
+      $element.on('click', 'a[data-cmd]', buttonClick);
     }
 
 
     function artistTrackSort(a, b) {
+
       a = info.track(a);
       b = info.track(b);
       var aa = a.getAlbum();
       var ab = b.getAlbum();
       // various
       if (aa.various !== ab.various) {
-        return aa.various > ab.various;
+        return (aa.various > ab.various ? 1 : -1);
       }
       // album title
       if (aa.title !== ab.title) {
-        return aa.title > ab.title;
+        return (aa.title > ab.title ? 1 : -1);
       }
       if (aa.various) { // various?
         // title
-        return a.title > b.title;
+        return (a.title > b.title ? 1 : -1);
       } else {
         // trackNo
-        return a.trackNo > b.trackNo;
+        return (a.trackNo > b.trackNo ? 1 : -1);
       }
     }
 
@@ -195,7 +205,6 @@ define(['zepto', 'build', 'info', 'index'],
       ]);
       $element.after(listing.join(''));
       $element.parent()[0].scrollIntoView();
-      $('.track-list').on('click', 'div', trackInfo);
     }
 
 
@@ -235,48 +244,108 @@ define(['zepto', 'build', 'info', 'index'],
 
 
     function resize() {
-      var height = $(window).height() - $('#header').height();
-      $('#container').height(height - 5);
+      var height = $(window).height(); - $('#container').height(height);
+
+      var $toggle = $('#menu-toggle');
+      $toggle.show();
+      var width = Math.min($('#container').width(), screen.width);
+      var toggleWidth = $toggle.width();
+      $toggle.css('left', width - toggleWidth);
     }
 
-    function init() {
-      resize();
-      build.buildArtistList();
-      $('#artists').on('click', 'div', artistInfo);
-      build.buildAlpha();
-      $('#alpha').on('click', 'button', function() {
-        artistScroll('artist-alpha-' + $(this).data('alpha'));
-      });
-      $('#header-title h1').click(toggleFullscreen);
-      $('#menu-toggle').click(toggleMenu);
-      $('#page').on('click', 'button', buttonClick);
-      $('#search form').submit(function(event) {
-        event.preventDefault();
-        search();
-        $(this).find('input').blur();
-      });
-      window.onresize = resize;
+    function display(html) {
+      $('#hash').empty().append(html);
+      showPage('hash');
+      $('#container').scrollTop(0);
     }
 
 
-    function showArtist(){
-      $('#hash').empty().append(build.buildArtistList());
-
-      $('#hash').on('click', 'div', artistInfo);
+    function showArtist(id) {
+      if (!isNumeric(id)) {
+        showPage('artist');
+        if (id) {
+          artistScroll('artist-' + id);
+        } else {
+          $('#container').scrollTop(scrolls.artist || 0);
+        }
+        return;
+      }
+      display(build.buildArtist(id));
     }
+
+
+    function showAlbum(id) {
+      if (!isNumeric(id)) {
+        showPage('album');
+        if (id) {
+          artistScroll('album-' + id);
+        } else {
+          $('#container').scrollTop(scrolls.album || 0);
+        }
+        return;
+      }
+      display(build.buildAlbum(id));
+    }
+
 
     function locationHashChanged() {
-      var hash = location.hash.split('~');
-      console.log(hash[0]);
-      switch (hash[0]){
-        case '#artists':
-          showArtist()
+      var hash = location.hash.split('-');
+      if (lastHash === '#artist') {
+        scrolls.artist = $('#container').scrollTop();
+      }
+      if (lastHash === '#album') {
+        scrolls.album = $('#container').scrollTop();
+      }
+      if (lastHash && lastHash.split('-')[0] === '#results') {
+        scrolls.results = $('#container').scrollTop();
+      }
+      lastHash = location.hash;
+      switch (hash[0]) {
+        case '#artist':
+          showArtist(hash[1]);
+          break;
+        case '#album':
+          showAlbum(hash[1]);
+          break;
+        case '#alpha':
+          display(build.buildAlpha(hash[1]));
+          break;
+        case '#controls':
+          display(build.buildControls());
+          break;
+        case '#search':
+          display(build.buildSearch());
+          $('#search-form').submit(function(event) {
+            event.preventDefault();
+            var text = $('#search-text').val();
+            location.href = '#results-' + encodeURIComponent(text);
+            $(this).find('input').blur();
+          });
+          break;
+
+        case '#results':
+          var results = textsearch.search(decodeURIComponent(hash[1]));
+          display(build.buildResults(results));
+          $('#container').scrollTop(scrolls.results || 0);
           break;
       }
     }
 
-    location.hash='#';
-  //  window.onhashchange = locationHashChanged;
+    function init() {
+      $('#hash').on('click', 'div[data-track]', trackInfo);
+      resize();
+      //$('h1').click(toggleFullscreen);
+      $('#logo').click(toggleMenu);
+      $('#menu-toggle').click(toggleMenu);
+      $('#page').on('click', 'button', buttonClick);
+      window.onresize = resize;
+      window.onhashchange = locationHashChanged;
+      build.buildArtistList();
+      build.buildAlbumList();
+      locationHashChanged();
+    }
+
+
     return {
       init: init
         // showPage: showPage

@@ -7,65 +7,39 @@
   <meta name=viewport content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="normalize.css">
   <link rel="stylesheet" type="text/css" href="tunes.css">
+
   <script data-main="tunes.js" src="require.js"></script>
   <title>Tunes!</title>
 </head>
 
 <body>
-  <div id="page">
-    <div id="header">
-      <div id="menu-toggle">
-        <h1>X</h1>
-      </div>
-      <div id="header-title">
+    <div id="page">
+      <div id="menu-toggle">&#9834;</div>
+      <div id="container">
+        <div id="logo">Tunes!</div>
 
-        <h1> Tunes! </h1>
-      </div>
-    </div>
-    <div id="container">
 
+      <div class="page listing" id="hash">
+        <div id="intro">
+        <p>Welcome to tunes! </p>
+        <p>the future is now</p>
+        </div>
+      </div>
 
       <div class="page listing" id="menu">
-        <ul>
-          <li><button data-page="alpha">A - Z</button></li>
-          <li><button data-page="artists">Artists</button></li>
-          <li><button data-page="controls">Controls</button></li>
+        <ul class="menu">
+          <li><a id="menu-alpha" href="#alpha">A - Z</a></li>
+          <li><a href="#artist">Artists</a></li>
+          <li><a href="#album">Albums</a></li>
+          <li><a href="#controls">Controls</a></li>
+          <li><a href="#search">Search</a></li>
           <li><button data-page="playing">Playing</button></li>
           <li><button data-page="queue">Queue</button></li>
-          <li><button data-page="search">Search</button></li>
-          <li><button data-page="results">Results</button></li>
-          <li><button data-page="">...</button></li>
         </ul>
       </div>
-      <div class="page listing" id="hash"> </div>
-      <div class="page listing" id="controls">
-        <ul>
-          <li><button id="play-pause" data-cmd="play">Play</button></li>
-          <li><button data-cmd="skip">Skip</button></li>
-        </ul>
-        <div class="clearfix"></div>
-        <ul>
-          <li><button data-cmd="vol:up">Vol +</button></li>
-          <li><button data-cmd="vol:down">Vol -</button></li>
-        </ul>
-      </div>
-      <div class="page listing" id="tracks"></div>
-      <div class="page listing" id="search">
-        <h1>Search</h1>
-        <p>
-        <form>
-        <input id="search-text" type="text">
-      </form>
-        </p>
-        <p>
-        <button class="button-big" data-action="search">search</button>
-        </p>
-      </div>
-      <div class="page listing" id="results"></div>
-
       <div class="page listing" id="queue"></div>
-      <div class="page listing" id="artists"></div>
-      <div class="page listing" id="alpha"></div>
+      <div class="page listing" id="artist"></div>
+      <div class="page listing" id="album"></div>
 
       <div class="page" id="playing">
         <div id="currentArtist"></div>
@@ -80,6 +54,6 @@
         <progress id="currentProgress" value="0" max="100"></progress>
       </div>
 
-    </div>
+  </div>
   </div>
 </body>

@@ -1,15 +1,17 @@
 @main-color: #639;
 @main-bg: #FFF;
+@bg-secondry: screen(@main-color, #EEE);
 
-//@main-color: #F0F;
-//@main-bg: #000;
+//@main-color: #006400;
+//@main-bg: #fff;
+@bg-secondry: mix(@main-color, @main-bg, 10%);
 
 @padding: 10px;
 
-@header-bg: @main-color;
-@header-color: @main-bg;
-@cmd-color: @main-color;
-@cmd-bg: @main-bg;
+@color-light: screen(@main-color, #AAA);
+@color-secondry: screen(@main-color, #666);
+@color-button: @main-color;
+@border-radius: 25px;
 
 body {
   font-family: Verdana, Geneva, sans-serif;
@@ -18,89 +20,12 @@ body {
   margin:0;
   background-color: @main-bg;
 }
+
 #page {
   width: 100%;
   max-width: 600px;
   height:100%;
   box-sizing: border-box;
-}
-
-#header h1 {
-  text-align: center;
-  margin-top: 5px;
-  margin-bottom: 15px;
-}
-
-#header {
-  color:@header-color;
-  z-index: 100;
-  width: 100%;
-  max-width: 600px;
-  top: 0;
-  background-color: @header-bg;
-  border-bottom: 5px solid @main-bg;
-  height: 70px;
-}
-#header-title {
-  overflow: auto;
-}
-#header-title {
-  margin-right: 100px;
-  display: block;
-}
-#menu-toggle {
-  width: 100px;
-  float: right;
-  display: block;
-}
-
-#_menu {
-  padding:0;
-  box-sizing: border-box;
-}
-li {
-  font-size: 1.5em;
-  display: block;
-  float:left;
-  box-sizing: border-box;
-}
-#menu {
-display:block;
-}
-ul {
-    padding:0;
-}
-ul.button-small li {
-  width:20%;
-  padding: 5px 10px;
-}
-
-li {
-  width:50%;
-  padding: 10px;
-}
-button {
-    border-radius: 14px;
-    border:1px solid @main-color;
-    padding: 5px 0 5px;
-    text-align: center;
-    width:100%;
-    background-color:lighten(@main-color, 50%);
-    overflow:hidden;
-}
-/*
-button[data-alpha] {
-  background-color: @main-color, 20%);
-  color: @main-bg;
-}
-#menu button[data-page] {
-  background-color: @main-color;
-  color: @main-bg;
-}
-*/
-#menu button[data-cmd] {
-  background-color: @cmd-bg;
-  color: @cmd-color;
 }
 
 #container {
@@ -109,191 +34,476 @@ button[data-alpha] {
   color: @main-color;
   background-color: @main-bg;
   overflow:auto;
+  position:relative;
 }
-#playing img {
-  border: 1px solid @main-color;
-  padding: 3px;
-  width: 80%;
-  box-sizing: margin-box;
-      display: block;
-    margin-left: auto;
-    margin-right: auto;
+
+a {
+  text-decoration:none;
 }
-#currentTrack {
-  text-align: center;
+#container > div {
+position:relative;
 }
-#currentArtist {
-  font-size: 1.3em;
-  text-align: center;
-}
-#currentAlbum {
-  text-align: center;
-}
-#currentArtist {} #playing div {} #currentProgress {
-  color: @main-color;
-  border: 1px solid @main-color;
-  background-color: @main-bg;
-  width: 100%;
-  height: 0.5em;
-  padding: 2px;
-  box-sizing: margin-box;
-}
-progress::-moz-progress-bar {
-  background: @main-color;
-}
-progress::-webkit-progress-value {
-  background: @main-color;
+
+.header {
+  background-color: @main-color;
   color: @main-bg;
+  font-size:3em;
+  height: 1.2em;
+  border:3px solid @main-bg;
+  vertical-align: middle;
 }
-progress {
-  color: @main-color;
-  width:90%;
-  box-sizing: border-box;
-}
-#currentProgressLabel {
-  display: none;
-  position: relative;
-  left: 0%;
-  width: 100%;
-  box-sizing: border-box;
+#logo {
+  .header;
+  padding-left:@padding;
 }
 
-.page{
-  display: none;
-  padding: 5px;
-  background-color: @main-bg;
-  color: #326;
-  box-sizing: border-box;
+#menu-toggle {
+  .header;
+  z-index:100;
+  width: 1.2em;
+  display: block;
+  position:fixed;
+  top:0;
+  text-align:center;
+  display:none;
+}
+#hash {
+    display:block;
+}
+.page {
+    display:none;
+    padding:@padding;
 }
 
-.listing > div {
-  border-bottom: 2px solid @main-color;
-  margin-bottom: @padding;
-  padding-top: @padding;
-  padding-bottom: @padding;
-  overflow: auto;
-  //min-height:3.5em;
-}
-.listing h1 {
-  color: @main-color;
+#intro {
+    margin-top: 50px;
+    text-align:center;
 }
 
-.listing b {
-  color: @main-color;
-  font-size:1.3em;
-}
-
-.listing p {
-  margin: 1px;
-  color: #333;
-  margin-bottom: @padding;
-}
-
-.listing p span{
-  color: #333;
-  background-color:lighten(@main-color, 50%);
-  padding:3px 20px;
-  border-radius: 14px;
-  float:right;
-}
-.listing img{
- width:64px;
- height:64px;
- margin-right:10px;
- float:left;
- position:relative;
-}
 .clearfix:after {
   content: "";
   clear: both;
   display: table;
 }
-input {
-    width:95%;
-    margin-bottom:20px;
-    font-size:1.5em;
+#artist > a, #album > a{
+  display:block;
+  padding-top:@padding;
+  padding:@padding;
+  border-bottom:1px solid @color-light;
+  color:@main-color;
+  text-decoration:none;
+}
+
+#artist > a:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+#artist > a.anchor, #album > a.anchor{
+    height:0;
+    padding:0;
+    border:0;
+}
+
+#artist span{
+  background-color:@color-light;
+  color:@main-bg;
+  padding:3px 20px;
+  border-radius: @border-radius;
+  float:right;
+}
+#album span{
+  color:@color-secondry;
+  display: block;
+}
+ul {
+    padding:0;
+}
+ul.button-small li {
+  width:20%;
+}
+
+ul li {
+  padding: 5px @padding;
+  font-size: 1.2em;
+  display: block;
+  float:left;
   box-sizing: border-box;
+  text-align:center;
+  color:@main-bg;
 }
 
-button.button-big {
+ul.menu li {
     width:50%;
-    font-size:2em;
+  font-size: 1.5em;
+}
+li a {
+  display:block;
+  text-decoration:none;
+  background-color:@color-button;
+  color:@main-bg;
+  border-radius: @border-radius;
+  padding-left:@padding;
+  padding-right:@padding;
 }
 
-#search p {
-text-align:center;
+.album {
+
+    margin-bottom:@padding * 2;
 }
 
-.queue-place {
-  float: left;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
-  background-color: @main-color;
-  color: #FFF;
-  text-align: center;
-}
-.queue-content {
-  margin-left: 45px;
-}
+ .album img{
+ width:128px;
+ height:128px;
+ margin-right:@padding;
+ float:left;
+ position:relative;
+ border:1px solid @main-color;
+  padding:1px;
+  background-color:@main-bg;
+ }
+ .album .album-title{
+  margin-left:138 + @padding;
+  padding:@padding;
+ }
 
+ .album .album-artist{
+  color: @color-secondry;
+  margin-left:138 + @padding;
+  padding:@padding;
+ }
 
-.track-list{
-    clear:both;
-  margin-top:5px;
-margin-bottom:-@padding;
+div.album-tracks > div {
+  border-bottom:1px solid @color-light;
+  padding:@padding;
 }
-.track-list > div {
-  padding-left:2 * @padding;
-  border-bottom:1px solid #999;
-padding-top:@padding;
-padding-bottom:@padding;
-  }
-
-.track-list div[data-track] {
-  background-color: screen(@main-color, #EEE);
-  padding-left:2 * @padding;
-  border-bottom:1px solid #999;
-padding-top:@padding;
-padding-bottom:@padding;
+div.album-tracks > div:last-child {
+  border-bottom:0;
 }
-.track-cmd {
-padding-top:@padding;
-padding-bottom:@padding;
+div.album-tracks div.track-title {
+    margin-left:2em;// + @padding;
 }
-.track-cmd button {
-    width:20%;
+div.album-tracks div.track-artist {
+    margin-left:2em;// + @padding;
+  color: @color-secondry;
 }
-
-@-webkit-keyframes flash {
-  0%, 50%, 100% {
-    opacity: 1;
-  }
-  25%,
-  75% {
-    opacity: 0.2;
-  }
-}
-@keyframes flash {
-  0%, 50%, 100% {
-    opacity: 1;
-  }
-  25%,
-  75% {
-    opacity: 0.2;
-  }
-}
-.animation-flash {
-  -webkit-animation-duration: 5s;
-  animation-duration: 5s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-name: flash;
-  animation-name: flash;
+div.album-tracks div.track-no {
+  width:1em;
+  float:left;
 }
 
 
+ .artist-album img{
+ width:64px;
+ height:64px;
+ margin-right:@padding;
+ float:left;
+ position:relative;
+ border:1px solid @main-color;
+  padding:1px;
+  background-color:@main-bg;
+}
+.artist-album > a {
+  text-decoration:none;
+}
+div.artist-album {
+  background-color:@bg-secondry;
+  margin-bottom:@padding;
+  padding:@padding;
+  border:1px solid @color-light;
+}
+div.artist-album > div {
+  border-bottom:1px solid @color-light;
+  padding:@padding;
+}
+div.artist-album > div:last-child {
+  border-bottom:0;
+}
+.album-head{
+  padding:@padding;
+  color:@main-bg;
+  background-color:@color-light;
+}
+
+
+ div.results img{
+ width:64px;
+ height:64px;
+ margin-right:@padding;
+ float:left;
+ position:relative;
+ border:1px solid @main-color;
+  padding:1px;
+  background-color:@main-bg;
+}
+div.results > div {
+  border-bottom:1px solid @color-light;
+  padding:@padding;
+}
+
+div.results > div:last-child {
+  border-bottom:0;
+}
+
+div.results div.track-title {
+  color: @color-secondry;
+}
+div.results div.track-artist {
+}
+div.results div.track-album {
+  color: @color-secondry;
+}
+
+//#page {
+//  width: 100%;
+//  max-width: 600px;
+//  height:100%;
+//  box-sizing: border-box;
+//}
+//
+//#header h1 {
+//  text-align: center;
+//  margin-top: 5px;
+//  margin-bottom: 15px;
+//}
+//
+//#header {
+//  color:@header-color;
+//  z-index: 100;
+//  width: 100%;
+//  max-width: 600px;
+//  top: 0;
+//  background-color: @header-bg;
+//  border-bottom: 5px solid @main-bg;
+//  height: 70px;
+//}
+//#header-title {
+//  overflow: auto;
+//}
+//#header-title {
+//  margin-right: 100px;
+//  display: block;
+//}
+//
+//#_menu {
+//  padding:0;
+//  box-sizing: border-box;
+//}
+//li {
+//  font-size: 1.5em;
+//  display: block;
+//  float:left;
+//  box-sizing: border-box;
+//}
+//#menu {
+//display:block;
+//}
+//
+//li {
+//  width:50%;
+//  padding: 10px;
+//}
+//button {
+//    border-radius: 14px;
+//    border:1px solid @main-color;
+//    padding: 5px 0 5px;
+//    text-align: center;
+//    width:100%;
+//    background-color:lighten(@main-color, 50%);
+//    overflow:hidden;
+//}
+///*
+//button[data-alpha] {
+//  background-color: @main-color, 20%);
+//  color: @main-bg;
+//}
+//#menu button[data-page] {
+//  background-color: @main-color;
+//  color: @main-bg;
+//}
+//*/
+//#menu button[data-cmd] {
+//  background-color: @cmd-bg;
+//  color: @cmd-color;
+//}
+//
+//#playing img {
+//  border: 1px solid @main-color;
+//  padding: 3px;
+//  width: 80%;
+//  box-sizing: margin-box;
+//      display: block;
+//    margin-left: auto;
+//    margin-right: auto;
+//}
+//#currentTrack {
+//  text-align: center;
+//}
+//#currentArtist {
+//  font-size: 1.3em;
+//  text-align: center;
+//}
+//#currentAlbum {
+//  text-align: center;
+//}
+//#currentArtist {} #playing div {} #currentProgress {
+//  color: @main-color;
+//  border: 1px solid @main-color;
+//  background-color: @main-bg;
+//  width: 100%;
+//  height: 0.5em;
+//  padding: 2px;
+//  box-sizing: margin-box;
+//}
+//progress::-moz-progress-bar {
+//  background: @main-color;
+//}
+//progress::-webkit-progress-value {
+//  background: @main-color;
+//  color: @main-bg;
+//}
+//progress {
+//  color: @main-color;
+//  width:90%;
+//  box-sizing: border-box;
+//}
+//#currentProgressLabel {
+//  display: none;
+//  position: relative;
+//  left: 0%;
+//  width: 100%;
+//  box-sizing: border-box;
+//}
+//
+//.page{
+//  display: none;
+//  padding: 5px;
+//  background-color: @main-bg;
+//  color: #326;
+//  box-sizing: border-box;
+//}
+//
+//.listing > div {
+//  border-bottom: 2px solid @main-color;
+//  margin-bottom: @padding;
+//  padding-top: @padding;
+//  padding-bottom: @padding;
+//  overflow: auto;
+//  //min-height:3.5em;
+//}
+//.listing h1 {
+//  color: @main-color;
+//}
+//
+//.listing b {
+//  color: @main-color;
+//  font-size:1.3em;
+//}
+//
+//.listing p {
+//  margin: 1px;
+//  color: #333;
+//  margin-bottom: @padding;
+//}
+//
+//.listing p span{
+//  color: #333;
+//  background-color:lighten(@main-color, 50%);
+//  padding:3px 20px;
+//  border-radius: 14px;
+//  float:right;
+//}
+//.clearfix:after {
+//  content: "";
+//  clear: both;
+//  display: table;
+//}
+//input {
+//    width:95%;
+//    margin-bottom:20px;
+//    font-size:1.5em;
+//  box-sizing: border-box;
+//}
+//
+//button.button-big {
+//    width:50%;
+//    font-size:2em;
+//}
+//
+//#search p {
+//text-align:center;
+//}
+//
+//.queue-place {
+//  float: left;
+//  padding: 5px;
+//  width: 30px;
+//  height: 30px;
+//  background-color: @main-color;
+//  color: #FFF;
+//  text-align: center;
+//}
+//.queue-content {
+//  margin-left: 45px;
+//}
+//
+//
+//.track-list{
+//    clear:both;
+//  margin-top:5px;
+//margin-bottom:-@padding;
+//}
+//.track-list > div {
+//  padding-left:2 * @padding;
+//  border-bottom:1px solid #999;
+//padding-top:@padding;
+//padding-bottom:@padding;
+//  }
+//
+//.track-list div[data-track] {
+//  background-color: screen(@main-color, #EEE);
+//  padding-left:2 * @padding;
+//  border-bottom:1px solid #999;
+//padding-top:@padding;
+//padding-bottom:@padding;
+//}
+//.track-cmd {
+//padding-top:@padding;
+//padding-bottom:@padding;
+//}
+//.track-cmd button {
+//    width:20%;
+//}
+//
+//@-webkit-keyframes flash {
+//  0%, 50%, 100% {
+//    opacity: 1;
+//  }
+//  25%,
+//  75% {
+//    opacity: 0.2;
+//  }
+//}
+//@keyframes flash {
+//  0%, 50%, 100% {
+//    opacity: 1;
+//  }
+//  25%,
+//  75% {
+//    opacity: 0.2;
+//  }
+//}
+//.animation-flash {
+//  -webkit-animation-duration: 5s;
+//  animation-duration: 5s;
+//  -webkit-animation-fill-mode: both;
+//  animation-fill-mode: both;
+//  -webkit-animation-timing-function: linear;
+//  animation-timing-function: linear;
+//  animation-iteration-count: infinite;
+//  -webkit-animation-iteration-count: infinite;
+//  -webkit-animation-name: flash;
+//  animation-name: flash;
+//}
+//
+//

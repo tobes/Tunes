@@ -209,40 +209,40 @@ define(['zepto', 'info'], function($, info) {
     var artist;
     var artistTracks;
     var artistList = info.artistList();
-    var $artist = $('#artists');
-    var listing;
+    var $artist = $('#artist');
+    var listing = [];
     var i;
     minTracks = minTracks || 1;
+
     for (i = 0; i < artistList.length; i++) {
       artist = info.artist(artistList[i]);
-    //  console.log(artist);
       // artists with albums only
-      if (!artist.hasAlbum()){
+      if (!artist.hasAlbum()) {
         continue;
       }
       artistTracks = artist.getTracks().length;
       // minimum number of tracks
-      if (artistTracks < minTracks){
+      if (artistTracks < minTracks) {
         continue;
       }
-      listing = ['<div>'];
 
       alpha = info.alphaBit(artist.name);
       if (alpha !== alphaLast) {
-        listing.push('<a id="artist-alpha-' + alpha + '"></a>');
+        listing.push('<a class="anchor" id="artist-' + alpha + '">&nbsp;</a>');
         alphaLast = alpha;
       }
+
       listing = listing.concat([
-        '<p data-artist="',
+        '<a href="#artist-',
         artist.id,
-        '" ><b>',
+        '" >',
         artist.name,
-        '</b> <span>',
+        '<span>',
         artistTracks,
-        '</span></p></div>'
+        '</span></a>'
       ]);
-      $artist.append(listing.join(''));
     }
+    $artist.append(listing.join(''));
   }
 
 

@@ -15,7 +15,7 @@ requirejs.config({
 requirejs(['zepto', 'index', 'build', 'info', 'interface'],
           function($, textsearch, build, info, interface) {
 
-var TICK_INTERVAL = 50;
+var TICK_INTERVAL = 250;
 var ERROR_TIMEOUT = 10000;
 
 var currentTrack;

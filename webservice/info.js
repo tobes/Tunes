@@ -3,7 +3,8 @@
 define(function() {
 
   var info = {};
-  var alphas = [];
+  var alphasArtist = [];
+  var alphasAlbum = [];
   var queue = [];
   var feedData = {};
 
@@ -37,15 +38,21 @@ define(function() {
 
 
   function processAlbumData(data) {
+    var alpha;
+    var alphaLast;
     var albums = data.album;
     var album;
     var artist;
     var albumArtists = [];
+    var albumList = [];
     var lookup = {};
     var i;
     var indexArt = data.feed.album.indexOf('art');
     var indexArtist = data.feed.album.indexOf('artistId');
     var indexVarious = data.feed.album.indexOf('various');
+    albums.sort(function(a, b) {
+      return a[1].toUpperCase() > b[1].toUpperCase() ? 1 : -1;
+    });
     for (i = 0; i < albums.length; i++) {
       album = albums[i];
       // fix art
@@ -55,9 +62,16 @@ define(function() {
         albumArtists.push(artist);
       }
       lookup[album[0]] = album;
+      albumList.push(album[0]);
+      alpha = alphaBit(album[1]);
+      if (alpha !== alphaLast) {
+        alphaLast = alpha;
+        alphasAlbum.push(alpha);
+      }
     }
     info.album = lookup;
     info.albumArtists = albumArtists;
+    info.albumList = albumList;
   }
 
 
@@ -80,7 +94,7 @@ define(function() {
       alpha = alphaBit(artist[1]);
       if (alpha !== alphaLast) {
         alphaLast = alpha;
-        alphas.push(alpha);
+        alphasArtist.push(alpha);
       }
     }
     info.artist = lookup;
@@ -140,6 +154,13 @@ define(function() {
       obj.getTracks = function() {
         return info.albumTracks[this.id] || [];
       };
+      obj.getArtistName = function() {
+        if (this.various) {
+          return 'Various artists';
+        } else {
+          return artist(this.artistId).name;
+        }
+      };
     }
     return obj;
   }
@@ -166,6 +187,9 @@ define(function() {
       obj.getWords = function() {
         return this.getIndex().split(' ').length;
       };
+      obj.getArtistName = function() {
+        return artist(this.artistId).name;
+      };
     }
     return obj;
   }
@@ -186,6 +210,11 @@ define(function() {
   }
 
 
+  function albumList() {
+    return info.albumList;
+  }
+
+
   function process(data) {
     feedData = data.feed;
     processArtistData(data);
@@ -196,12 +225,14 @@ define(function() {
   return {
     process: process,
     alphaBit: alphaBit,
-    alphas: alphas,
+    alphasArtist: alphasArtist,
+    alphasAlbum: alphasAlbum,
     queue: queue,
     inQueue: inQueue,
 
     trackList: trackList,
     artistList: artistList,
+    albumList: albumList,
 
     album: album,
     artist: artist,

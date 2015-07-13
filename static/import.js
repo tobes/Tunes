@@ -5,6 +5,7 @@ define(['db', 'config'], function(db, config) {
   var fs = require('fs');
   var path = require('path');
   var mm = require('musicmetadata');
+  var Jimp = require("jimp");
 
 
   function getDirs(dir, callback) {
@@ -133,64 +134,90 @@ define(['db', 'config'], function(db, config) {
       var art = false;
       if (covers.length) {
         cover = covers[0];
-        art = true
+        art = true;
       }
-      var setTracks = function(albumId, artistId, art) {
-        var trackIndex = 0;
-        var next = function() {
-          file = audio[trackIndex++];
-          if (!file) {
-            return callback();
-          }
-          var ext = path.extname(file);
-          var basename = path.basename(file, ext);
-          db.add('track', {
-            path: file,
-            dirname: dir,
-            basename: basename,
-            artistId: artistId,
-            albumId: albumId,
-            art: art,
-            pathArtist: info.artist,
-            pathAlbum: info.album,
-            title: basename,
-            artist: info.artist,
-            album: info.album,
-          }, next);
+      var artistId;
+      var albumId;
+      var tracks;
+      var artSaved;
+
+      var work = function() {
+        if (!artistId) {
+          db.addOrId('artist', {
+              name: info.artist,
+            },
+            'name',
+            function(id) {
+              artistId = id;
+              work();
+            });
         }
-        next()
-      }
 
-      var setAlbum = function(artistId) {
-        var various = (info.artist.toLowerCase() === 'various');
-        db.addOrId('album', {
-            path: dir,
-            art: art,
-            title: info.album,
-            artist: info.artist,
-            artistId: artistId,
-            pathArtist: info.artist,
-            pathAlbum: info.album,
-            various: various,
-          },
-          'path',
-          function(albumId) {
-            var coverExt = path.extname(cover);
-            fs.createReadStream(cover).pipe(fs.createWriteStream(path.join('covers', albumId.toString())));
+        if (artistId && !albumId) {
+          var various = (info.artist.toLowerCase() === 'various');
+          db.addOrId('album', {
+              path: dir,
+              art: art,
+              title: info.album,
+              artist: info.artist,
+              artistId: artistId,
+              pathArtist: info.artist,
+              pathAlbum: info.album,
+              various: various,
+            },
+            'path',
+            function(id) {
+              albumId = id;
+              work();
+            });
+        }
 
-            setTracks(albumId, artistId, art)
+        if (albumId && !artSaved) {
+          if (art){
+          var coverExt = path.extname(cover);
+          var pathCover = path.join('covers', albumId.toString());
+          var imgFile = fs.createWriteStream(pathCover);
+          imgFile.on('finish', function(){
+            var thumb = new Jimp(pathCover, function (err, image) {
+                this.resize(128, 128).write(pathCover + 'T.png');
+            });
           });
-      }
 
-      db.addOrId('artist', {
-          name: info.artist,
-        },
-        'name',
-        function(artistId) {
-          //console.log('artistId', artistId);
-          setAlbum(artistId)
-        });
+          fs.createReadStream(cover).pipe(imgFile);
 
+          }
+          artSaved = true;
+          work();
+        }
+
+        if (artSaved && !tracks) {
+          var trackIndex = 0;
+          var next = function() {
+            file = audio[trackIndex++];
+            if (!file) {
+              return callback();
+            }
+            var ext = path.extname(file);
+            var basename = path.basename(file, ext);
+            db.add('track', {
+              path: file,
+              dirname: dir,
+              basename: basename,
+              artistId: artistId,
+              albumId: albumId,
+              art: art,
+              pathArtist: info.artist,
+              pathAlbum: info.album,
+              title: basename,
+              artist: info.artist,
+              album: info.album,
+            }, next);
+          };
+          tracks=true;
+          next();
+        }
+      };
+      work();
     }
   }
 

@@ -246,16 +246,21 @@ define(['zepto', 'info'], function($, info) {
   }
 
 
-  function buildAlpha() {
-    var alphas = info.alphas;
-    var i;
-    var $alpha = $('#alpha').empty();
-    var $list = $('<ul class="button-small">');
 
-    for (i = 0; i < alphas.length; i++) {
-      $list.append('<li><button data-alpha="' + alphas[i] + '">' + alphas[i] + '</button></li>');
+  function buildAlpha(type) {
+    var alphas;
+    if (type === 'album') {
+      alphas = info.alphasAlbum;
+    } else {
+      alphas = info.alphasArtist;
     }
-    $alpha.append($list);
+    var i;
+    var out = [];
+    out.push('<ul class="button-small">');
+    for (i = 0; i < alphas.length; i++) {
+      out.push('<li><a href="#' + type + '-' + alphas[i] + '">' + alphas[i] + '</a></li>');
+    }
+    return out.join('');
   }
 
 

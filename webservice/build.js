@@ -33,24 +33,27 @@ define(['zepto', 'info'], function($, info) {
     var i;
     var track;
     var out = [];
+    out.push('<div class="results">');
     for (i = 0; i < results.length; i++) {
       // limit results //FIXME
-      if (i > 100){
+      if (i > 100) {
         break;
       }
       track = info.track(results[i].id);
       out.push('<div data-track="' + track.id + '">');
-      out.push('<p>');
+      out.push('<img src="/covers/' + track.getAlbum().art + '">');
+      out.push('<div class="track-title">');
       out.push(track.title);
-      out.push('</p>');
-      out.push('<p><b>');
+      out.push('</div>');
+      out.push('<div class="track-artist">');
       out.push(track.getArtist().name);
-      out.push('</b></p>');
-      out.push('<p>');
+      out.push('</div>');
+      out.push('<div class="track-album">');
       out.push(track.getAlbum().title);
-      out.push('</p>');
+      out.push('</div>');
       out.push('</div>');
     }
+    out.push('</div>');
     return out.join('');
   }
 

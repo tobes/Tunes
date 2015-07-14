@@ -41,7 +41,7 @@ define(['zepto', 'info'], function($, info) {
       }
       track = info.track(results[i].id);
       out.push('<div data-track="' + track.id + '">');
-      out.push('<img src="/covers/' + track.getAlbum().art + '">');
+      out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
       out.push('<div class="track-title">');
       out.push(track.title);
       out.push('</div>');
@@ -103,7 +103,7 @@ define(['zepto', 'info'], function($, info) {
         out.push('<a href="#album-' + album.id + '">');
         out.push('<div class="artist-album">');
         out.push('<div class="clearfix album-head" data-album="' + album.id + '">');
-        out.push('<img src="/covers/' + album.art + '">');
+        out.push('<img src="/covers/' + album.art + 'T.png">');
         out.push(album.title);
         out.push('</div>');
         out.push('</a>');
@@ -137,7 +137,7 @@ define(['zepto', 'info'], function($, info) {
     var tracks = album.getTracks();
     tracks.sort(albumTrackSort);
     out.push('<div class="album clearfix">');
-    out.push('<img src="/covers/' + album.art + '">');
+    out.push('<img src="/covers/' + album.art + '.png">');
 
     out.push('<div class="album-title">');
     out.push(album.title);

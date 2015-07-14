@@ -177,7 +177,7 @@ define(['zepto', 'build', 'info', 'index'],
           album = track.getAlbum();
           if (!album.various) {
             out.push('<div class="clearfix" data-album="' + album.id + '">');
-            out.push('<img src="/covers/' + album.art + '">');
+            out.push('<img src="/covers/' + album.art + '.png">');
             out.push('<p><b>' + album.title + '</p></b>');
             out.push('</div>');
           }

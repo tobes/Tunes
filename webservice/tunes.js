@@ -52,7 +52,7 @@ function playingChange(current) {
   var item = current.item;
   $('#currentArtist').html(item.artist);
   $('#currentTrack').html(item.track);
-  $('#currentCover').attr('src', 'covers/' + item.art);
+  $('#currentCover').attr('src', 'covers/' + item.art + '.png');
   currentTrack = item.id;
 }
 

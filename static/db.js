@@ -1,19 +1,11 @@
 /*global define, window*/
 
 define(function() {
-  //     window.indexedDB.deleteDatabase("tunes");
+  // window.indexedDB.deleteDatabase("tunes");
 
   var db = null;
   var active = false;
   var activateQueue = [];
-
-  function activation() {
-    // process callbacks when db enabled
-    var i;
-    for (i = 0; i < activateQueue.length; i++) {
-      activateQueue[i]();
-    }
-  }
 
   var dbOpen = window.indexedDB.open("tunes", 1);
 
@@ -62,6 +54,15 @@ define(function() {
     active = true;
     activation();
   };
+
+
+  function activation() {
+    // process callbacks when db enabled
+    var i;
+    for (i = 0; i < activateQueue.length; i++) {
+      activateQueue[i]();
+    }
+  }
 
 
   function activate(callback) {
@@ -123,12 +124,11 @@ define(function() {
     request.onsuccess = function(event) {
       callback(event.target.result);
     };
-    transaction.onerror = function() {
-      console.log("Error adding " + store);
+    transaction.onerror = function(err) {
+      console.log("Error adding " + store, err, data);
       callback();
     };
   }
-
 
 
   function put(store, data, callback) {
@@ -138,10 +138,11 @@ define(function() {
       callback(event.target.result);
     };
     transaction.onerror = function() {
-      console.log("Error adding " + store);
+      console.log("Error adding " + store, data);
       callback();
     };
   }
+
 
   function addOrId(store, data, unique, callback) {
     var transaction = db.transaction([store], "readwrite");

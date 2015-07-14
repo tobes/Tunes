@@ -9,10 +9,10 @@ define(['event', 'config', 'db', 'queue'],
 
     var ipAddress = [];
     var server;
-    var url;
     var feedCurrent = {};
     var feedQueue = [];
     var queueVersion = 0;
+    var messages = [];
 
     var CONTENT_TYPES = {
       '.html': 'text/html',
@@ -29,7 +29,7 @@ define(['event', 'config', 'db', 'queue'],
       artist: ['id', 'name'],
       album: ['id', 'title', 'artistId', 'art', 'various'],
       track: ['id', 'title', 'artistId', 'albumId', 'trackno'],
-    }
+    };
 
     var feedArtist;
     db.all('artist', FEEDS.artist, function(result) {
@@ -95,45 +95,33 @@ define(['event', 'config', 'db', 'queue'],
     }
 
 
-    function getFeed(post){
-      var feed = {current: feedCurrent};
-      if (post.queue  && post.queue < queueVersion){
+    function jsonFeed(data) {
+      var feed = {
+        current: feedCurrent
+      };
+      if (data.post.queue && data.post.queue < queueVersion) {
         feed.queue = feedQueue;
       }
       return JSON.stringify(feed);
     }
 
 
-    function serveJSON(urlPath, post, response, contentType) {
-      var content;
-      switch (urlPath) {
-        case 'feed.json':
-          content = getFeed(post);
-          break;
-        case 'data.json':
-          content = JSON.stringify({
-          album:feedAlbum,
-          artist:feedArtist,
-          track:feedTrack,
-          feed:FEEDS
-        });
-          break;
-        default:
-          content = {};
-      }
-      response.writeHead(200, {
-        'Content-Type': contentType
+    function jsonData() {
+      return JSON.stringify({
+        album: feedAlbum,
+        artist: feedArtist,
+        track: feedTrack,
+        feed: FEEDS
       });
-      response.end(content, 'utf-8');
     }
 
-    function serveCommand(cmd, response, contentType) {
-      console.log(cmd);
+
+    function serveCommand(data) {
       var content = {
         result: 'success'
       };
-      var data = cmd[1].split('-');
-      switch (data[0]) {
+      var parts = data.match[1].split('-');
+      switch (parts[0]) {
         case 'play':
           event.trigger('controlPlay');
           break;
@@ -150,62 +138,96 @@ define(['event', 'config', 'db', 'queue'],
           event.trigger('controlVolDown');
           break;
         case 'add':
-          db.get('track', parseInt(data[1], 10), function(track) {
-            queue.add(track);
+          db.get('track', parseInt(parts[1], 10), function(track) {
+            if (queue.add(track)) {
+              messages.push({
+                msg: track[1],
+                action: 'added'
+              });
+            }
           });
           break;
         default:
       }
-      response.writeHead(200, {
-        'Content-Type': contentType
-      });
-      response.end(JSON.stringify(content), 'utf-8');
+      return JSON.stringify(content);
     }
 
-    function processRequest(request, response) {
-    var post;
-    if (request.method === 'POST') {
-      var data = '';
-      request.on('data', function(chunk) {
-        data += chunk;
-      });
-      request.on('end', function() {
-        post = qs.parse(data);
-        processRequest2(request, response, post);
-      });
-    } else {
-      processRequest2(request, response);
+
+    function serveCover(data) {
+      var file = path.join('covers', data.match[1]);
+      serveFile(file, data.response, data.contentType);
     }
-    }
+
+    var routes = [
+      ['/data.json', jsonData, '.json'],
+      ['/feed.json', jsonFeed, '.json'],
+      [/^\/covers\/((\d*)(T.png)?)$/, serveCover, '.png'],
+      [/^\/cmd\/(.*)$/, serveCommand, '.json'],
+    ];
 
     function processRequest2(request, response, post) {
-      var contentType;
-      var file;
       var url = request.url;
-      var parse = /^\/cmd\/(.*)$/.exec(url);
-      if (parse) {
-        return serveCommand(parse, response, contentType)
+      var content;
+      var contentType;
+      var i;
+      var route;
+      var found = false;
+      var match;
+      var data = {
+        post: post,
+        response: response,
+      };
+      for (i = 0; i < routes.length; i++) {
+        route = routes[i];
+        if (typeof route[0] === 'string' && route[0] === url) {
+          found = true;
+        }
+        if (route[0] instanceof RegExp) {
+          match = url.match(route[0]);
+          if (match) {
+            data.match = match;
+            found = true;
+          }
+        }
+        if (found) {
+          data.contentType = CONTENT_TYPES[route[2] || '.html'];
+          content = route[1](data);
+          if (content) {
+            response.writeHead(200, {
+              'Content-Type': data.contentType
+            });
+            response.end(content, 'utf-8');
+          }
+          return;
+        }
       }
-      var parse = /^\/covers\/(\d*)$/.exec(url);
-      if (parse) {
+      // static files
 
-        file = path.join('covers', parse[1]);
-        contentType = 'image/png';
-      } else {
-        var urlPath = path.basename(url);
-        if (urlPath === '') {
-          urlPath = 'index.html';
-        }
-        var extname = path.extname(urlPath);
-        var contentType = CONTENT_TYPES[extname];
+      var file;
+      if (url[url.length - 1] === '/') {
+        url += 'index.html';
       }
-      if (extname === '.json') {
-        serveJSON(urlPath, post, response, contentType);
+      file = path.join('webservice', url);
+
+      var ext = path.extname(url);
+      contentType = CONTENT_TYPES[ext];
+      serveFile(file, response, contentType);
+    }
+
+
+    function processRequest(request, response) {
+      var post;
+      if (request.method === 'POST') {
+        var data = '';
+        request.on('data', function(chunk) {
+          data += chunk;
+        });
+        request.on('end', function() {
+          post = qs.parse(data);
+          processRequest2(request, response, post);
+        });
       } else {
-        if (!file) {
-          file = path.join('webservice', path.sep, urlPath);
-        }
-        serveFile(file, response, contentType);
+        processRequest2(request, response);
       }
     }
 
@@ -229,7 +251,7 @@ define(['event', 'config', 'db', 'queue'],
         server = http.createServer(processRequest).listen(port);
       }
 
-      url = protocol + '://' + ipAddress[0].ip + ':' + port;
+      var url = protocol + '://' + ipAddress[0].ip + ':' + port;
       console.log('Webservice serving on ' + url);
     }
 

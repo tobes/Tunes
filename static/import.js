@@ -213,7 +213,7 @@ define(['db', 'config'], function(db, config) {
               album: info.album,
             }, next);
           };
-          tracks=true;
+          tracks = true;
           next();
         }
       };
@@ -230,6 +230,7 @@ define(['db', 'config'], function(db, config) {
         console.log('finished import');
         return;
       }
+      console.log(i + ' of ' + results.length);
       processDir(dir, processFileList, function() {
         next()
       });
@@ -271,6 +272,7 @@ define(['db', 'config'], function(db, config) {
       next();
     });
   }
+
 
   function processId3(data) {
     var artistId;

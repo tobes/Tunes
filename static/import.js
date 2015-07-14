@@ -173,18 +173,12 @@ define(['db', 'config'], function(db, config) {
         }
 
         if (albumId && !artSaved) {
-          if (art){
-          var coverExt = path.extname(cover);
-          var pathCover = path.join('covers', albumId.toString());
-          var imgFile = fs.createWriteStream(pathCover);
-          imgFile.on('finish', function(){
-            var thumb = new Jimp(pathCover, function (err, image) {
-                this.resize(128, 128).write(pathCover + 'T.png');
+          if (art) {
+            var pathCover = path.join('covers', albumId.toString());
+            var thumb = new Jimp(cover, function(err, image) {
+              this.write(pathCover + '.png');
+              this.resize(128, 128).write(pathCover + 'T.png');
             });
-          });
-
-          fs.createReadStream(cover).pipe(imgFile);
-
           }
           artSaved = true;
           work();

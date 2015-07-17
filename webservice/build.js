@@ -263,6 +263,23 @@ define(['zepto', 'info'], function($, info) {
   }
 
 
+  function buildQueueItem(item) {
+    return [
+      '<div class="queue-item">',
+      '<div class="queue-place"></div>',
+      '<div class="queue-content">',
+      '<p class="queue-track">',
+      item.track,
+      '</p>',
+      '<p><b class="queue-artist">',
+      item.artist,
+      '</b></p>',
+      '</div>',
+      '</div>',
+    ].join('\n');
+  }
+
+
 
   return {
     buildArtistList: buildArtistList,
@@ -272,6 +289,7 @@ define(['zepto', 'info'], function($, info) {
     buildAlpha: buildAlpha,
     buildControls: buildControls,
     buildSearch: buildSearch,
+    buildQueueItem: buildQueueItem,
     buildResults: buildResults
   };
 

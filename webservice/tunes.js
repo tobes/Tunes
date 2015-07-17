@@ -38,16 +38,6 @@ function formatTime(time) {
 }
 
 
-var queueItemTemplate = [
-  '<div class="queue-item">',
-  '<div class="queue-place"></div>',
-  '<div class="queue-content">',
-  '<p class="queue-track"></p>',
-  '<p><b class="queue-artist"></b></p>',
-  '</div>',
-  '</div>',
-].join('\n');
-
 function playingChange(current) {
   var item = current.item;
   $('#currentArtist').html(item.artist);
@@ -69,14 +59,6 @@ function playingUpdate(current) {
   $('#currentProgress').val(progress);
 }
 
-function queueItemBuild(item) {
-  var $item = $(queueItemTemplate);
-  $item.find('.queue-artist').html(item.artist);
-  $item.find('.queue-album').html(item.album);
-  $item.find('.queue-track').html(item.track);
-  return $item;
-}
-
 
 function processQueue(data) {
   var queue = data.queue;
@@ -90,7 +72,7 @@ function processQueue(data) {
     item = queue[i];
     $item = queueItems[item.id];
     if ($item === undefined) {
-      $item = queueItemBuild(item);
+      $item = $(build.buildQueueItem(item));
       queueItems[item.id] = $item;
     }
     items.push(item.id);

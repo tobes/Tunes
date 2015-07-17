@@ -73,10 +73,9 @@ define(['zepto', 'info'], function($, info) {
     if (aa.various) { // various?
       // title
       return (a.title > b.title ? 1 : -1);
-    } else {
-      // trackNo
-      return (a.trackno > b.trackno ? 1 : -1);
     }
+    // trackNo
+    return (a.trackno > b.trackno ? 1 : -1);
   }
 
   function buildArtist(artistId) {

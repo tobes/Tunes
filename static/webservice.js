@@ -13,6 +13,7 @@ define(['event', 'config', 'db', 'queue'],
     var feedQueue = [];
     var queueVersion = 0;
     var messages = [];
+    var url;
 
     var CONTENT_TYPES = {
       '.html': 'text/html',
@@ -251,7 +252,7 @@ define(['event', 'config', 'db', 'queue'],
         server = http.createServer(processRequest).listen(port);
       }
 
-      var url = protocol + '://' + ipAddress[0].ip + ':' + port;
+      url = protocol + '://' + ipAddress[0].ip + ':' + port;
       console.log('Webservice serving on ' + url);
     }
 

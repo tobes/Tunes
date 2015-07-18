@@ -313,6 +313,12 @@ define(['zepto', 'build', 'info', 'index'],
         case '#controls':
           display(build.buildControls());
           break;
+        case '#playing':
+          showPage('playing');
+          break;
+        case '#queue':
+          showPage('queue');
+          break;
         case '#search':
           display(build.buildSearch());
           $('#search-form').submit(function(event) {

@@ -2,15 +2,17 @@
 @main-bg: #FFF;
 @bg-secondry: screen(@main-color, #EEE);
 
-//@main-color: #006400;
-//@main-bg: #fff;
+@main-color: #006400;
+@main-bg: #fff;
 @bg-secondry: mix(@main-color, @main-bg, 10%);
 
 @padding: 10px;
 
 @color-light: screen(@main-color, #AAA);
 @color-secondry: screen(@main-color, #666);
+@color-secondry: difference(@main-color, #fff);
 @color-button: @main-color;
+@color-button: @color-secondry;
 @border-radius: 25px;
 
 body {

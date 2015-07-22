@@ -183,8 +183,7 @@ function roughSizeOfObject( object ) {
         }
         else if
         (
-            typeof value === 'object'
-            && objectList.indexOf( value ) === -1
+            typeof value === 'object' && objectList.indexOf( value ) === -1
         )
         {
             objectList.push( value );

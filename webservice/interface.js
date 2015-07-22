@@ -113,10 +113,10 @@ define(['zepto', 'build', 'info', 'index'],
         } else {
           out.push('<li><span>cued</span></li>');
         }
-        if ($element.find('.track-artist').length){
+        if ($element.find('.track-artist').length) {
           out.push('<li><a href="#artist-' + track.getArtist().id + '">Artist</a></li>');
         }
-        if ($element.find('.track-album').length){
+        if ($element.find('.track-album').length) {
           out.push('<li><a href="#album-' + track.getAlbum().id + '">Album</a></li>');
         }
         out.push('</ul>');

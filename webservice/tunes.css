@@ -226,3 +226,15 @@ div.results div.track-title {
 div.results div.track-album {
   color: #ff9bff;
 }
+.queue-place {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #006400;
+  color: #FFF;
+  text-align: center;
+}
+.queue-content {
+  margin-left: 45px;
+}

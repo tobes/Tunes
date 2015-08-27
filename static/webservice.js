@@ -1,17 +1,16 @@
 /*global define, document*/
 
-define(['event', 'config', 'db', 'queue'],
-  function(event, config, db, queue) {
+define(['event', 'config', 'db', 'queue', 'player'],
+  function(event, config, db, queue, player) {
 
     var path = require('path');
     var fs = require('fs');
     var qs = require('querystring');
 
+    var currentStreamId = 0;
     var ipAddress = [];
     var server;
-    var feedCurrent = {};
     var feedQueue = [];
-    var queueVersion = 0;
     var messages = [];
     var url;
 
@@ -61,6 +60,30 @@ define(['event', 'config', 'db', 'queue'],
       });
     }
 
+    var streams = {};
+
+    function message(response, type, msg){
+      response.write('event: ' + type + '\ndata: ' + msg + '\n\n');
+    }
+
+    function registerStream(streamId, response){
+      streams[streamId] = response;
+      message(response, 'current',JSON.stringify(player.current()));
+      message(response, 'queue',JSON.stringify(feedQueue));
+    }
+
+    function clearStream(streamId){
+      delete streams[streamId];
+    }
+
+    function messageStream(type, msg){
+      var stream;
+      for (stream in streams){
+        if (streams.hasOwnProperty(stream)){
+          message(streams[stream], type, msg);
+        }
+      }
+    }
 
     function serveFile(file, response, contentType) {
       // serve a file
@@ -83,27 +106,13 @@ define(['event', 'config', 'db', 'queue'],
     }
 
 
-    function playingUpdate(current) {
-      feedCurrent = current;
-      feedCurrent.queue = queueVersion;
+    function playerChange(current) {
+      messageStream('current',JSON.stringify(current));
     }
 
     function playlistUpdate(queue) {
-      feedQueue = {
-        queue: queue,
-        version: ++queueVersion,
-      };
-    }
-
-
-    function jsonFeed(data) {
-      var feed = {
-        current: feedCurrent
-      };
-      if (data.post.queue && data.post.queue < queueVersion) {
-        feed.queue = feedQueue;
-      }
-      return JSON.stringify(feed);
+      feedQueue = queue;
+      messageStream('queue',JSON.stringify(queue));
     }
 
 
@@ -161,7 +170,6 @@ define(['event', 'config', 'db', 'queue'],
 
     var routes = [
       ['/data.json', jsonData, '.json'],
-      ['/feed.json', jsonFeed, '.json'],
       [/^\/covers\/(\d*T?.png)$/, serveCover, '.png'],
       [/^\/cmd\/(.*)$/, serveCommand, '.json'],
     ];
@@ -178,6 +186,25 @@ define(['event', 'config', 'db', 'queue'],
         post: post,
         response: response,
       };
+      if (url === "/stream") {
+        response.writeHead(
+          200, {
+            "Content-Type":"text/event-stream",
+            "Cache-Control":"no-cache",
+            "Connection":"keep-alive"
+          }
+        );
+        response.write("retry: 1000\n");
+        var streamId = ++currentStreamId;
+        response.write("event: stream_id\n");
+        response.write("data: " + streamId + "\n\n");
+        registerStream(streamId, response);
+
+        request.connection.addListener("close", function () {
+          clearStream(streamId);
+        }, false);
+        return;
+      }
       for (i = 0; i < routes.length; i++) {
         route = routes[i];
         if (typeof route[0] === 'string' && route[0] === url) {
@@ -273,7 +300,7 @@ define(['event', 'config', 'db', 'queue'],
 
     if (config.webserviceActive) {
       event.add('exit', stopServer);
-      event.add('playingUpdate', playingUpdate);
+      event.add('playerChange', playerChange);
       event.add('playlistUpdate', playlistUpdate);
       getIPAdress();
       startWebservice();

@@ -50,8 +50,17 @@ define('player', ['jquery', 'event', 'queue', 'config'],
     }
 
 
+    function durationChange(e){
+      if (e.target === players[activePlayer]){
+        current.duration = e.target.duration;
+        event.trigger('playerChange', current);
+      }
+    }
+
+
     function createPlayer() {
       var $player = $('<audio controls data-direction="none">');
+      $player[0].ondurationchange = durationChange;
       $('body').append($player);
       players.push($player[0]);
     }
@@ -127,6 +136,8 @@ define('player', ['jquery', 'event', 'queue', 'config'],
         var player = players[activePlayer];
         if (player.paused) {
           player.play();
+          current.paused = false;
+          event.trigger('playerChange', current);
         }
       } else {
         nextTrack();
@@ -138,6 +149,8 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       var player = players[activePlayer];
       if (!player.paused) {
         player.pause();
+        current.paused = true;
+        event.trigger('playerChange', current);
       }
     }
 
@@ -183,7 +196,9 @@ define('player', ['jquery', 'event', 'queue', 'config'],
 
     console.log('Player: loaded');
 
-    return {};
+    return {
+      'current': function(){return current;}
+    };
 
 
   });

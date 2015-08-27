@@ -19,9 +19,12 @@ var TICK_INTERVAL = 250;
 var ERROR_TIMEOUT = 10000;
 
 var currentTrack;
-var queueVersion = 0;
 var queueItems = {};
 var currentPaused;
+var currentItem;
+var currentTimeOffset;
+var currentStreamId;
+
 
 function formatTime(time) {
   time = Math.ceil(time);
@@ -61,7 +64,8 @@ function playingUpdate(current) {
 
 
 function processQueue(data) {
-  var queue = data.queue;
+  log('Queue', data.data);
+  var queue = JSON.parse(data.data);
   var i;
   var item;
   var $item;
@@ -85,14 +89,9 @@ function processQueue(data) {
     }
     $queue.append($item);
   }
-  queueVersion = data.version;
   info.queue = queue;
 }
 
-
-function errorFeed() {
-  setTimeout(tick, ERROR_TIMEOUT);
-}
 
 function pausedChange(paused) {
   var $button = $('#play-pause');
@@ -107,44 +106,70 @@ function pausedChange(paused) {
 }
 
 
-function processFeed(feed) {
-  var current = feed.current;
-  var queue = feed.queue;
+function processStreamId(data) {
+  currentStreamId = data.data;
+  log('StreamId', currentStreamId);
+}
+
+
+function processCurrent(data) {
+  log('Current', data.data);
+  var current = JSON.parse(data.data);
+  currentItem = current;
+  currentTimeOffset = new Date();
   if (current){
-  if (current.paused !== currentPaused) {
-    pausedChange(current.paused);
-    currentPaused = current.paused;
-  }
-  if (current.item) {
-    playingUpdate(current);
-    if (current.item.id !== currentTrack) {
-      playingChange(current);
+    if (current.paused !== currentPaused) {
+      pausedChange(current.paused);
+      currentPaused = current.paused;
+    }
+    if (current.item) {
+      playingUpdate(current);
+      if (current.item.id !== currentTrack) {
+        playingChange(current);
+      }
     }
   }
-  }
-  if (queue) {
-    processQueue(queue);
+}
+
+function playingTick(){
+  if (currentItem === undefined){
+    return;
   }
 
-  setTimeout(tick, TICK_INTERVAL);
+  if (currentPaused === true){
+    return;
+  }
+  var progress;
+  var current = currentItem;
+  var offset = (new Date() - currentTimeOffset) / 1000;
+  var position = current.position + offset;
+  $('#currentPosition').html(formatTime(position));
+  $('#currentDuration').html(formatTime(current.duration));
+  if (current.duration) {
+    progress = position * 100 / current.duration;
+  } else {
+    progress = 0;
+  }
+  $('#currentProgress').val(progress);
+
+}
+
+function log(type, msg){
+  var $p = $('p');
+  $p.text(type);// + ': ' + msg);
+  $('#console').prepend($p);
 }
 
 
-
-function tick() {
-  $.ajax({
-    url: 'feed.json',
-    type: 'POST',
-    data: {
-      queue: queueVersion
-    },
-    success: processFeed,
-    error: errorFeed
-  });
+function stream() {
+  var evtSource = new EventSource("/stream");
+  // stream number
+  evtSource.addEventListener('stream_id', processStreamId, false);
+  // queue
+  evtSource.addEventListener('queue', processQueue, false);
+  // current
+  evtSource.addEventListener('current', processCurrent, false);
 }
-
-
-
 
 
 
@@ -154,7 +179,8 @@ function processData(data){
   info.process(data);
   textsearch.buildIndexes();
   interface.init();
-  tick();
+  stream();
+  setInterval(playingTick, 200);
 }
 
 

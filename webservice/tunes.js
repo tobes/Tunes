@@ -18,8 +18,8 @@ requirejs(['zepto', 'index', 'build', 'info', 'interface'],
 var TICK_INTERVAL = 250;
 var ERROR_TIMEOUT = 10000;
 
+var evtSource;
 var currentTrack;
-var queueItems = {};
 var currentPaused;
 var currentItem;
 var currentTimeOffset;
@@ -140,7 +140,7 @@ function playingTick(){
 
 
 function stream() {
-  var evtSource = new EventSource("/stream");
+  evtSource = new EventSource("/stream");
   // stream number
   evtSource.addEventListener('stream_id', processStreamId, false);
   // queue

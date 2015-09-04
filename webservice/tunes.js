@@ -115,6 +115,10 @@ function processCurrent(data) {
 }
 
 function playingTick(){
+  // firefox on android would not reopen closed connections
+  if (evtSource.readyState == 2){
+    stream();
+  }
   if (currentItem === undefined){
     return;
   }

@@ -342,6 +342,7 @@ define(['zepto', 'build', 'info', 'index'],
       resize();
       //$('h1').click(toggleFullscreen);
       $('#logo').click(toggleMenu);
+      $('#menu a').click(function (){$('#menu').hide();showPage(activePage);});
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'button', buttonClick);
       window.onresize = resize;

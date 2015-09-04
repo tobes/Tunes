@@ -263,10 +263,12 @@ define(['zepto', 'info'], function($, info) {
   }
 
 
-  function buildQueueItem(item) {
+  function buildQueueItem(item, count) {
     return [
       '<div class="queue-item">',
-      '<div class="queue-place"></div>',
+      '<div class="queue-place">',
+      count,
+      '</div>',
       '<div class="queue-content">',
       '<p class="queue-track">',
       item.track,

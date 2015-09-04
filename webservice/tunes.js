@@ -64,32 +64,17 @@ function playingUpdate(current) {
 
 
 function processQueue(data) {
-  log('Queue', data.data);
   var queue = JSON.parse(data.data);
   var i;
   var item;
   var $item;
-  var $indicator;
-  var items = [];
   var $queue = $('#queue').empty();
   for (i = 0; i < queue.length; i++) {
     item = queue[i];
-    $item = queueItems[item.id];
-    if ($item === undefined) {
-      $item = $(build.buildQueueItem(item));
-      queueItems[item.id] = $item;
-    }
-    items.push(item.id);
-    $indicator = $item.find('.queue-place');
-    $indicator.html(i + 1);
-    if (item.ready) {
-      $indicator.removeClass('animation-flash');
-    } else {
-      $indicator.addClass('animation-flash');
-    }
-    $queue.append($item);
+    $item = build.buildQueueItem(item, i + 1);
+    $queue.append($.parseHTML($item));
   }
-  info.queue = queue;
+ // info.queue = queue;
 }
 
 

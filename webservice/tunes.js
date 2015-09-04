@@ -93,12 +93,10 @@ function pausedChange(paused) {
 
 function processStreamId(data) {
   currentStreamId = data.data;
-  log('StreamId', currentStreamId);
 }
 
 
 function processCurrent(data) {
-  log('Current', data.data);
   var current = JSON.parse(data.data);
   currentItem = current;
   currentTimeOffset = new Date();
@@ -139,11 +137,6 @@ function playingTick(){
 
 }
 
-function log(type, msg){
-  var $p = $('p');
-  $p.text(type);// + ': ' + msg);
-  $('#console').prepend($p);
-}
 
 
 function stream() {

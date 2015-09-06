@@ -189,7 +189,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
       if (url === "/stream") {
         response.writeHead(
           200, {
-            "Content-Type":"text/event-stream",
+            "Content-Type":"text/event-stream;charset=UTF-8",
             "Cache-Control":"no-cache",
             "Connection":"keep-alive"
           }

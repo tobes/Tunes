@@ -10,7 +10,7 @@ define(['db', 'config'], function(db, config) {
 
   function getDirs(dir, callback) {
     dir = path.normalize(dir);
-    results = [];
+    var results = [];
     var walk = function(dir, done) {
       fs.readdir(dir, function(err, list) {
         if (err) {
@@ -37,7 +37,7 @@ define(['db', 'config'], function(db, config) {
         }
         next();
       });
-    }
+    };
 
     walk(dir, function(err) {
       if (err) {
@@ -75,7 +75,7 @@ define(['db', 'config'], function(db, config) {
         }
         next();
       });
-    }
+    };
 
     walk(dir, function(err) {
       if (err) {
@@ -226,10 +226,10 @@ define(['db', 'config'], function(db, config) {
       }
       console.log(i + ' of ' + results.length);
       processDir(dir, processFileList, function() {
-        next()
+        next();
       });
-    }
-    next()
+    };
+    next();
   }
 
 

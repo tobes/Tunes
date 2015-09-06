@@ -87,7 +87,6 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       event.trigger('playingChange', current);
     }
 
-
     function nextTrack() {
       if (!players[nextPlayer].paused) {
         console.log('no player ready');
@@ -159,7 +158,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       if (player.dataset.direction === 'none'){
         player.volume = masterVolume;
       }
-      console.log('vol ' + masterVolume)
+      console.log('vol ' + masterVolume);
     }
 
     function volUp(){

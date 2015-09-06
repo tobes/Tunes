@@ -284,8 +284,7 @@ define(['db', 'config'], function(db, config) {
     function work() {
       info = data[i];
       if (!info) {
-        console.log('Id3 scan complete!')
-        return;
+        albumFix();
       }
 
 
@@ -330,8 +329,93 @@ define(['db', 'config'], function(db, config) {
   }
 
 
+  function albumFix(){
+    var trackList;
+    var albums = {};
+    if (trackList === undefined){
+      db.all('track', null, function(result) {
+        var i;
+        var album;
+        var albumData;
+        var track;
+        var checkArtist;
+        var checkAlbum;
+        trackList = result;
+        for (i = 0; i < trackList.length; i++){
+          track = trackList[i];
+          if (albums[track.albumId] === undefined){
+            albums[track.albumId] = [];
+          }
+          albums[track.albumId].push(track);
+        }
+        for (album in albums){
+          if (albums.hasOwnProperty(album)){
+            albumData = albums[album];
+            checkArtist = albumData[0].artistId;
+            checkAlbum = albumData[0].album;
+            for (i = 1; i < albumData.length; i++){
+              if (albumData[i].artistId !== checkArtist){
+                checkArtist = undefined;
+              }
+              if (checkAlbum && albumData[i].album.toLowerCase() !== checkAlbum.toLowerCase()){
+                checkAlbum = undefined;
+              }
+            }
+            albums[album] = {various: (checkArtist === undefined)};
+            if (checkAlbum !== undefined){
+              albums[album].title = checkAlbum;
+            }
+            if (checkArtist !== undefined){
+              albums[album].artistId = checkArtist;
+            }
+          }
+        }
+        db.all('artist', null, function(result) {
+          var artists = {};
+          var i;
+          for (i =0; i < result.length; i++){
+            artists[result[i].id] = result[i].name;
+          }
+          console.log(artists);
+          db.all('album', null, function(result) {
+            i = 0;
+            function work() {
+              var alb = result[i++];
+              if (alb === undefined){
+                return;
+              }
+              var albTitle = albums[alb.id].title;
+              var albArtistId = albums[alb.id].artistId;
+              var updateTitle = (albTitle && alb.title !== albTitle);
+              var updateArtistId = albArtistId !== alb.artistId;
+              var updateArtist = artists[albArtistId] !== alb.artist;
+              console.log(artists[albArtistId]);
+              if (updateArtist || updateTitle || updateArtistId){
+                if (updateTitle){
+                  alb.title = albTitle;
+                }
+                if (updateArtistId){
+                  alb.artistId = albArtistId;
+                }
+                if (updateArtist){
+                  alb.artist = artists[albArtistId];
+                }
+                db.put('album', alb, work);
+                console.log(alb.title);
+              } else {
+                work();
+              }
+            }
+            work();
+          });
+        });
+      });
+    }
+  }
+
   function scanId3() {
     readId3(processId3);
+    console.log('Id3 scan complete!');
   }
 
 

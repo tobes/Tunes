@@ -306,6 +306,52 @@ div.results div.track-album {
 }
 
 
+#playing img {
+  border: 1px solid @main-color;
+  padding: 3px;
+  width: 80%;
+  box-sizing: margin-box;
+      display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#currentTrack {
+  text-align: center;
+}
+#currentArtist {
+  font-size: 1.3em;
+  text-align: center;
+}
+#currentAlbum {
+  text-align: center;
+}
+#currentArtist {} #playing div {} #currentProgress {
+  color: @main-color;
+  border: 1px solid @main-color;
+  background-color: @main-bg;
+  width: 100%;
+  height: 0.5em;
+  padding: 2px;
+  box-sizing: margin-box;
+}
+progress::-moz-progress-bar {
+  background: @main-color;
+}
+progress::-webkit-progress-value {
+  background: @main-color;
+  color: @main-bg;
+}
+progress {
+  color: @main-color;
+  width:90%;
+  box-sizing: border-box;
+}
+#currentPosition {
+  float:left;
+}
+#currentRemaining {
+  float:right;
+}
 
 
 //#page {
@@ -381,53 +427,6 @@ div.results div.track-album {
 //  color: @cmd-color;
 //}
 //
-//#playing img {
-//  border: 1px solid @main-color;
-//  padding: 3px;
-//  width: 80%;
-//  box-sizing: margin-box;
-//      display: block;
-//    margin-left: auto;
-//    margin-right: auto;
-//}
-//#currentTrack {
-//  text-align: center;
-//}
-//#currentArtist {
-//  font-size: 1.3em;
-//  text-align: center;
-//}
-//#currentAlbum {
-//  text-align: center;
-//}
-//#currentArtist {} #playing div {} #currentProgress {
-//  color: @main-color;
-//  border: 1px solid @main-color;
-//  background-color: @main-bg;
-//  width: 100%;
-//  height: 0.5em;
-//  padding: 2px;
-//  box-sizing: margin-box;
-//}
-//progress::-moz-progress-bar {
-//  background: @main-color;
-//}
-//progress::-webkit-progress-value {
-//  background: @main-color;
-//  color: @main-bg;
-//}
-//progress {
-//  color: @main-color;
-//  width:90%;
-//  box-sizing: border-box;
-//}
-//#currentProgressLabel {
-//  display: none;
-//  position: relative;
-//  left: 0%;
-//  width: 100%;
-//  box-sizing: border-box;
-//}
 //
 //.page{
 //  display: none;

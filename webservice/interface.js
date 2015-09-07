@@ -82,8 +82,12 @@ define(['zepto', 'build', 'info', 'index'],
 
 
     function artistScroll(name) {
-      var node = document.getElementById(name);
-      node.scrollIntoView();
+      // setTimeout to ensure the element is displayed
+      // before scrolling
+      setTimeout(function (){
+        var node = document.getElementById(name);
+        node.scrollIntoView();
+      }, 1);
     }
 
 

@@ -3,16 +3,11 @@
 
 requirejs.config({
   paths: {
-    zepto: 'zepto.min'
-  },
-  shim: {
-    'zepto': {
-      exports: '$'
-    }
+    jquery: 'jquery',
   }
 });
 
-requirejs(['zepto', 'index', 'build', 'info', 'interface'],
+requirejs(['jquery', 'index', 'build', 'info', 'interface'],
           function($, textsearch, build, info, interface) {
 
 var TICK_INTERVAL = 250;

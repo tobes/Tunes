@@ -1,6 +1,6 @@
 /*global define */
 
-define(['zepto', 'info'], function($, info) {
+define(['jquery', 'info'], function($, info) {
 
   function buildSearch() {
     var out = [];

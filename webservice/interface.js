@@ -1,7 +1,7 @@
 /*global define, document, window, location */
 
 
-define(['zepto', 'build', 'info', 'index'],
+define(['jquery', 'build', 'info', 'index'],
   function($, build, info, textsearch) {
     var isFullscreen = false;
     var scrolls = {};
@@ -253,7 +253,7 @@ define(['zepto', 'build', 'info', 'index'],
       var $toggle = $('#menu-toggle');
       $toggle.show();
       var width = Math.min($('#container').width(), screen.width);
-      var toggleWidth = $toggle.width();
+      var toggleWidth = $toggle.outerWidth();
       $toggle.css('left', width - toggleWidth);
     }
 

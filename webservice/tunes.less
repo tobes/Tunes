@@ -268,6 +268,44 @@ div.results div.track-album {
 .queue-content {
   margin-left: 45px;
 }
+
+
+
+
+@-webkit-keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+.animation-flash {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+
+
+
+
 //#page {
 //  width: 100%;
 //  max-width: 600px;
@@ -475,37 +513,6 @@ div.results div.track-album {
 //}
 //.track-cmd button {
 //    width:20%;
-//}
-//
-//@-webkit-keyframes flash {
-//  0%, 50%, 100% {
-//    opacity: 1;
-//  }
-//  25%,
-//  75% {
-//    opacity: 0.2;
-//  }
-//}
-//@keyframes flash {
-//  0%, 50%, 100% {
-//    opacity: 1;
-//  }
-//  25%,
-//  75% {
-//    opacity: 0.2;
-//  }
-//}
-//.animation-flash {
-//  -webkit-animation-duration: 5s;
-//  animation-duration: 5s;
-//  -webkit-animation-fill-mode: both;
-//  animation-fill-mode: both;
-//  -webkit-animation-timing-function: linear;
-//  animation-timing-function: linear;
-//  animation-iteration-count: infinite;
-//  -webkit-animation-iteration-count: infinite;
-//  -webkit-animation-name: flash;
-//  animation-name: flash;
 //}
 //
 //

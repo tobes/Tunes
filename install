@@ -4,3 +4,7 @@ npm install jimp
 mkdir converted
 # open firewall port (1969) on local network for webservice
 # fedora `firewall-config`
+
+
+# compile css
+lessc tunes.less tunes.css

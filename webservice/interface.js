@@ -344,8 +344,7 @@ define(['zepto', 'build', 'info', 'index'],
     function init() {
       $('#hash').on('click', 'div[data-track]', trackInfo);
       resize();
-      //$('h1').click(toggleFullscreen);
-      $('#logo').click(toggleMenu);
+      $('#logo').click(toggleFullscreen);
       $('#menu a').click(function (){$('#menu').hide();showPage(activePage);});
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'button', buttonClick);

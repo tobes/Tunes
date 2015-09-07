@@ -130,15 +130,16 @@ function playingTick(){
   var current = currentItem;
   var offset = (new Date() - currentTimeOffset) / 1000;
   var position = current.position + offset;
-  $('#currentPosition').html(formatTime(position));
-  $('#currentDuration').html(formatTime(current.duration));
-  if (current.duration) {
-    progress = position * 100 / current.duration;
-  } else {
-    progress = 0;
+  if($('#playing').is(":visible")){
+    $('#currentPosition').html(formatTime(position));
+    $('#currentRemaining').html(formatTime(current.duration - position));
+    if (current.duration) {
+      progress = position * 100 / current.duration;
+    } else {
+      progress = 0;
+    }
+    $('#currentProgress').val(progress);
   }
-  $('#currentProgress').val(progress);
-
 }
 
 

@@ -101,7 +101,7 @@ a {
   float: right;
 }
 #album span {
-  color: #ff9bff;
+  color: #66a266;
   display: block;
 }
 ul {
@@ -126,7 +126,7 @@ ul.menu li {
 li a {
   display: block;
   text-decoration: none;
-  background-color: #ff9bff;
+  background-color: #66a266;
   color: #ffffff;
   border-radius: 25px;
   padding-left: 10px;
@@ -150,7 +150,7 @@ li a {
   padding: 10px;
 }
 .album .album-artist {
-  color: #ff9bff;
+  color: #66a266;
   margin-left: 148px;
   padding: 10px;
 }
@@ -166,7 +166,7 @@ div.album-tracks div.track-title {
 }
 div.album-tracks div.track-artist {
   margin-left: 2em;
-  color: #ff9bff;
+  color: #66a266;
 }
 div.album-tracks div.track-no {
   width: 1em;
@@ -221,10 +221,10 @@ div.results > div:last-child {
   border-bottom: 0;
 }
 div.results div.track-title {
-  color: #ff9bff;
+  color: #66a266;
 }
 div.results div.track-album {
-  color: #ff9bff;
+  color: #66a266;
 }
 .queue-place {
   float: left;
@@ -237,6 +237,9 @@ div.results div.track-album {
 }
 .queue-content {
   margin-left: 45px;
+}
+.queue-item {
+  border-bottom: 1px solid #006400;
 }
 @-webkit-keyframes flash {
   0%,
@@ -271,4 +274,50 @@ div.results div.track-album {
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-name: flash;
   animation-name: flash;
+}
+#playing img {
+  border: 1px solid #006400;
+  padding: 3px;
+  width: 80%;
+  box-sizing: margin-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#currentTrack {
+  text-align: center;
+}
+#currentArtist {
+  font-size: 1.3em;
+  text-align: center;
+}
+#currentAlbum {
+  text-align: center;
+}
+#currentProgress {
+  color: #006400;
+  border: 1px solid #006400;
+  background-color: #ffffff;
+  width: 100%;
+  height: 0.5em;
+  padding: 2px;
+  box-sizing: margin-box;
+}
+progress::-moz-progress-bar {
+  background: #006400;
+}
+progress::-webkit-progress-value {
+  background: #006400;
+  color: #ffffff;
+}
+progress {
+  color: #006400;
+  width: 90%;
+  box-sizing: border-box;
+}
+#currentPosition {
+  float: left;
+}
+#currentRemaining {
+  float: right;
 }

@@ -61,12 +61,22 @@ a {
   display: block;
 }
 .page {
-  display: none;
   padding: 10px;
+}
+.hide {
+  display: none;
 }
 #intro {
   margin-top: 50px;
   text-align: center;
+}
+#queue-header {
+  background-color: #006400;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .clearfix:after {
   content: "";

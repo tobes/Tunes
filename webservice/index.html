@@ -19,28 +19,27 @@
         <div id="logo">Tunes!</div>
 
 
-      <div class="page listing" id="hash">
+      <div class="hide page listing" id="hash">
         <div id="intro">
         <p>Welcome to tunes! </p>
         <p>the future is now</p>
         </div>
       </div>
 
-      <div class="page listing" id="menu">
+      <div class="hide page listing" id="menu">
         <ul class="menu">
           <li><a id="menu-alpha" href="#alpha">A - Z</a></li>
           <li><a href="#artist">Artists</a></li>
           <li><a href="#album">Albums</a></li>
           <li><a href="#controls">Controls</a></li>
           <li><a href="#search">Search</a></li>
-          <li><a href="#playing">Playing</a></li>
-          <li><a href="#queue">Queue</a></li>
+          <li><a href="#info">Playing</a></li>
         </ul>
       </div>
-      <div class="page listing" id="queue"></div>
-      <div class="page listing" id="artist"></div>
-      <div class="page listing" id="album"></div>
+      <div class="hide page listing" id="artist"></div>
+      <div class="hide page listing" id="album"></div>
 
+      <div id="info" class="hide">
       <div class="page" id="playing">
         <div id="currentArtist"></div>
         <div id="currentTrack"></div>
@@ -53,6 +52,9 @@
           </div>
           <progress id="currentProgress" value="0" max="100"></progress>
         </div>
+      </div>
+      <div id="queue-header">Queue</div>
+      <div class="page listing" id="queue"></div>
       </div>
 
   </div>

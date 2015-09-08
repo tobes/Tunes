@@ -10,8 +10,7 @@ define(['jquery', 'build', 'info', 'index'],
 
     var activePage;
     var menuDivs = [
-      'playing',
-      'queue',
+      'info',
       'artist',
       'album',
       'hash',
@@ -341,11 +340,8 @@ define(['jquery', 'build', 'info', 'index'],
         case '#controls':
           display(build.buildControls());
           break;
-        case '#playing':
-          showPage('playing');
-          break;
-        case '#queue':
-          showPage('queue');
+        case '#info':
+          showPage('info');
           break;
         case '#search':
           display(build.buildSearch());

@@ -364,7 +364,7 @@ define(['jquery', 'build', 'info', 'index'],
       $('#hash').on('click', 'div[data-track]', trackInfo);
       resize();
       $('#logo').click(toggleFullscreen);
-      $('#menu a').click(function (){$('#menu').hide();showPage(activePage);});
+      $('#menu a').click(function (){showPage(activePage);});
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'a', buttonClick);
       $('#currentProgressDiv').click(progressClick);

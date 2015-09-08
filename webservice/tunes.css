@@ -321,3 +321,20 @@ progress {
 #currentRemaining {
   float: right;
 }
+#currentProgressDiv.progressRemaining progress {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+#currentProgressDiv.progressPosition #currentRemaining {
+  display: none;
+}
+#currentProgressDiv.progressRemaining #currentPosition {
+  display: none;
+}

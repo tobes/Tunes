@@ -136,6 +136,9 @@ function playingTick(){
     } else {
       progress = 0;
     }
+    if ($('#currentProgressDiv').hasClass('progressRemaining')){
+      progress = 100 - progress;
+    }
     $('#currentProgress').val(progress);
   }
 }

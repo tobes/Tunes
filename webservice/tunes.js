@@ -23,6 +23,9 @@ var currentStreamId;
 
 function formatTime(time) {
   time = Math.ceil(time);
+  if (time < 0){
+    time = 0;
+  }
   var seconds = time % 60;
   time = (time - seconds) / 60;
   if (seconds < 10) {
@@ -48,7 +51,7 @@ function playingChange(current) {
 function playingUpdate(current) {
   var progress;
   $('#currentPosition').html(formatTime(current.position));
-  $('#currentDuration').html(formatTime(current.duration));
+  $('#currentRemaining').html(formatTime(current.duration));
   if (current.duration) {
     progress = current.position * 100 / current.duration;
   } else {
@@ -127,7 +130,7 @@ function playingTick(){
   var position = current.position + offset;
   if($('#playing').is(":visible")){
     $('#currentPosition').html(formatTime(position));
-    $('#currentRemaining').html(formatTime(current.duration - position));
+    $('#currentRemaining').html(formatTime(Math.floor(current.duration) - position));
     if (current.duration) {
       progress = position * 100 / current.duration;
     } else {

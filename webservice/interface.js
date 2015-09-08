@@ -6,6 +6,7 @@ define(['jquery', 'build', 'info', 'index'],
     var isFullscreen = false;
     var scrolls = {};
     var lastHash;
+    var progress = 0;
 
     var activePage;
     var menuDivs = [
@@ -80,6 +81,29 @@ define(['jquery', 'build', 'info', 'index'],
       showPage(activePage);
     }
 
+    function progressClick(){
+      progress++;
+      if (progress > 2){
+        progress = 0;
+      }
+      progressSet();
+    }
+
+
+    function progressSet(){
+      var $div = $('#currentProgressDiv');
+      $div.removeClass('progressPosition');
+      $div.removeClass('progressRemaining');
+
+      switch (progress){
+        case 0:
+          $div.addClass('progressPosition');
+          break;
+        case 1:
+          $div.addClass('progressRemaining');
+          break;
+      }
+    }
 
     function artistScroll(name) {
       // setTimeout to ensure the element is displayed
@@ -348,6 +372,8 @@ define(['jquery', 'build', 'info', 'index'],
       $('#menu a').click(function (){$('#menu').hide();showPage(activePage);});
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'button', buttonClick);
+      $('#currentProgressDiv').click(progressClick);
+      progressSet();
       window.onresize = resize;
       window.onhashchange = locationHashChanged;
       build.buildArtistList();

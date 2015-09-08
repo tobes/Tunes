@@ -271,8 +271,7 @@ define(['jquery', 'build', 'info', 'index'],
 
 
     function resize() {
-      var height = $(window).height(); - $('#container').height(height);
-
+      var height = $(window).height();
       var $toggle = $('#menu-toggle');
       $toggle.show();
       var width = Math.min($('#container').width(), screen.width);

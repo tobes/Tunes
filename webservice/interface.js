@@ -373,7 +373,8 @@ define(['jquery', 'build', 'info', 'index'],
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'button', buttonClick);
       $('#currentProgressDiv').click(progressClick);
-      progressSet();
+      // android browser needs delay to initiate
+      setTimeout(progressSet, 1);
       window.onresize = resize;
       window.onhashchange = locationHashChanged;
       build.buildArtistList();

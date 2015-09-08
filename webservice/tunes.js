@@ -100,8 +100,8 @@ function processCurrent(data) {
   currentTimeOffset = new Date();
   if (current){
     if (current.paused !== currentPaused) {
-      pausedChange(current.paused);
       currentPaused = current.paused;
+      pausedChange(current.paused);
     }
     if (current.item) {
       playingUpdate(current);

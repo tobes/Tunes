@@ -97,7 +97,7 @@ a {
   background-color: #aacbaa;
   color: #ffffff;
   padding: 3px 20px;
-  border-radius: 25px;
+  border-radius: 5px;
   float: right;
 }
 #album span {
@@ -122,15 +122,15 @@ ul li {
 ul.menu li {
   width: 50%;
   font-size: 1.5em;
+  padding: 3px;
 }
 li a {
   display: block;
   text-decoration: none;
   background-color: #66a266;
   color: #ffffff;
-  border-radius: 25px;
-  padding-left: 10px;
-  padding-right: 10px;
+  border-radius: 5px;
+  padding: 10px;
 }
 .album {
   margin-bottom: 20px;

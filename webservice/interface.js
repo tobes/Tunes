@@ -371,7 +371,7 @@ define(['jquery', 'build', 'info', 'index'],
       $('#logo').click(toggleFullscreen);
       $('#menu a').click(function (){$('#menu').hide();showPage(activePage);});
       $('#menu-toggle').click(toggleMenu);
-      $('#page').on('click', 'button', buttonClick);
+      $('#page').on('click', 'a', buttonClick);
       $('#currentProgressDiv').click(progressClick);
       // android browser needs delay to initiate
       setTimeout(progressSet, 1);

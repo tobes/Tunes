@@ -16,14 +16,14 @@ define(['jquery', 'info'], function($, info) {
 
   function buildControls() {
     var out = [];
-    out.push('<ul>');
-    out.push('<li><button id="play-pause" data-cmd="play">Play</button></li>');
-    out.push('<li><button data-cmd="skip">Skip</button></li>');
+    out.push('<ul class="menu">');
+    out.push('<li><a id="play-pause" data-cmd="play">Play</button></a>');
+    out.push('<li><a data-cmd="skip">Skip</a></li>');
     out.push('</ul>');
     out.push('<div class="clearfix"></div>');
-    out.push('<ul>');
-    out.push('<li><button data-cmd="vol:up">Vol +</button></li>');
-    out.push('<li><button data-cmd="vol:down">Vol -</button></li>');
+    out.push('<ul class="menu">');
+    out.push('<li><a data-cmd="vol:up">Vol +</a></li>');
+    out.push('<li><a data-cmd="vol:down">Vol -</a></li>');
     out.push('</ul>');
     return out.join('');
   }

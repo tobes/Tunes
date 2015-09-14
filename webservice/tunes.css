@@ -31,7 +31,6 @@ a {
   font-size: 3em;
   height: 1.2em;
   border: 3px solid #ffffff;
-  vertical-align: middle;
 }
 #logo {
   background-color: #006400;
@@ -39,7 +38,6 @@ a {
   font-size: 3em;
   height: 1.2em;
   border: 3px solid #ffffff;
-  vertical-align: middle;
   padding-left: 10px;
 }
 #menu-toggle {
@@ -48,7 +46,6 @@ a {
   font-size: 3em;
   height: 1.2em;
   border: 3px solid #ffffff;
-  vertical-align: middle;
   z-index: 100;
   width: 1.2em;
   display: block;
@@ -56,6 +53,23 @@ a {
   top: 0;
   text-align: center;
   display: none;
+}
+div#messages {
+  position: fixed;
+  top: 3em;
+  z-index: 101;
+  width: 100%;
+}
+#messages ul li {
+  background-color: #000000;
+  color: #ffffff;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  float: none;
+  border: 2px solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 5px;
 }
 #hash {
   display: block;

@@ -12,6 +12,9 @@
 @border-radius: 25px;
 @padding: 10px;
 
+@msg-bg:#000;
+@msg-fg:#FFF;
+@msg-border:#CCC;
 
 
 body {
@@ -51,7 +54,6 @@ position:relative;
   font-size:3em;
   height: 1.2em;
   border:3px solid @main-bg;
-  vertical-align: middle;
 }
 #logo {
   .header;
@@ -68,6 +70,27 @@ position:relative;
   text-align:center;
   display:none;
 }
+
+div#messages {
+    position:fixed;
+    top:3em;
+    z-index:101;
+    width:100%;
+}
+
+
+#messages ul li {
+    background-color:@msg-bg;
+    color:@msg-fg;
+    display:block;
+    padding:@padding;
+    margin:@padding;
+    float:none;
+    border:2px solid @msg-border;
+  box-sizing: border-box;
+  border-radius: @border-radius;
+}
+
 #hash {
     display:block;
 }

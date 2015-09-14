@@ -72,7 +72,7 @@ function processQueue(data) {
     $item = build.buildQueueItem(item, i + 1);
     $queue.append($.parseHTML($item));
   }
- // info.queue = queue;
+  info.setQueue(queue);
 }
 
 

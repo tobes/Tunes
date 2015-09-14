@@ -66,10 +66,15 @@ define(['event', 'config', 'db', 'queue', 'player'],
       response.write('event: ' + type + '\ndata: ' + msg + '\n\n');
     }
 
+    function msgBuild(text){
+      return JSON.stringify({'text': text});
+    }
+
     function registerStream(streamId, response){
       streams[streamId] = response;
       message(response, 'current',JSON.stringify(player.current()));
       message(response, 'queue',JSON.stringify(feedQueue));
+      message(response, 'message', msgBuild('connected'));
     }
 
     function clearStream(streamId){
@@ -113,6 +118,16 @@ define(['event', 'config', 'db', 'queue', 'player'],
     function playlistUpdate(queue) {
       feedQueue = queue;
       messageStream('queue',JSON.stringify(queue));
+    }
+
+
+    function playlistTrackAdded(track) {
+      if (track.track){
+        messageStream(
+          'message',
+          msgBuild(track.track + ' added')
+        );
+      }
     }
 
 
@@ -302,6 +317,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
       event.add('exit', stopServer);
       event.add('playerChange', playerChange);
       event.add('playlistUpdate', playlistUpdate);
+      event.add('playlistTrackAdded', playlistTrackAdded);
       getIPAdress();
       startWebservice();
     }

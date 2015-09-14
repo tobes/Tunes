@@ -58,6 +58,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       queueIds.push(item.id);
       convert.convert(item, setReady, item.id);
       event.trigger('playlistUpdate', queue);
+      event.trigger('playlistTrackAdded', queueItem);
       return true;
     }
 

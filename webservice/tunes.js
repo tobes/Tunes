@@ -12,6 +12,7 @@ requirejs(['jquery', 'index', 'build', 'info', 'interface'],
 
 var TICK_INTERVAL = 250;
 var ERROR_TIMEOUT = 10000;
+var MESSAGE_DISPLAY_TIME = 3000;
 
 var evtSource;
 var currentTrack;
@@ -141,7 +142,15 @@ function playingTick(){
   }
 }
 
-
+function processMessage(data){
+  var data = JSON.parse(data.data);
+  var $msg = $('<li>').text(data.text);
+  $('#messages ul').append($msg);
+  function destroy(){
+    $msg.remove();
+  }
+  setTimeout(destroy, MESSAGE_DISPLAY_TIME);
+}
 
 function stream() {
   evtSource = new EventSource("/stream");
@@ -151,6 +160,8 @@ function stream() {
   evtSource.addEventListener('queue', processQueue, false);
   // current
   evtSource.addEventListener('current', processCurrent, false);
+  // messages
+  evtSource.addEventListener('message', processMessage, false);
 }
 
 

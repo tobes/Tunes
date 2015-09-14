@@ -226,12 +226,16 @@ define(function() {
     processTrackData(data);
   }
 
+  function setQueue(data){
+    queue = data;
+  }
+
   return {
     process: process,
     alphaBit: alphaBit,
     alphasArtist: alphasArtist,
     alphasAlbum: alphasAlbum,
-    queue: queue,
+    setQueue: setQueue,
     inQueue: inQueue,
 
     trackList: trackList,

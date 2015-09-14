@@ -4,6 +4,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
   function(convert, event, random, config) {
 
     var queue = [];
+    var queueIds = [];
 
     function setReady(src, id) {
       var i;
@@ -28,6 +29,11 @@ define('queue', ['convert', 'event', 'random', 'config'],
       if (source === 'auto' && queue.length === config.queueAutoMin) {
         return false;
       }
+      if (queueIds.indexOf(item.id) !== -1){
+        console.log('item already in queue', item);
+        return false;
+      }
+
       var art;
       if (item.art){
         art = item.albumId;
@@ -49,6 +55,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
         artistId: item.artistId,
       };
       queue.push(queueItem);
+      queueIds.push(item.id);
       convert.convert(item, setReady, item.id);
       event.trigger('playlistUpdate', queue);
       return true;
@@ -76,6 +83,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
           item = queue[i];
           // remove item
           queue = removeIndex(queue, i);
+          queueIds = removeIndex(queueIds, i);
           callback(item);
           event.trigger('playlistUpdate', queue);
           break;

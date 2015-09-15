@@ -3,6 +3,7 @@ html.purple body {
   padding: 0;
   margin: 0;
   background-color: #ffffff;
+  height: 100%;
 }
 html.purple #page {
   width: 100%;
@@ -260,7 +261,7 @@ html.purple .queue-place {
   width: 30px;
   height: 30px;
   background-color: #663399;
-  color: #FFF;
+  color: #ffffff;
   text-align: center;
 }
 html.purple .queue-content {
@@ -379,6 +380,7 @@ li.style-menu.purple a {
   background-color: #663399;
   color: #ffffff;
   border-radius: 25px;
+  border: 2px solid #ffffff;
   padding: 10px;
   font-size: 1.3em !important;
 }
@@ -387,6 +389,7 @@ html.red body {
   padding: 0;
   margin: 0;
   background-color: #ffffff;
+  height: 100%;
 }
 html.red #page {
   width: 100%;
@@ -644,7 +647,7 @@ html.red .queue-place {
   width: 30px;
   height: 30px;
   background-color: #990000;
-  color: #FFF;
+  color: #ffffff;
   text-align: center;
 }
 html.red .queue-content {
@@ -763,6 +766,7 @@ li.style-menu.red a {
   background-color: #990000;
   color: #ffffff;
   border-radius: 25px;
+  border: 2px solid #ffffff;
   padding: 10px;
   font-size: 1.3em !important;
 }
@@ -771,6 +775,7 @@ html.green body {
   padding: 0;
   margin: 0;
   background-color: #ffffff;
+  height: 100%;
 }
 html.green #page {
   width: 100%;
@@ -1028,7 +1033,7 @@ html.green .queue-place {
   width: 30px;
   height: 30px;
   background-color: #006400;
-  color: #FFF;
+  color: #ffffff;
   text-align: center;
 }
 html.green .queue-content {
@@ -1147,6 +1152,7 @@ li.style-menu.green a {
   background-color: #006400;
   color: #ffffff;
   border-radius: 5px;
+  border: 2px solid #ffffff;
   padding: 10px;
   font-size: 1.3em !important;
 }
@@ -1155,6 +1161,7 @@ html.big body {
   padding: 0;
   margin: 0;
   background-color: #ffffff;
+  height: 100%;
 }
 html.big #page {
   width: 100%;
@@ -1412,7 +1419,7 @@ html.big .queue-place {
   width: 30px;
   height: 30px;
   background-color: #663399;
-  color: #FFF;
+  color: #ffffff;
   text-align: center;
 }
 html.big .queue-content {
@@ -1531,6 +1538,782 @@ li.style-menu.big a {
   background-color: #663399;
   color: #ffffff;
   border-radius: 25px;
+  border: 2px solid #ffffff;
   padding: 10px;
   font-size: 2em !important;
+}
+html.purple-inverse body {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: #663399;
+  height: 100%;
+}
+html.purple-inverse #page {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  box-sizing: border-box;
+}
+html.purple-inverse #container {
+  width: 100%;
+  max-width: 600px;
+  color: #ffffff;
+  background-color: #663399;
+  overflow: auto;
+  position: relative;
+}
+html.purple-inverse a {
+  text-decoration: none;
+}
+html.purple-inverse #container > div {
+  position: relative;
+}
+html.purple-inverse .header {
+  background-color: #ffffff;
+  color: #663399;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #663399;
+}
+html.purple-inverse #logo {
+  background-color: #ffffff;
+  color: #663399;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #663399;
+  padding-left: 10px;
+}
+html.purple-inverse #menu-toggle {
+  background-color: #ffffff;
+  color: #663399;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #663399;
+  z-index: 100;
+  width: 1.2em;
+  display: block;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  display: none;
+}
+html.purple-inverse div#messages {
+  position: fixed;
+  top: 3em;
+  z-index: 101;
+  width: 100%;
+  pointer-events: none;
+}
+html.purple-inverse #messages ul li {
+  background-color: #000000;
+  color: #ffffff;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  float: none;
+  border: 2px solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 25px;
+  pointer-events: auto;
+}
+html.purple-inverse #hash {
+  display: block;
+}
+html.purple-inverse .page {
+  padding: 10px;
+}
+html.purple-inverse .listing {
+  font-size: 1.3em;
+}
+html.purple-inverse .hide {
+  display: none;
+}
+html.purple-inverse #intro {
+  margin-top: 50px;
+  text-align: center;
+}
+html.purple-inverse #queue-header {
+  background-color: #ffffff;
+  color: #663399;
+  text-align: center;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+html.purple-inverse .clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.purple-inverse #artist > a,
+html.purple-inverse #album > a {
+  display: block;
+  padding-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ffffff;
+  color: #ffffff;
+  text-decoration: none;
+}
+html.purple-inverse #artist > a:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.purple-inverse #artist > a.anchor,
+html.purple-inverse #album > a.anchor {
+  height: 0;
+  padding: 0;
+  border: 0;
+}
+html.purple-inverse #artist span {
+  background-color: #ffffff;
+  color: #663399;
+  padding: 3px 20px;
+  border-radius: 25px;
+  float: right;
+}
+html.purple-inverse #album span {
+  color: #ffffff;
+  display: block;
+}
+html.purple-inverse ul {
+  padding: 0;
+}
+html.purple-inverse ul.button-small li {
+  width: 20%;
+}
+html.purple-inverse ul li {
+  padding: 5px 10px;
+  font-size: 1.2em;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  color: #663399;
+}
+html.purple-inverse ul.menu li {
+  min-width: 50%;
+  font-size: 1.5em;
+  padding: 3px;
+}
+html.purple-inverse li a {
+  display: block;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #663399;
+  border-radius: 25px;
+  padding: 10px;
+}
+html.purple-inverse .album {
+  margin-bottom: 20px;
+}
+html.purple-inverse .album img {
+  width: 128px;
+  height: 128px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #ffffff;
+  padding: 1px;
+  background-color: #663399;
+}
+html.purple-inverse .album .album-title {
+  margin-left: 148px;
+  padding: 10px;
+}
+html.purple-inverse .album .album-artist {
+  color: #ffffff;
+  margin-left: 148px;
+  padding: 10px;
+}
+html.purple-inverse div.album-tracks > div {
+  border-bottom: 1px solid #ffffff;
+  padding: 10px;
+}
+html.purple-inverse div.album-tracks > div:last-child {
+  border-bottom: 0;
+}
+html.purple-inverse div.album-tracks div.track-title {
+  margin-left: 2em;
+}
+html.purple-inverse div.album-tracks div.track-artist {
+  margin-left: 2em;
+  color: #ffffff;
+}
+html.purple-inverse div.album-tracks div.track-no {
+  width: 1em;
+  float: left;
+}
+html.purple-inverse .artist-album img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #ffffff;
+  padding: 1px;
+  background-color: #663399;
+}
+html.purple-inverse .artist-album > a {
+  text-decoration: none;
+}
+html.purple-inverse div.artist-album {
+  background-color: #7547a3;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ffffff;
+}
+html.purple-inverse div.artist-album > div {
+  border-bottom: 1px solid #ffffff;
+  padding: 10px;
+}
+html.purple-inverse div.artist-album > div:last-child {
+  border-bottom: 0;
+}
+html.purple-inverse .album-head {
+  padding: 10px;
+  color: #663399;
+  background-color: #ffffff;
+}
+html.purple-inverse div.results img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #ffffff;
+  padding: 1px;
+  background-color: #663399;
+}
+html.purple-inverse div.results > div {
+  border-bottom: 1px solid #ffffff;
+  padding: 10px;
+}
+html.purple-inverse div.results > div:last-child {
+  border-bottom: 0;
+}
+html.purple-inverse div.results div.track-title {
+  color: #ffffff;
+}
+html.purple-inverse div.results div.track-album {
+  color: #ffffff;
+}
+html.purple-inverse .queue-place {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  color: #663399;
+  text-align: center;
+}
+html.purple-inverse .queue-content {
+  margin-left: 45px;
+}
+html.purple-inverse .queue-item {
+  border-bottom: 1px solid #ffffff;
+}
+@-webkit-keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+@keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+html.purple-inverse .animation-flash {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+html.purple-inverse #playing img {
+  border: 1px solid #ffffff;
+  padding: 3px;
+  width: 80%;
+  box-sizing: margin-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+html.purple-inverse #currentTrack {
+  text-align: center;
+}
+html.purple-inverse #currentArtist {
+  font-size: 1.3em;
+  text-align: center;
+}
+html.purple-inverse #currentAlbum {
+  text-align: center;
+}
+html.purple-inverse #currentProgress {
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  background-color: #663399;
+  width: 100%;
+  height: 0.5em;
+  padding: 2px;
+  box-sizing: margin-box;
+}
+html.purple-inverse progress::-moz-progress-bar {
+  background: #ffffff;
+}
+html.purple-inverse progress::-webkit-progress-value {
+  background: #ffffff;
+}
+html.purple-inverse progress::-webkit-progress-bar {
+  background: #663399;
+}
+html.purple-inverse progress {
+  color: #ffffff;
+  width: 90%;
+  box-sizing: border-box;
+}
+html.purple-inverse #currentPosition {
+  float: left;
+}
+html.purple-inverse #currentRemaining {
+  float: right;
+}
+html.purple-inverse #currentProgressDiv.progressRemaining progress {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+html.purple-inverse #currentProgressDiv.progressPosition #currentRemaining {
+  display: none;
+}
+html.purple-inverse #currentProgressDiv.progressRemaining #currentPosition {
+  display: none;
+}
+li.style-menu.purple-inverse {
+  width: 50%;
+  font-size: 1.3em !important;
+  padding: 3px;
+}
+li.style-menu.purple-inverse a {
+  display: block;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #663399;
+  border-radius: 25px;
+  border: 2px solid #663399;
+  padding: 10px;
+  font-size: 1.3em !important;
+}
+html.night body {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: #222222;
+  height: 100%;
+}
+html.night #page {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  box-sizing: border-box;
+}
+html.night #container {
+  width: 100%;
+  max-width: 600px;
+  color: #999999;
+  background-color: #222222;
+  overflow: auto;
+  position: relative;
+}
+html.night a {
+  text-decoration: none;
+}
+html.night #container > div {
+  position: relative;
+}
+html.night .header {
+  background-color: #999999;
+  color: #222222;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #222222;
+}
+html.night #logo {
+  background-color: #999999;
+  color: #222222;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #222222;
+  padding-left: 10px;
+}
+html.night #menu-toggle {
+  background-color: #999999;
+  color: #222222;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #222222;
+  z-index: 100;
+  width: 1.2em;
+  display: block;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  display: none;
+}
+html.night div#messages {
+  position: fixed;
+  top: 3em;
+  z-index: 101;
+  width: 100%;
+  pointer-events: none;
+}
+html.night #messages ul li {
+  background-color: #000000;
+  color: #ffffff;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  float: none;
+  border: 2px solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 25px;
+  pointer-events: auto;
+}
+html.night #hash {
+  display: block;
+}
+html.night .page {
+  padding: 10px;
+}
+html.night .listing {
+  font-size: 1.3em;
+}
+html.night .hide {
+  display: none;
+}
+html.night #intro {
+  margin-top: 50px;
+  text-align: center;
+}
+html.night #queue-header {
+  background-color: #999999;
+  color: #222222;
+  text-align: center;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+html.night .clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.night #artist > a,
+html.night #album > a {
+  display: block;
+  padding-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #dddddd;
+  color: #999999;
+  text-decoration: none;
+}
+html.night #artist > a:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.night #artist > a.anchor,
+html.night #album > a.anchor {
+  height: 0;
+  padding: 0;
+  border: 0;
+}
+html.night #artist span {
+  background-color: #dddddd;
+  color: #222222;
+  padding: 3px 20px;
+  border-radius: 25px;
+  float: right;
+}
+html.night #album span {
+  color: #c2c2c2;
+  display: block;
+}
+html.night ul {
+  padding: 0;
+}
+html.night ul.button-small li {
+  width: 20%;
+}
+html.night ul li {
+  padding: 5px 10px;
+  font-size: 1.2em;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  color: #222222;
+}
+html.night ul.menu li {
+  min-width: 50%;
+  font-size: 1.5em;
+  padding: 3px;
+}
+html.night li a {
+  display: block;
+  text-decoration: none;
+  background-color: #999999;
+  color: #222222;
+  border-radius: 25px;
+  padding: 10px;
+}
+html.night .album {
+  margin-bottom: 20px;
+}
+html.night .album img {
+  width: 128px;
+  height: 128px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #999999;
+  padding: 1px;
+  background-color: #222222;
+}
+html.night .album .album-title {
+  margin-left: 148px;
+  padding: 10px;
+}
+html.night .album .album-artist {
+  color: #c2c2c2;
+  margin-left: 148px;
+  padding: 10px;
+}
+html.night div.album-tracks > div {
+  border-bottom: 1px solid #dddddd;
+  padding: 10px;
+}
+html.night div.album-tracks > div:last-child {
+  border-bottom: 0;
+}
+html.night div.album-tracks div.track-title {
+  margin-left: 2em;
+}
+html.night div.album-tracks div.track-artist {
+  margin-left: 2em;
+  color: #c2c2c2;
+}
+html.night div.album-tracks div.track-no {
+  width: 1em;
+  float: left;
+}
+html.night .artist-album img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #999999;
+  padding: 1px;
+  background-color: #222222;
+}
+html.night .artist-album > a {
+  text-decoration: none;
+}
+html.night div.artist-album {
+  background-color: #2e2e2e;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #dddddd;
+}
+html.night div.artist-album > div {
+  border-bottom: 1px solid #dddddd;
+  padding: 10px;
+}
+html.night div.artist-album > div:last-child {
+  border-bottom: 0;
+}
+html.night .album-head {
+  padding: 10px;
+  color: #222222;
+  background-color: #dddddd;
+}
+html.night div.results img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #999999;
+  padding: 1px;
+  background-color: #222222;
+}
+html.night div.results > div {
+  border-bottom: 1px solid #dddddd;
+  padding: 10px;
+}
+html.night div.results > div:last-child {
+  border-bottom: 0;
+}
+html.night div.results div.track-title {
+  color: #c2c2c2;
+}
+html.night div.results div.track-album {
+  color: #c2c2c2;
+}
+html.night .queue-place {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #999999;
+  color: #222222;
+  text-align: center;
+}
+html.night .queue-content {
+  margin-left: 45px;
+}
+html.night .queue-item {
+  border-bottom: 1px solid #999999;
+}
+@-webkit-keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+@keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+html.night .animation-flash {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+html.night #playing img {
+  border: 1px solid #999999;
+  padding: 3px;
+  width: 80%;
+  box-sizing: margin-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+html.night #currentTrack {
+  text-align: center;
+}
+html.night #currentArtist {
+  font-size: 1.3em;
+  text-align: center;
+}
+html.night #currentAlbum {
+  text-align: center;
+}
+html.night #currentProgress {
+  color: #999999;
+  border: 1px solid #999999;
+  background-color: #222222;
+  width: 100%;
+  height: 0.5em;
+  padding: 2px;
+  box-sizing: margin-box;
+}
+html.night progress::-moz-progress-bar {
+  background: #999999;
+}
+html.night progress::-webkit-progress-value {
+  background: #999999;
+}
+html.night progress::-webkit-progress-bar {
+  background: #222222;
+}
+html.night progress {
+  color: #999999;
+  width: 90%;
+  box-sizing: border-box;
+}
+html.night #currentPosition {
+  float: left;
+}
+html.night #currentRemaining {
+  float: right;
+}
+html.night #currentProgressDiv.progressRemaining progress {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+html.night #currentProgressDiv.progressPosition #currentRemaining {
+  display: none;
+}
+html.night #currentProgressDiv.progressRemaining #currentPosition {
+  display: none;
+}
+li.style-menu.night {
+  width: 50%;
+  font-size: 1.3em !important;
+  padding: 3px;
+}
+li.style-menu.night a {
+  display: block;
+  text-decoration: none;
+  background-color: #999999;
+  color: #222222;
+  border-radius: 25px;
+  border: 2px solid #222222;
+  padding: 10px;
+  font-size: 1.3em !important;
+}
+html {
+  height: 100%;
 }

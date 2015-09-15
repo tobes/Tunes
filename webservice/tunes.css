@@ -1,17 +1,784 @@
-body {
+html.purple body {
   font-family: Verdana, Geneva, sans-serif;
-  font-size: 1.3em;
   padding: 0;
   margin: 0;
   background-color: #ffffff;
 }
-#page {
+html.purple #page {
   width: 100%;
   max-width: 600px;
   height: 100%;
   box-sizing: border-box;
 }
-#container {
+html.purple #container {
+  width: 100%;
+  max-width: 600px;
+  color: #663399;
+  background-color: #ffffff;
+  overflow: auto;
+  position: relative;
+}
+html.purple a {
+  text-decoration: none;
+}
+html.purple #container > div {
+  position: relative;
+}
+html.purple .header {
+  background-color: #663399;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+}
+html.purple #logo {
+  background-color: #663399;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+  padding-left: 10px;
+}
+html.purple #menu-toggle {
+  background-color: #663399;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+  z-index: 100;
+  width: 1.2em;
+  display: block;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  display: none;
+}
+html.purple div#messages {
+  position: fixed;
+  top: 3em;
+  z-index: 101;
+  width: 100%;
+  pointer-events: none;
+}
+html.purple #messages ul li {
+  background-color: #000000;
+  color: #ffffff;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  float: none;
+  border: 2px solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 25px;
+  pointer-events: auto;
+}
+html.purple #hash {
+  display: block;
+}
+html.purple .page {
+  padding: 10px;
+}
+html.purple .listing {
+  font-size: 1.3em;
+}
+html.purple .hide {
+  display: none;
+}
+html.purple #intro {
+  margin-top: 50px;
+  text-align: center;
+}
+html.purple #queue-header {
+  background-color: #663399;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+html.purple .clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.purple #artist > a,
+html.purple #album > a {
+  display: block;
+  padding-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ccbbdd;
+  color: #663399;
+  text-decoration: none;
+}
+html.purple #artist > a:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.purple #artist > a.anchor,
+html.purple #album > a.anchor {
+  height: 0;
+  padding: 0;
+  border: 0;
+}
+html.purple #artist span {
+  background-color: #ccbbdd;
+  color: #ffffff;
+  padding: 3px 20px;
+  border-radius: 25px;
+  float: right;
+}
+html.purple #album span {
+  color: #a385c2;
+  display: block;
+}
+html.purple ul {
+  padding: 0;
+}
+html.purple ul.button-small li {
+  width: 20%;
+}
+html.purple ul li {
+  padding: 5px 10px;
+  font-size: 1.2em;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  color: #ffffff;
+}
+html.purple ul.menu li {
+  min-width: 50%;
+  font-size: 1.5em;
+  padding: 3px;
+}
+html.purple li a {
+  display: block;
+  text-decoration: none;
+  background-color: #663399;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px;
+}
+html.purple .album {
+  margin-bottom: 20px;
+}
+html.purple .album img {
+  width: 128px;
+  height: 128px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #663399;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.purple .album .album-title {
+  margin-left: 148px;
+  padding: 10px;
+}
+html.purple .album .album-artist {
+  color: #a385c2;
+  margin-left: 148px;
+  padding: 10px;
+}
+html.purple div.album-tracks > div {
+  border-bottom: 1px solid #ccbbdd;
+  padding: 10px;
+}
+html.purple div.album-tracks > div:last-child {
+  border-bottom: 0;
+}
+html.purple div.album-tracks div.track-title {
+  margin-left: 2em;
+}
+html.purple div.album-tracks div.track-artist {
+  margin-left: 2em;
+  color: #a385c2;
+}
+html.purple div.album-tracks div.track-no {
+  width: 1em;
+  float: left;
+}
+html.purple .artist-album img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #663399;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.purple .artist-album > a {
+  text-decoration: none;
+}
+html.purple div.artist-album {
+  background-color: #f0ebf5;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccbbdd;
+}
+html.purple div.artist-album > div {
+  border-bottom: 1px solid #ccbbdd;
+  padding: 10px;
+}
+html.purple div.artist-album > div:last-child {
+  border-bottom: 0;
+}
+html.purple .album-head {
+  padding: 10px;
+  color: #ffffff;
+  background-color: #ccbbdd;
+}
+html.purple div.results img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #663399;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.purple div.results > div {
+  border-bottom: 1px solid #ccbbdd;
+  padding: 10px;
+}
+html.purple div.results > div:last-child {
+  border-bottom: 0;
+}
+html.purple div.results div.track-title {
+  color: #a385c2;
+}
+html.purple div.results div.track-album {
+  color: #a385c2;
+}
+html.purple .queue-place {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #663399;
+  color: #FFF;
+  text-align: center;
+}
+html.purple .queue-content {
+  margin-left: 45px;
+}
+html.purple .queue-item {
+  border-bottom: 1px solid #663399;
+}
+@-webkit-keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+@keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+html.purple .animation-flash {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+html.purple #playing img {
+  border: 1px solid #663399;
+  padding: 3px;
+  width: 80%;
+  box-sizing: margin-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+html.purple #currentTrack {
+  text-align: center;
+}
+html.purple #currentArtist {
+  font-size: 1.3em;
+  text-align: center;
+}
+html.purple #currentAlbum {
+  text-align: center;
+}
+html.purple #currentProgress {
+  color: #663399;
+  border: 1px solid #663399;
+  background-color: #ffffff;
+  width: 100%;
+  height: 0.5em;
+  padding: 2px;
+  box-sizing: margin-box;
+}
+html.purple progress::-moz-progress-bar {
+  background: #663399;
+}
+html.purple progress::-webkit-progress-value {
+  background: #663399;
+}
+html.purple progress::-webkit-progress-bar {
+  background: #ffffff;
+}
+html.purple progress {
+  color: #663399;
+  width: 90%;
+  box-sizing: border-box;
+}
+html.purple #currentPosition {
+  float: left;
+}
+html.purple #currentRemaining {
+  float: right;
+}
+html.purple #currentProgressDiv.progressRemaining progress {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+html.purple #currentProgressDiv.progressPosition #currentRemaining {
+  display: none;
+}
+html.purple #currentProgressDiv.progressRemaining #currentPosition {
+  display: none;
+}
+li.style-menu.purple {
+  width: 50%;
+  font-size: 1.3em !important;
+  padding: 3px;
+}
+li.style-menu.purple a {
+  display: block;
+  text-decoration: none;
+  background-color: #663399;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 1.3em !important;
+}
+html.red body {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+}
+html.red #page {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  box-sizing: border-box;
+}
+html.red #container {
+  width: 100%;
+  max-width: 600px;
+  color: #990000;
+  background-color: #ffffff;
+  overflow: auto;
+  position: relative;
+}
+html.red a {
+  text-decoration: none;
+}
+html.red #container > div {
+  position: relative;
+}
+html.red .header {
+  background-color: #990000;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+}
+html.red #logo {
+  background-color: #990000;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+  padding-left: 10px;
+}
+html.red #menu-toggle {
+  background-color: #990000;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+  z-index: 100;
+  width: 1.2em;
+  display: block;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  display: none;
+}
+html.red div#messages {
+  position: fixed;
+  top: 3em;
+  z-index: 101;
+  width: 100%;
+  pointer-events: none;
+}
+html.red #messages ul li {
+  background-color: #000000;
+  color: #ffffff;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  float: none;
+  border: 2px solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 25px;
+  pointer-events: auto;
+}
+html.red #hash {
+  display: block;
+}
+html.red .page {
+  padding: 10px;
+}
+html.red .listing {
+  font-size: 1.3em;
+}
+html.red .hide {
+  display: none;
+}
+html.red #intro {
+  margin-top: 50px;
+  text-align: center;
+}
+html.red #queue-header {
+  background-color: #990000;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+html.red .clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.red #artist > a,
+html.red #album > a {
+  display: block;
+  padding-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddaaaa;
+  color: #990000;
+  text-decoration: none;
+}
+html.red #artist > a:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.red #artist > a.anchor,
+html.red #album > a.anchor {
+  height: 0;
+  padding: 0;
+  border: 0;
+}
+html.red #artist span {
+  background-color: #ddaaaa;
+  color: #ffffff;
+  padding: 3px 20px;
+  border-radius: 25px;
+  float: right;
+}
+html.red #album span {
+  color: #c26666;
+  display: block;
+}
+html.red ul {
+  padding: 0;
+}
+html.red ul.button-small li {
+  width: 20%;
+}
+html.red ul li {
+  padding: 5px 10px;
+  font-size: 1.2em;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  color: #ffffff;
+}
+html.red ul.menu li {
+  min-width: 50%;
+  font-size: 1.5em;
+  padding: 3px;
+}
+html.red li a {
+  display: block;
+  text-decoration: none;
+  background-color: #990000;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px;
+}
+html.red .album {
+  margin-bottom: 20px;
+}
+html.red .album img {
+  width: 128px;
+  height: 128px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #990000;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.red .album .album-title {
+  margin-left: 148px;
+  padding: 10px;
+}
+html.red .album .album-artist {
+  color: #c26666;
+  margin-left: 148px;
+  padding: 10px;
+}
+html.red div.album-tracks > div {
+  border-bottom: 1px solid #ddaaaa;
+  padding: 10px;
+}
+html.red div.album-tracks > div:last-child {
+  border-bottom: 0;
+}
+html.red div.album-tracks div.track-title {
+  margin-left: 2em;
+}
+html.red div.album-tracks div.track-artist {
+  margin-left: 2em;
+  color: #c26666;
+}
+html.red div.album-tracks div.track-no {
+  width: 1em;
+  float: left;
+}
+html.red .artist-album img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #990000;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.red .artist-album > a {
+  text-decoration: none;
+}
+html.red div.artist-album {
+  background-color: #f5e6e6;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddaaaa;
+}
+html.red div.artist-album > div {
+  border-bottom: 1px solid #ddaaaa;
+  padding: 10px;
+}
+html.red div.artist-album > div:last-child {
+  border-bottom: 0;
+}
+html.red .album-head {
+  padding: 10px;
+  color: #ffffff;
+  background-color: #ddaaaa;
+}
+html.red div.results img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #990000;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.red div.results > div {
+  border-bottom: 1px solid #ddaaaa;
+  padding: 10px;
+}
+html.red div.results > div:last-child {
+  border-bottom: 0;
+}
+html.red div.results div.track-title {
+  color: #c26666;
+}
+html.red div.results div.track-album {
+  color: #c26666;
+}
+html.red .queue-place {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #990000;
+  color: #FFF;
+  text-align: center;
+}
+html.red .queue-content {
+  margin-left: 45px;
+}
+html.red .queue-item {
+  border-bottom: 1px solid #990000;
+}
+@-webkit-keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+@keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+html.red .animation-flash {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+html.red #playing img {
+  border: 1px solid #990000;
+  padding: 3px;
+  width: 80%;
+  box-sizing: margin-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+html.red #currentTrack {
+  text-align: center;
+}
+html.red #currentArtist {
+  font-size: 1.3em;
+  text-align: center;
+}
+html.red #currentAlbum {
+  text-align: center;
+}
+html.red #currentProgress {
+  color: #990000;
+  border: 1px solid #990000;
+  background-color: #ffffff;
+  width: 100%;
+  height: 0.5em;
+  padding: 2px;
+  box-sizing: margin-box;
+}
+html.red progress::-moz-progress-bar {
+  background: #990000;
+}
+html.red progress::-webkit-progress-value {
+  background: #990000;
+}
+html.red progress::-webkit-progress-bar {
+  background: #ffffff;
+}
+html.red progress {
+  color: #990000;
+  width: 90%;
+  box-sizing: border-box;
+}
+html.red #currentPosition {
+  float: left;
+}
+html.red #currentRemaining {
+  float: right;
+}
+html.red #currentProgressDiv.progressRemaining progress {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+html.red #currentProgressDiv.progressPosition #currentRemaining {
+  display: none;
+}
+html.red #currentProgressDiv.progressRemaining #currentPosition {
+  display: none;
+}
+li.style-menu.red {
+  width: 50%;
+  font-size: 1.3em !important;
+  padding: 3px;
+}
+li.style-menu.red a {
+  display: block;
+  text-decoration: none;
+  background-color: #990000;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 1.3em !important;
+}
+html.green body {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+}
+html.green #page {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  box-sizing: border-box;
+}
+html.green #container {
   width: 100%;
   max-width: 600px;
   color: #006400;
@@ -19,20 +786,20 @@ body {
   overflow: auto;
   position: relative;
 }
-a {
+html.green a {
   text-decoration: none;
 }
-#container > div {
+html.green #container > div {
   position: relative;
 }
-.header {
+html.green .header {
   background-color: #006400;
   color: #ffffff;
   font-size: 3em;
   height: 1.2em;
   border: 3px solid #ffffff;
 }
-#logo {
+html.green #logo {
   background-color: #006400;
   color: #ffffff;
   font-size: 3em;
@@ -40,7 +807,7 @@ a {
   border: 3px solid #ffffff;
   padding-left: 10px;
 }
-#menu-toggle {
+html.green #menu-toggle {
   background-color: #006400;
   color: #ffffff;
   font-size: 3em;
@@ -54,14 +821,14 @@ a {
   text-align: center;
   display: none;
 }
-div#messages {
+html.green div#messages {
   position: fixed;
   top: 3em;
   z-index: 101;
   width: 100%;
   pointer-events: none;
 }
-#messages ul li {
+html.green #messages ul li {
   background-color: #000000;
   color: #ffffff;
   display: block;
@@ -73,20 +840,23 @@ div#messages {
   border-radius: 5px;
   pointer-events: auto;
 }
-#hash {
+html.green #hash {
   display: block;
 }
-.page {
+html.green .page {
   padding: 10px;
 }
-.hide {
+html.green .listing {
+  font-size: 1.3em;
+}
+html.green .hide {
   display: none;
 }
-#intro {
+html.green #intro {
   margin-top: 50px;
   text-align: center;
 }
-#queue-header {
+html.green #queue-header {
   background-color: #006400;
   color: #ffffff;
   text-align: center;
@@ -94,13 +864,13 @@ div#messages {
   margin-left: 10px;
   margin-right: 10px;
 }
-.clearfix:after {
+html.green .clearfix:after {
   content: "";
   clear: both;
   display: table;
 }
-#artist > a,
-#album > a {
+html.green #artist > a,
+html.green #album > a {
   display: block;
   padding-top: 10px;
   padding: 10px;
@@ -108,35 +878,35 @@ div#messages {
   color: #006400;
   text-decoration: none;
 }
-#artist > a:after {
+html.green #artist > a:after {
   content: "";
   clear: both;
   display: table;
 }
-#artist > a.anchor,
-#album > a.anchor {
+html.green #artist > a.anchor,
+html.green #album > a.anchor {
   height: 0;
   padding: 0;
   border: 0;
 }
-#artist span {
+html.green #artist span {
   background-color: #aacbaa;
   color: #ffffff;
   padding: 3px 20px;
   border-radius: 5px;
   float: right;
 }
-#album span {
+html.green #album span {
   color: #66a266;
   display: block;
 }
-ul {
+html.green ul {
   padding: 0;
 }
-ul.button-small li {
+html.green ul.button-small li {
   width: 20%;
 }
-ul li {
+html.green ul li {
   padding: 5px 10px;
   font-size: 1.2em;
   display: block;
@@ -145,23 +915,23 @@ ul li {
   text-align: center;
   color: #ffffff;
 }
-ul.menu li {
-  width: 50%;
+html.green ul.menu li {
+  min-width: 50%;
   font-size: 1.5em;
   padding: 3px;
 }
-li a {
+html.green li a {
   display: block;
   text-decoration: none;
-  background-color: #66a266;
+  background-color: #006400;
   color: #ffffff;
   border-radius: 5px;
   padding: 10px;
 }
-.album {
+html.green .album {
   margin-bottom: 20px;
 }
-.album img {
+html.green .album img {
   width: 128px;
   height: 128px;
   margin-right: 10px;
@@ -171,34 +941,34 @@ li a {
   padding: 1px;
   background-color: #ffffff;
 }
-.album .album-title {
+html.green .album .album-title {
   margin-left: 148px;
   padding: 10px;
 }
-.album .album-artist {
+html.green .album .album-artist {
   color: #66a266;
   margin-left: 148px;
   padding: 10px;
 }
-div.album-tracks > div {
+html.green div.album-tracks > div {
   border-bottom: 1px solid #aacbaa;
   padding: 10px;
 }
-div.album-tracks > div:last-child {
+html.green div.album-tracks > div:last-child {
   border-bottom: 0;
 }
-div.album-tracks div.track-title {
+html.green div.album-tracks div.track-title {
   margin-left: 2em;
 }
-div.album-tracks div.track-artist {
+html.green div.album-tracks div.track-artist {
   margin-left: 2em;
   color: #66a266;
 }
-div.album-tracks div.track-no {
+html.green div.album-tracks div.track-no {
   width: 1em;
   float: left;
 }
-.artist-album img {
+html.green .artist-album img {
   width: 64px;
   height: 64px;
   margin-right: 10px;
@@ -208,28 +978,28 @@ div.album-tracks div.track-no {
   padding: 1px;
   background-color: #ffffff;
 }
-.artist-album > a {
+html.green .artist-album > a {
   text-decoration: none;
 }
-div.artist-album {
+html.green div.artist-album {
   background-color: #e6f0e6;
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #aacbaa;
 }
-div.artist-album > div {
+html.green div.artist-album > div {
   border-bottom: 1px solid #aacbaa;
   padding: 10px;
 }
-div.artist-album > div:last-child {
+html.green div.artist-album > div:last-child {
   border-bottom: 0;
 }
-.album-head {
+html.green .album-head {
   padding: 10px;
   color: #ffffff;
   background-color: #aacbaa;
 }
-div.results img {
+html.green div.results img {
   width: 64px;
   height: 64px;
   margin-right: 10px;
@@ -239,20 +1009,20 @@ div.results img {
   padding: 1px;
   background-color: #ffffff;
 }
-div.results > div {
+html.green div.results > div {
   border-bottom: 1px solid #aacbaa;
   padding: 10px;
 }
-div.results > div:last-child {
+html.green div.results > div:last-child {
   border-bottom: 0;
 }
-div.results div.track-title {
+html.green div.results div.track-title {
   color: #66a266;
 }
-div.results div.track-album {
+html.green div.results div.track-album {
   color: #66a266;
 }
-.queue-place {
+html.green .queue-place {
   float: left;
   padding: 5px;
   width: 30px;
@@ -261,10 +1031,10 @@ div.results div.track-album {
   color: #FFF;
   text-align: center;
 }
-.queue-content {
+html.green .queue-content {
   margin-left: 45px;
 }
-.queue-item {
+html.green .queue-item {
   border-bottom: 1px solid #006400;
 }
 @-webkit-keyframes flash {
@@ -289,7 +1059,7 @@ div.results div.track-album {
     opacity: 0.2;
   }
 }
-.animation-flash {
+html.green .animation-flash {
   -webkit-animation-duration: 5s;
   animation-duration: 5s;
   -webkit-animation-fill-mode: both;
@@ -301,7 +1071,7 @@ div.results div.track-album {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-#playing img {
+html.green #playing img {
   border: 1px solid #006400;
   padding: 3px;
   width: 80%;
@@ -310,17 +1080,17 @@ div.results div.track-album {
   margin-left: auto;
   margin-right: auto;
 }
-#currentTrack {
+html.green #currentTrack {
   text-align: center;
 }
-#currentArtist {
+html.green #currentArtist {
   font-size: 1.3em;
   text-align: center;
 }
-#currentAlbum {
+html.green #currentAlbum {
   text-align: center;
 }
-#currentProgress {
+html.green #currentProgress {
   color: #006400;
   border: 1px solid #006400;
   background-color: #ffffff;
@@ -329,27 +1099,27 @@ div.results div.track-album {
   padding: 2px;
   box-sizing: margin-box;
 }
-progress::-moz-progress-bar {
+html.green progress::-moz-progress-bar {
   background: #006400;
 }
-progress::-webkit-progress-value {
+html.green progress::-webkit-progress-value {
   background: #006400;
 }
-progress::-webkit-progress-bar {
+html.green progress::-webkit-progress-bar {
   background: #ffffff;
 }
-progress {
+html.green progress {
   color: #006400;
   width: 90%;
   box-sizing: border-box;
 }
-#currentPosition {
+html.green #currentPosition {
   float: left;
 }
-#currentRemaining {
+html.green #currentRemaining {
   float: right;
 }
-#currentProgressDiv.progressRemaining progress {
+html.green #currentProgressDiv.progressRemaining progress {
   transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   /* IE 9 */
@@ -360,9 +1130,407 @@ progress {
   -o-transform: rotate(180deg);
   /* Opera */
 }
-#currentProgressDiv.progressPosition #currentRemaining {
+html.green #currentProgressDiv.progressPosition #currentRemaining {
   display: none;
 }
-#currentProgressDiv.progressRemaining #currentPosition {
+html.green #currentProgressDiv.progressRemaining #currentPosition {
   display: none;
+}
+li.style-menu.green {
+  width: 50%;
+  font-size: 1.3em !important;
+  padding: 3px;
+}
+li.style-menu.green a {
+  display: block;
+  text-decoration: none;
+  background-color: #006400;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.3em !important;
+}
+html.big body {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+}
+html.big #page {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  box-sizing: border-box;
+}
+html.big #container {
+  width: 100%;
+  max-width: 600px;
+  color: #663399;
+  background-color: #ffffff;
+  overflow: auto;
+  position: relative;
+}
+html.big a {
+  text-decoration: none;
+}
+html.big #container > div {
+  position: relative;
+}
+html.big .header {
+  background-color: #663399;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+}
+html.big #logo {
+  background-color: #663399;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+  padding-left: 10px;
+}
+html.big #menu-toggle {
+  background-color: #663399;
+  color: #ffffff;
+  font-size: 3em;
+  height: 1.2em;
+  border: 3px solid #ffffff;
+  z-index: 100;
+  width: 1.2em;
+  display: block;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  display: none;
+}
+html.big div#messages {
+  position: fixed;
+  top: 3em;
+  z-index: 101;
+  width: 100%;
+  pointer-events: none;
+}
+html.big #messages ul li {
+  background-color: #000000;
+  color: #ffffff;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  float: none;
+  border: 2px solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 25px;
+  pointer-events: auto;
+}
+html.big #hash {
+  display: block;
+}
+html.big .page {
+  padding: 10px;
+}
+html.big .listing {
+  font-size: 2em;
+}
+html.big .hide {
+  display: none;
+}
+html.big #intro {
+  margin-top: 50px;
+  text-align: center;
+}
+html.big #queue-header {
+  background-color: #663399;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+html.big .clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.big #artist > a,
+html.big #album > a {
+  display: block;
+  padding-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ccbbdd;
+  color: #663399;
+  text-decoration: none;
+}
+html.big #artist > a:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+html.big #artist > a.anchor,
+html.big #album > a.anchor {
+  height: 0;
+  padding: 0;
+  border: 0;
+}
+html.big #artist span {
+  background-color: #ccbbdd;
+  color: #ffffff;
+  padding: 3px 20px;
+  border-radius: 25px;
+  float: right;
+}
+html.big #album span {
+  color: #a385c2;
+  display: block;
+}
+html.big ul {
+  padding: 0;
+}
+html.big ul.button-small li {
+  width: 20%;
+}
+html.big ul li {
+  padding: 5px 10px;
+  font-size: 1.2em;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  color: #ffffff;
+}
+html.big ul.menu li {
+  min-width: 50%;
+  font-size: 1.5em;
+  padding: 3px;
+}
+html.big li a {
+  display: block;
+  text-decoration: none;
+  background-color: #663399;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px;
+}
+html.big .album {
+  margin-bottom: 20px;
+}
+html.big .album img {
+  width: 128px;
+  height: 128px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #663399;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.big .album .album-title {
+  margin-left: 148px;
+  padding: 10px;
+}
+html.big .album .album-artist {
+  color: #a385c2;
+  margin-left: 148px;
+  padding: 10px;
+}
+html.big div.album-tracks > div {
+  border-bottom: 1px solid #ccbbdd;
+  padding: 10px;
+}
+html.big div.album-tracks > div:last-child {
+  border-bottom: 0;
+}
+html.big div.album-tracks div.track-title {
+  margin-left: 2em;
+}
+html.big div.album-tracks div.track-artist {
+  margin-left: 2em;
+  color: #a385c2;
+}
+html.big div.album-tracks div.track-no {
+  width: 1em;
+  float: left;
+}
+html.big .artist-album img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #663399;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.big .artist-album > a {
+  text-decoration: none;
+}
+html.big div.artist-album {
+  background-color: #f0ebf5;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccbbdd;
+}
+html.big div.artist-album > div {
+  border-bottom: 1px solid #ccbbdd;
+  padding: 10px;
+}
+html.big div.artist-album > div:last-child {
+  border-bottom: 0;
+}
+html.big .album-head {
+  padding: 10px;
+  color: #ffffff;
+  background-color: #ccbbdd;
+}
+html.big div.results img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  border: 1px solid #663399;
+  padding: 1px;
+  background-color: #ffffff;
+}
+html.big div.results > div {
+  border-bottom: 1px solid #ccbbdd;
+  padding: 10px;
+}
+html.big div.results > div:last-child {
+  border-bottom: 0;
+}
+html.big div.results div.track-title {
+  color: #a385c2;
+}
+html.big div.results div.track-album {
+  color: #a385c2;
+}
+html.big .queue-place {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #663399;
+  color: #FFF;
+  text-align: center;
+}
+html.big .queue-content {
+  margin-left: 45px;
+}
+html.big .queue-item {
+  border-bottom: 1px solid #663399;
+}
+@-webkit-keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+@keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+html.big .animation-flash {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+html.big #playing img {
+  border: 1px solid #663399;
+  padding: 3px;
+  width: 80%;
+  box-sizing: margin-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+html.big #currentTrack {
+  text-align: center;
+}
+html.big #currentArtist {
+  font-size: 1.3em;
+  text-align: center;
+}
+html.big #currentAlbum {
+  text-align: center;
+}
+html.big #currentProgress {
+  color: #663399;
+  border: 1px solid #663399;
+  background-color: #ffffff;
+  width: 100%;
+  height: 0.5em;
+  padding: 2px;
+  box-sizing: margin-box;
+}
+html.big progress::-moz-progress-bar {
+  background: #663399;
+}
+html.big progress::-webkit-progress-value {
+  background: #663399;
+}
+html.big progress::-webkit-progress-bar {
+  background: #ffffff;
+}
+html.big progress {
+  color: #663399;
+  width: 90%;
+  box-sizing: border-box;
+}
+html.big #currentPosition {
+  float: left;
+}
+html.big #currentRemaining {
+  float: right;
+}
+html.big #currentProgressDiv.progressRemaining progress {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -moz-transform: rotate(180deg);
+  /* Firefox */
+  -webkit-transform: rotate(180deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(180deg);
+  /* Opera */
+}
+html.big #currentProgressDiv.progressPosition #currentRemaining {
+  display: none;
+}
+html.big #currentProgressDiv.progressRemaining #currentPosition {
+  display: none;
+}
+li.style-menu.big {
+  width: 50%;
+  font-size: 2em !important;
+  padding: 3px;
+}
+li.style-menu.big a {
+  display: block;
+  text-decoration: none;
+  background-color: #663399;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 2em !important;
 }

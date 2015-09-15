@@ -244,6 +244,30 @@ define(['jquery', 'info'], function($, info) {
     $artist.append(listing.join(''));
   }
 
+  function buildStyles() {
+    var styles = [
+      ['purple', 'Purple'],
+      ['red', 'Red'],
+      ['green', 'Green'],
+      ['big', 'Big']
+    ]
+    var out = [];
+    for (i =0; i < styles.length; i++){
+      out = out.concat(
+        [
+        '<li class="style-menu ',
+        styles[i][0],
+        '"><a data-style="',
+        styles[i][0],
+        '">',
+        styles[i][1],
+        '</a></li>'
+        ]
+      )
+    }
+    $('#styles ul').append(out.join(''));
+  }
+
 
 
   function buildAlpha(type) {
@@ -294,6 +318,7 @@ define(['jquery', 'info'], function($, info) {
     buildControls: buildControls,
     buildSearch: buildSearch,
     buildQueueItem: buildQueueItem,
+    buildStyles: buildStyles,
     buildResults: buildResults
   };
 

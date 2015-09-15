@@ -14,6 +14,7 @@ define(['jquery', 'build', 'info', 'index'],
       'artist',
       'album',
       'hash',
+      'styles',
     ];
 
     function isNumeric(n) {
@@ -56,6 +57,13 @@ define(['jquery', 'build', 'info', 'index'],
         $menu.show();
         showPage();
       }
+    }
+
+    function setStyle() {
+      var $element = $(this);
+      var style = $element.data('style');
+      $('html').removeClass().addClass(style);
+      window.history.back();
     }
 
 
@@ -339,6 +347,9 @@ define(['jquery', 'build', 'info', 'index'],
         case '#controls':
           display(build.buildControls());
           break;
+        case '#styles':
+          showPage('styles');
+          break;
         case '#info':
           showPage('info');
           break;
@@ -368,12 +379,14 @@ define(['jquery', 'build', 'info', 'index'],
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'a', buttonClick);
       $('#currentProgressDiv').click(progressClick);
+      $('#styles').on('click', 'a[data-style]', setStyle);
       // android browser needs delay to initiate
       setTimeout(progressSet, 1);
       window.onresize = resize;
       window.onhashchange = locationHashChanged;
       build.buildArtistList();
       build.buildAlbumList();
+      build.buildStyles();
       locationHashChanged();
     }
 

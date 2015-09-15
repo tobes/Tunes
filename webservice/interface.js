@@ -146,7 +146,7 @@ define(['jquery', 'build', 'info', 'index'],
         if (!info.inQueue(track.id)) {
           out.push('<li><a data-cmd="add-' + track.id + '">Play</a></li>');
         } else {
-          out.push('<li><span>cued</span></li>');
+          out.push('<li><a>This track is in the queue</a></li>');
         }
         if ($element.find('.track-artist').length) {
           out.push('<li><a href="#artist-' + track.getArtist().id + '">Artist</a></li>');
@@ -362,7 +362,6 @@ define(['jquery', 'build', 'info', 'index'],
             $(this).find('input').blur();
           });
           break;
-
         case '#results':
           var results = textsearch.search(decodeURIComponent(hash[1]));
           display(build.buildResults(results));

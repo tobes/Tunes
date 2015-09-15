@@ -1,5 +1,4 @@
-/*global $, document, window*/
-/*global requirejs */
+/*global requirejs, EventSource */
 
 requirejs.config({
   paths: {

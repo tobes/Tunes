@@ -29,10 +29,37 @@ define(['jquery', 'info'], function($, info) {
   }
 
 
-  function buildResults(results) {
+  function highlight(info, text){
+    for (i = 0; i < text.length; i++) {
+      var regex = new RegExp(text[i], 'gi');
+      info = info.replace(regex, function(match, $1, $2) { return '<i>' + match + '</i>'});
+    }
+    return info;
+  }
+
+  function processSearchTerms(text){
+    var text = text.toLowerCase();
+    text = text.replace(/[^a-z0-9 ]/g, '')
+    var i;
+    var newText = '';
+    var chr;
+    for (i = 0; i < text.length; i++) {
+      chr = text.charAt(i);
+      if (chr === ' '){
+        newText += ' ';
+      } else {
+        newText += '(' + chr + '|[^\x00-\x7F]+)';
+      }
+    }
+    text = newText.split(' ');
+    return text;
+  }
+
+  function buildResults(results, text) {
     var i;
     var track;
     var out = [];
+    text = processSearchTerms(text)
     out.push('<div class="results">');
     for (i = 0; i < results.length; i++) {
       // limit results //FIXME
@@ -43,13 +70,13 @@ define(['jquery', 'info'], function($, info) {
       out.push('<div data-track="' + track.id + '">');
       out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
       out.push('<div class="track-title">');
-      out.push(track.title);
+      out.push(highlight(track.title, text));
       out.push('</div>');
       out.push('<div class="track-artist">');
-      out.push(track.getArtist().name);
+      out.push(highlight(track.getArtist().name, text));
       out.push('</div>');
       out.push('<div class="track-album">');
-      out.push(track.getAlbum().title);
+      out.push(highlight(track.getAlbum().title, text));
       out.push('</div>');
       out.push('</div>');
     }

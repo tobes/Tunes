@@ -363,8 +363,9 @@ define(['jquery', 'build', 'info', 'index'],
           });
           break;
         case '#results':
-          var results = textsearch.search(decodeURIComponent(hash[1]));
-          display(build.buildResults(results));
+          var text = decodeURIComponent(hash[1]);
+          var results = textsearch.search(text);
+          display(build.buildResults(results, text));
           $('#container').scrollTop(scrolls.results || 0);
           break;
       }

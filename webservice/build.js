@@ -247,6 +247,8 @@ define(['jquery', 'info'], function($, info) {
   function buildStyles() {
     var styles = [
       ['purple', 'Purple'],
+      ['purple-inverse', 'Purple Inverse'],
+      ['night', 'Night'],
       ['red', 'Red'],
       ['green', 'Green'],
       ['big', 'Big']

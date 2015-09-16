@@ -179,7 +179,6 @@ define(['jquery', 'build', 'info', 'index'],
       var out = [];
       var i;
       var $element = $(this);
-      console.log($element);
       var track = $element.data('track');
       var album = $element.data('album');
       // close if showing

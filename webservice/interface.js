@@ -122,6 +122,15 @@ define(['jquery', 'build', 'info', 'index'],
     }
 
 
+    function makeMenuLink(link, title){
+      return '<li><a href="' + link + '">' + escape(title) + '</a></li>';
+    }
+
+    function makeMenuCmd(cmd, title){
+      return '<li><a data-cmd="' + cmd + '">' + escape(title) + '</a></li>';
+    }
+
+
 
 
     function trackInfo(event) {
@@ -144,15 +153,15 @@ define(['jquery', 'build', 'info', 'index'],
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
         if (!info.inQueue(track.id)) {
-          out.push('<li><a data-cmd="add-' + track.id + '">Play</a></li>');
+          out.push(makeMenuCmd('add-' + track.id, 'Play'));
         } else {
           out.push('<li><a>This track is in the queue</a></li>');
         }
         if ($element.find('.track-artist').length) {
-          out.push('<li><a href="#artist-' + track.getArtist().id + '">Artist</a></li>');
+          out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
         }
         if ($element.find('.track-album').length) {
-          out.push('<li><a href="#album-' + track.getAlbum().id + '">Album</a></li>');
+          out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
         }
         out.push('</ul>');
         out.push('</div>');

@@ -121,6 +121,21 @@ define(['jquery', 'build', 'info', 'index'],
       }, 1);
     }
 
+    function scrollToView(element) {
+      var offset = element.offset().top;
+      var height = element.innerHeight();
+      var offset_end = offset + height;
+
+      var visible_area_start = window.scrollY;
+      var visible_area_end = visible_area_start + window.innerHeight;
+
+      if (offset_end > visible_area_end) {
+        window.scrollTo(
+          window.scrollX,
+          offset_end - window.innerHeight
+        );
+      }
+    }
 
     function makeMenuLink(link, title){
       return '<li><a href="' + link + '">' + escape(title) + '</a></li>';
@@ -178,6 +193,7 @@ define(['jquery', 'build', 'info', 'index'],
       $element.append(out.join(''));
 
       $element.on('click', 'a[data-cmd]', buttonClick);
+      scrollToView($element);
     }
 
 

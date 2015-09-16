@@ -145,7 +145,33 @@ define(['jquery', 'build', 'info', 'index'],
       return '<li><a data-cmd="' + cmd + '">' + escape(title) + '</a></li>';
     }
 
+    function queueInfo(event) {
+      event.stopPropagation();
+      var out = [];
+      var $element = $(this);
+      //console.log($element);
+      var track = $element.data('track');
+      // close if showing
+      if ($element.find('div.track-cmd').length) {
+        $element.find('div.track-cmd').remove();
+        return;
+      }
+      // remove any open controls
+      $element.parent().find('div.track-cmd').remove();
+      if (track) {
+        track = info.track(track);
+        out.push('<div data-auto="delete" class="track-cmd clearfix">');
+        out.push('<ul>');
+        out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
+        out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
+        out.push('</ul>');
+        out.push('</div>');
+      }
+      $element.append(out.join(''));
 
+      $element.on('click', 'a[data-cmd]', buttonClick);
+      scrollToView($element);
+    }
 
 
     function trackInfo(event) {
@@ -398,6 +424,7 @@ define(['jquery', 'build', 'info', 'index'],
 
     function init() {
       $('#hash').on('click', 'div[data-track]', trackInfo);
+      $('#queue').on('click', 'div[data-track]', queueInfo);
       resize();
       $('#logo').click(toggleFullscreen);
       $('#menu a').click(function (){showPage(activePage);});

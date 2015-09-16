@@ -318,7 +318,9 @@ define(['jquery', 'info'], function($, info) {
 
   function buildQueueItem(item, count) {
     return [
-      '<div class="queue-item">',
+      '<div class="queue-item" data-track="',
+      item.id,
+      '">',
       '<div class="queue-place',
       item.ready ? '' : ' animation-flash',
       '">',
@@ -333,7 +335,7 @@ define(['jquery', 'info'], function($, info) {
       '</b></p>',
       '</div>',
       '</div>',
-    ].join('\n');
+    ].join('');
   }
 
 

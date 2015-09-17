@@ -277,10 +277,17 @@ define(['jquery', 'info'], function($, info) {
       ['purple-inverse', 'Purple Inverse'],
       ['night', 'Night'],
       ['red', 'Red'],
-      ['green', 'Green'],
-      ['big', 'Big']
+      ['green', 'Green']
+    ]
+
+    var sizes = [
+      ['size-small', 'Small'],
+      ['size-medium', 'Medium'],
+      ['size-large', 'Large'],
+      ['size-xlarge', 'Huge']
     ]
     var out = [];
+    out.push('<ul class="menu clearfix">');
     for (i =0; i < styles.length; i++){
       out = out.concat(
         [
@@ -294,7 +301,24 @@ define(['jquery', 'info'], function($, info) {
         ]
       )
     }
-    $('#styles ul').append(out.join(''));
+    out.push('</ul>');
+    out.push('<div class="listing break-header">Size</div>');
+    out.push('<ul class="menu">');
+    for (i =0; i < sizes.length; i++){
+      out = out.concat(
+        [
+        '<li class="size-menu ',
+        sizes[i][0],
+        '"><a data-size="',
+        sizes[i][0],
+        '">',
+        sizes[i][1],
+        '</a></li>'
+        ]
+      )
+    }
+    out.push('</ul>');
+    $('#styles').append(out.join(''));
   }
 
 

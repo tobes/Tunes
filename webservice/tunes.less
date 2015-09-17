@@ -4,12 +4,26 @@
 
 .create-style(green; @main-color: #006400; @border-radius: 5px;);
 
-.create-style(big; @font-size: 2em;);
-
 .create-style(purple-inverse; @main-color: #FFF; @main-bg: #639;);
 
 .create-style(night; @main-color: #999; @main-bg: #222;);
 
+
+html.size-small .listing {
+  font-size: 1em;
+}
+
+html.size-medium .listing {
+  font-size: 1.3em;
+}
+
+html.size-large .listing {
+  font-size: 1.6em;
+}
+
+html.size-xlarge .listing {
+  font-size: 2em;
+}
 
 html{
   height: 100%;
@@ -210,10 +224,6 @@ html{
     padding:@padding;
   }
 
-  .listing {
-    font-size: @font-size;
-  }
-
   .hide {
     display:none;
   }
@@ -223,7 +233,7 @@ html{
     text-align:center;
   }
 
-  #queue-header {
+  .break-header {
     background-color: @main-color;
     color:@main-bg;
     text-align:center;

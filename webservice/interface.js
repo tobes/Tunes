@@ -7,6 +7,8 @@ define(['jquery', 'build', 'info', 'index'],
     var scrolls = {};
     var lastHash;
     var progress = 0;
+    var styleSize = 'medium';
+    var styleTheme = 'night';
 
     var activePage;
     var menuDivs = [
@@ -61,8 +63,9 @@ define(['jquery', 'build', 'info', 'index'],
 
     function setStyle() {
       var $element = $(this);
-      var style = $element.data('style');
-      $('html').removeClass().addClass(style);
+      styleTheme = $element.data('style') || styleTheme;
+      styleSize = $element.data('size') || styleSize;
+      $('html').removeClass().addClass(styleTheme + ' ' + styleSize);
       window.history.back();
     }
 
@@ -431,6 +434,7 @@ define(['jquery', 'build', 'info', 'index'],
       $('#page').on('click', 'a', buttonClick);
       $('#currentProgressDiv').click(progressClick);
       $('#styles').on('click', 'a[data-style]', setStyle);
+      $('#styles').on('click', 'a[data-size]', setStyle);
       // android browser needs delay to initiate
       setTimeout(progressSet, 1);
       window.onresize = resize;

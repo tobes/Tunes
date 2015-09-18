@@ -186,6 +186,24 @@ define(function() {
     };
   }
 
+  function getKeys(store, keys, callback) {
+    // get multiple items from a datastore
+    var i = 0;
+    var out = [];
+    function work(){
+      var key = keys[i++];
+      if (key === undefined){
+        callback(out);
+        return;
+      }
+      get(store, key, function (result) {
+         out.push(result);
+         work();
+      });
+    }
+    work();
+  }
+
 
   console.log('database loaded');
 
@@ -193,6 +211,7 @@ define(function() {
     count: count,
     cursor: cursor,
     get: get,
+    getKeys: getKeys,
     put: put,
     add: add,
     addOrId: addOrId,

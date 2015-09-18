@@ -287,6 +287,7 @@ define(['jquery', 'info'], function($, info) {
       ['size-xlarge', 'Huge']
     ]
     var out = [];
+    out.push('<div class="listing break-header">Theme</div>');
     out.push('<ul class="menu clearfix">');
     for (i =0; i < styles.length; i++){
       out = out.concat(

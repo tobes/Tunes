@@ -140,12 +140,49 @@ define(['jquery', 'build', 'info', 'index'],
       }
     }
 
+
+    function escapeHtml(unsafe) {
+      return unsafe
+       .replace(/&/g, "&amp;")
+       .replace(/</g, "&lt;")
+       .replace(/>/g, "&gt;")
+       .replace(/"/g, "&quot;")
+       .replace(/'/g, "&#039;");
+    }
+
+
     function makeMenuLink(link, title){
-      return '<li><a href="' + link + '">' + escape(title) + '</a></li>';
+      return '<li><a href="' + link + '">' + escapeHtml(title) + '</a></li>';
     }
 
     function makeMenuCmd(cmd, title){
-      return '<li><a data-cmd="' + cmd + '">' + escape(title) + '</a></li>';
+      return '<li><a data-cmd="' + cmd + '">' + escapeHtml(title) + '</a></li>';
+    }
+
+    function albumInfo(event) {
+      event.stopPropagation();
+      var out = [];
+      var $element = $(this);
+      var album = $element.data('album');
+      $element = $element.parent();
+
+      // close if showing
+      if ($element.find('div.track-cmd').length) {
+        $element.find('div.track-cmd').remove();
+        return;
+      }
+      // remove any open controls
+      $('div.track-cmd').remove();
+      if (album) {
+        out.push('<div data-auto="delete" class="track-cmd clearfix">');
+        out.push('<ul>');
+        out.push(makeMenuCmd('album-' + album, 'Play album'));
+        out.push('</ul>');
+        out.push('</div>');
+      }
+      $element.append(out.join(''));
+
+      scrollToView($element);
     }
 
     function queueInfo(event) {
@@ -427,6 +464,7 @@ define(['jquery', 'build', 'info', 'index'],
     function init() {
       $('#hash').on('click', 'div[data-track]', trackInfo);
       $('#queue').on('click', 'div[data-track]', queueInfo);
+      $('#hash').on('click', 'img[data-album]', albumInfo);
       resize();
       $('#logo').click(toggleFullscreen);
       $('#menu a').click(function (){showPage(activePage);});

@@ -163,7 +163,7 @@ define(['jquery', 'info'], function($, info) {
     var tracks = album.getTracks();
     tracks.sort(albumTrackSort);
     out.push('<div class="album clearfix">');
-    out.push('<img src="/covers/' + album.art + '.png">');
+    out.push('<img data-album="' + album.id + '" src="/covers/' + album.art + '.png">');
 
     out.push('<div class="album-title">');
     out.push(album.title);

@@ -163,14 +163,8 @@ define(['event', 'config', 'db', 'queue', 'player'],
           event.trigger('controlVolDown');
           break;
         case 'add':
-          db.get('track', parseInt(parts[1], 10), function(track) {
-            if (queue.add(track)) {
-              messages.push({
-                msg: track[1],
-                action: 'added'
-              });
-            }
-          });
+          queue.addTrackById(parseInt(parts[1], 10));
+          break;
           break;
         default:
       }

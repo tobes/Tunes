@@ -159,7 +159,6 @@ define(function() {
           return 'Various artists';
         } else {
           if (this.artistId === null){
-            console.log(this);
             return 'FIX ME';
           }
           return artist(this.artistId).name;

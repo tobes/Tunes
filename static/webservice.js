@@ -130,6 +130,15 @@ define(['event', 'config', 'db', 'queue', 'player'],
       }
     }
 
+    function playlistAlbumAdded(album) {
+      if (album.title){
+        messageStream(
+          'message',
+          msgBuild(album.artist + ' ' + album.title + ' added')
+        );
+      }
+    }
+
 
     function jsonData() {
       return JSON.stringify({
@@ -165,6 +174,8 @@ define(['event', 'config', 'db', 'queue', 'player'],
         case 'add':
           queue.addTrackById(parseInt(parts[1], 10));
           break;
+        case 'album':
+          queue.addAlbumById(parseInt(parts[1], 10));
           break;
         default:
       }
@@ -312,6 +323,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
       event.add('playerChange', playerChange);
       event.add('playlistUpdate', playlistUpdate);
       event.add('playlistTrackAdded', playlistTrackAdded);
+      event.add('playlistAlbumAdded', playlistAlbumAdded);
       getIPAdress();
       startWebservice();
     }

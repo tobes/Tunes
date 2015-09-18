@@ -85,9 +85,8 @@ define(['jquery', 'build', 'info', 'index'],
       if (cmd) {
         $.getJSON('cmd/' + cmd);
       }
-      if ($element.parent().data('auto') === 'delete') {
-        $element.parent().remove();
-      }
+      // hide any auto-hiding elements (button container)
+      $('div[data-auto=delete]').remove();
       showPage(activePage);
     }
 
@@ -189,7 +188,7 @@ define(['jquery', 'build', 'info', 'index'],
       event.stopPropagation();
       var out = [];
       var $element = $(this);
-      //console.log($element);
+
       var track = $element.data('track');
       // close if showing
       if ($element.find('div.track-cmd').length) {
@@ -197,10 +196,14 @@ define(['jquery', 'build', 'info', 'index'],
         return;
       }
       // remove any open controls
-      $element.parent().find('div.track-cmd').remove();
+      $('div.track-cmd').remove();
       if (track) {
         track = info.track(track);
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
+        out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
+        out.push('<div class="track-title">');
+        out.push(track.getAlbum().title);
+        out.push('</div>');
         out.push('<ul>');
         out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
         out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
@@ -227,7 +230,7 @@ define(['jquery', 'build', 'info', 'index'],
         return;
       }
       // remove any open controls
-      $element.parent().find('div.track-cmd').remove();
+      $('div.track-cmd').remove();
       if (track) {
         track = info.track(track);
         out.push('<div data-auto="delete" class="track-cmd clearfix">');

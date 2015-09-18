@@ -1,7 +1,7 @@
 /*global define */
 
-define('queue', ['convert', 'event', 'random', 'config'],
-  function(convert, event, random, config) {
+define('queue', ['convert', 'event', 'random', 'config', 'db'],
+  function(convert, event, random, config, db) {
 
     var queue = [];
     var queueIds = [];
@@ -20,7 +20,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
     }
 
 
-    function queueAdd(item, source) {
+    function _queueAdd(item, source) {
       if (!item){
         console.log('no item to add', item);
         return false;
@@ -57,9 +57,15 @@ define('queue', ['convert', 'event', 'random', 'config'],
       queue.push(queueItem);
       queueIds.push(item.id);
       convert.convert(item, setReady, item.id);
-      event.trigger('playlistUpdate', queue);
-      event.trigger('playlistTrackAdded', queueItem);
-      return true;
+      return queueItem;
+    }
+
+    function queueAdd(item, source) {
+      var queueItem = _queueAdd(item, source);
+      if (queueItem){
+        event.trigger('playlistUpdate', queue);
+        event.trigger('playlistTrackAdded', queueItem);
+      }
     }
 
 
@@ -92,6 +98,28 @@ define('queue', ['convert', 'event', 'random', 'config'],
       }
     }
 
+    function addTrackById(id) {
+      db.get('track', id, function(track) {
+        queueAdd(track);
+      });
+    }
+
+    function addAlbumById(id) {
+      db.get('album', id, function(album) {
+        db.getKeys(
+          'track',
+          album.tracks.split(',').map(Number),
+          function(tracks){
+            var i;
+            for (i=0; i < tracks.length; i++){
+              _queueAdd(tracks[i]);
+            }
+            event.trigger('playlistUpdate', queue);
+            event.trigger('playlistAlbumAdded', album);
+          }
+        );
+      });
+    }
 
     function tick() {
       // add track if needed
@@ -110,6 +138,7 @@ define('queue', ['convert', 'event', 'random', 'config'],
       console.log('Queue ---------');
       for (i = 0; i < queue.length; i++) {
         item = queue[i];
+
         console.log(i, item.id, item.ready ? 'ready' : 'not ready');
         console.log(item.item.basename);
       }
@@ -125,6 +154,8 @@ define('queue', ['convert', 'event', 'random', 'config'],
 
     return {
       add: queueAdd,
+      addTrackById: addTrackById,
+      addAlbumById: addAlbumById,
       get: get,
     };
 

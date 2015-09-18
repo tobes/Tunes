@@ -368,7 +368,6 @@ html.purple #currentProgressDiv.progressRemaining #currentPosition {
 }
 li.style-menu.purple {
   width: 50%;
-  font-size: 1.3em !important;
   padding: 3px;
 }
 li.style-menu.purple a {
@@ -379,7 +378,6 @@ li.style-menu.purple a {
   border-radius: 25px;
   border: 2px solid #ffffff;
   padding: 10px;
-  font-size: 1.3em !important;
 }
 html.red body {
   font-family: Verdana, Geneva, sans-serif;
@@ -751,7 +749,6 @@ html.red #currentProgressDiv.progressRemaining #currentPosition {
 }
 li.style-menu.red {
   width: 50%;
-  font-size: 1.3em !important;
   padding: 3px;
 }
 li.style-menu.red a {
@@ -762,7 +759,6 @@ li.style-menu.red a {
   border-radius: 25px;
   border: 2px solid #ffffff;
   padding: 10px;
-  font-size: 1.3em !important;
 }
 html.green body {
   font-family: Verdana, Geneva, sans-serif;
@@ -1134,7 +1130,6 @@ html.green #currentProgressDiv.progressRemaining #currentPosition {
 }
 li.style-menu.green {
   width: 50%;
-  font-size: 1.3em !important;
   padding: 3px;
 }
 li.style-menu.green a {
@@ -1145,7 +1140,6 @@ li.style-menu.green a {
   border-radius: 5px;
   border: 2px solid #ffffff;
   padding: 10px;
-  font-size: 1.3em !important;
 }
 html.purple-inverse body {
   font-family: Verdana, Geneva, sans-serif;
@@ -1517,7 +1511,6 @@ html.purple-inverse #currentProgressDiv.progressRemaining #currentPosition {
 }
 li.style-menu.purple-inverse {
   width: 50%;
-  font-size: 1.3em !important;
   padding: 3px;
 }
 li.style-menu.purple-inverse a {
@@ -1528,7 +1521,6 @@ li.style-menu.purple-inverse a {
   border-radius: 25px;
   border: 2px solid #663399;
   padding: 10px;
-  font-size: 1.3em !important;
 }
 html.night body {
   font-family: Verdana, Geneva, sans-serif;
@@ -1900,7 +1892,6 @@ html.night #currentProgressDiv.progressRemaining #currentPosition {
 }
 li.style-menu.night {
   width: 50%;
-  font-size: 1.3em !important;
   padding: 3px;
 }
 li.style-menu.night a {
@@ -1911,7 +1902,6 @@ li.style-menu.night a {
   border-radius: 25px;
   border: 2px solid #222222;
   padding: 10px;
-  font-size: 1.3em !important;
 }
 html.size-small .listing {
   font-size: 1em;

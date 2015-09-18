@@ -328,6 +328,10 @@ define(['db', 'config'], function(db, config) {
 
   }
 
+  function albumTrackSort(a, b) {
+    return (a.trackno > b.trackno ? 1 : -1);
+  }
+
 
   function albumFix(){
     var trackList;
@@ -338,6 +342,7 @@ define(['db', 'config'], function(db, config) {
         var album;
         var albumData;
         var track;
+        var tracks;
         var checkArtist;
         var checkAlbum;
         trackList = result;
@@ -350,10 +355,12 @@ define(['db', 'config'], function(db, config) {
         }
         for (album in albums){
           if (albums.hasOwnProperty(album)){
-            albumData = albums[album];
+            albumData = albums[album].sort(albumTrackSort);
+            tracks = [albumData[0].id];
             checkArtist = albumData[0].artistId;
             checkAlbum = albumData[0].album;
             for (i = 1; i < albumData.length; i++){
+              tracks.push(albumData[i].id);
               if (albumData[i].artistId !== checkArtist){
                 checkArtist = undefined;
               }
@@ -368,6 +375,7 @@ define(['db', 'config'], function(db, config) {
             if (checkArtist !== undefined){
               albums[album].artistId = checkArtist;
             }
+            albums[album].tracks = tracks;
           }
         }
         db.all('artist', null, function(result) {
@@ -384,13 +392,15 @@ define(['db', 'config'], function(db, config) {
               if (alb === undefined){
                 return;
               }
+              var trackString = albums[alb.id].tracks.join(',');
               var albTitle = albums[alb.id].title;
               var albArtistId = albums[alb.id].artistId;
               var updateTitle = (albTitle && alb.title !== albTitle);
               var updateArtistId = albArtistId !== alb.artistId;
               var updateArtist = artists[albArtistId] !== alb.artist;
+              var updateTracks = trackString !== alb.tracks;
               console.log(artists[albArtistId]);
-              if (updateArtist || updateTitle || updateArtistId){
+              if (updateTracks || updateArtist || updateTitle || updateArtistId){
                 if (updateTitle){
                   alb.title = albTitle;
                 }
@@ -399,6 +409,9 @@ define(['db', 'config'], function(db, config) {
                 }
                 if (updateArtist){
                   alb.artist = artists[albArtistId];
+                }
+                if (updateTracks){
+                  alb.tracks = trackString;
                 }
                 db.put('album', alb, work);
                 console.log(alb.title);

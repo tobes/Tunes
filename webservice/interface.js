@@ -86,7 +86,9 @@ define(['jquery', 'build', 'info', 'index'],
         $.getJSON('cmd/' + cmd);
       }
       // hide any auto-hiding elements (button container)
-      $('div[data-auto=delete]').remove();
+      if ($element.data('noclose') !== true){
+        $('div[data-auto=delete]').remove();
+      }
       showPage(activePage);
     }
 

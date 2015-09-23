@@ -284,7 +284,7 @@ html{
   }
 
   ul li {
-    padding: 5px @padding;
+    padding: @padding;
     font-size: 1.2em;
     display: block;
     float:left;
@@ -307,7 +307,9 @@ html{
     border-radius: @border-radius;
     padding:@padding;
   }
-
+  div.track-cmd li a {
+    padding:3px @padding;
+  }
   .album {
     margin-bottom:@padding * 2;
   }
@@ -395,7 +397,7 @@ html{
   }
 
 
-  div.results img{
+  div.results img, div#queue img{
     width:64px;
     height:64px;
     margin-right:@padding;
@@ -427,19 +429,23 @@ html{
   }
 
   .queue-place {
-    float: left;
-    padding: 5px;
-    width: 30px;
-    height: 30px;
+   // float: left;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+  //  width: 30px;
+  //  height: 30px;
     background-color: @main-color;
     color: @main-bg;
     text-align: center;
   }
   .queue-content {
-    margin-left: 45px;
+    margin-left: 78px;
   }
 
   .queue-item {
+    padding-top: @padding;
+    padding-bottom: @padding;
     border-bottom: 1px solid @main-color;
   }
 

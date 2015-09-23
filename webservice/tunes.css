@@ -137,7 +137,7 @@ html.purple ul.button-small li {
   width: 20%;
 }
 html.purple ul li {
-  padding: 5px 10px;
+  padding: 10px;
   font-size: 1.2em;
   display: block;
   float: left;
@@ -157,6 +157,9 @@ html.purple li a {
   color: #ffffff;
   border-radius: 25px;
   padding: 10px;
+}
+html.purple div.track-cmd li a {
+  padding: 3px 10px;
 }
 html.purple .album {
   margin-bottom: 20px;
@@ -229,7 +232,8 @@ html.purple .album-head {
   color: #ffffff;
   background-color: #ccbbdd;
 }
-html.purple div.results img {
+html.purple div.results img,
+html.purple div#queue img {
   width: 64px;
   height: 64px;
   margin-right: 10px;
@@ -253,18 +257,19 @@ html.purple div.results div.track-album {
   color: #a385c2;
 }
 html.purple .queue-place {
-  float: left;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
   background-color: #663399;
   color: #ffffff;
   text-align: center;
 }
 html.purple .queue-content {
-  margin-left: 45px;
+  margin-left: 78px;
 }
 html.purple .queue-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #663399;
 }
 @-webkit-keyframes flash {
@@ -518,7 +523,7 @@ html.red ul.button-small li {
   width: 20%;
 }
 html.red ul li {
-  padding: 5px 10px;
+  padding: 10px;
   font-size: 1.2em;
   display: block;
   float: left;
@@ -538,6 +543,9 @@ html.red li a {
   color: #ffffff;
   border-radius: 25px;
   padding: 10px;
+}
+html.red div.track-cmd li a {
+  padding: 3px 10px;
 }
 html.red .album {
   margin-bottom: 20px;
@@ -610,7 +618,8 @@ html.red .album-head {
   color: #ffffff;
   background-color: #ddaaaa;
 }
-html.red div.results img {
+html.red div.results img,
+html.red div#queue img {
   width: 64px;
   height: 64px;
   margin-right: 10px;
@@ -634,18 +643,19 @@ html.red div.results div.track-album {
   color: #c26666;
 }
 html.red .queue-place {
-  float: left;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
   background-color: #990000;
   color: #ffffff;
   text-align: center;
 }
 html.red .queue-content {
-  margin-left: 45px;
+  margin-left: 78px;
 }
 html.red .queue-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #990000;
 }
 @-webkit-keyframes flash {
@@ -899,7 +909,7 @@ html.green ul.button-small li {
   width: 20%;
 }
 html.green ul li {
-  padding: 5px 10px;
+  padding: 10px;
   font-size: 1.2em;
   display: block;
   float: left;
@@ -919,6 +929,9 @@ html.green li a {
   color: #ffffff;
   border-radius: 5px;
   padding: 10px;
+}
+html.green div.track-cmd li a {
+  padding: 3px 10px;
 }
 html.green .album {
   margin-bottom: 20px;
@@ -991,7 +1004,8 @@ html.green .album-head {
   color: #ffffff;
   background-color: #aacbaa;
 }
-html.green div.results img {
+html.green div.results img,
+html.green div#queue img {
   width: 64px;
   height: 64px;
   margin-right: 10px;
@@ -1015,18 +1029,19 @@ html.green div.results div.track-album {
   color: #66a266;
 }
 html.green .queue-place {
-  float: left;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
   background-color: #006400;
   color: #ffffff;
   text-align: center;
 }
 html.green .queue-content {
-  margin-left: 45px;
+  margin-left: 78px;
 }
 html.green .queue-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #006400;
 }
 @-webkit-keyframes flash {
@@ -1280,7 +1295,7 @@ html.purple-inverse ul.button-small li {
   width: 20%;
 }
 html.purple-inverse ul li {
-  padding: 5px 10px;
+  padding: 10px;
   font-size: 1.2em;
   display: block;
   float: left;
@@ -1300,6 +1315,9 @@ html.purple-inverse li a {
   color: #663399;
   border-radius: 25px;
   padding: 10px;
+}
+html.purple-inverse div.track-cmd li a {
+  padding: 3px 10px;
 }
 html.purple-inverse .album {
   margin-bottom: 20px;
@@ -1372,7 +1390,8 @@ html.purple-inverse .album-head {
   color: #663399;
   background-color: #ffffff;
 }
-html.purple-inverse div.results img {
+html.purple-inverse div.results img,
+html.purple-inverse div#queue img {
   width: 64px;
   height: 64px;
   margin-right: 10px;
@@ -1396,18 +1415,19 @@ html.purple-inverse div.results div.track-album {
   color: #ffffff;
 }
 html.purple-inverse .queue-place {
-  float: left;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
   background-color: #ffffff;
   color: #663399;
   text-align: center;
 }
 html.purple-inverse .queue-content {
-  margin-left: 45px;
+  margin-left: 78px;
 }
 html.purple-inverse .queue-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #ffffff;
 }
 @-webkit-keyframes flash {
@@ -1661,7 +1681,7 @@ html.night ul.button-small li {
   width: 20%;
 }
 html.night ul li {
-  padding: 5px 10px;
+  padding: 10px;
   font-size: 1.2em;
   display: block;
   float: left;
@@ -1681,6 +1701,9 @@ html.night li a {
   color: #222222;
   border-radius: 25px;
   padding: 10px;
+}
+html.night div.track-cmd li a {
+  padding: 3px 10px;
 }
 html.night .album {
   margin-bottom: 20px;
@@ -1753,7 +1776,8 @@ html.night .album-head {
   color: #222222;
   background-color: #dddddd;
 }
-html.night div.results img {
+html.night div.results img,
+html.night div#queue img {
   width: 64px;
   height: 64px;
   margin-right: 10px;
@@ -1777,18 +1801,19 @@ html.night div.results div.track-album {
   color: #c2c2c2;
 }
 html.night .queue-place {
-  float: left;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
   background-color: #999999;
   color: #222222;
   text-align: center;
 }
 html.night .queue-content {
-  margin-left: 45px;
+  margin-left: 78px;
 }
 html.night .queue-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #999999;
 }
 @-webkit-keyframes flash {

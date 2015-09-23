@@ -154,8 +154,49 @@ define(['jquery', 'build', 'info', 'index'],
       return '<li><a href="' + link + '">' + escapeHtml(title) + '</a></li>';
     }
 
-    function makeMenuCmd(cmd, title){
-      return '<li><a data-cmd="' + cmd + '">' + escapeHtml(title) + '</a></li>';
+    function makeMenuCmd(cmd, title, noClose){
+      return '<li><a data-cmd="' + cmd + '"' + (noClose ? ' data-noclose="true"' : '') + '>' + escapeHtml(title) + '</a></li>';
+    }
+
+    function closeOpenInfo($element){
+      // close if showing
+      if ($element.find('div.track-cmd').length) {
+        $element.find('div.track-cmd').remove();
+        return true;
+      }
+      // remove any open controls
+      $('div.track-cmd').remove();
+      return false;
+    }
+
+    function currentInfo(event) {
+      event.stopPropagation();
+      var out = [];
+      var $element = $(this).parent();
+
+      if (closeOpenInfo($element)){
+        return;
+      }
+
+      var track = $element.data('track');
+      if (track) {
+        track = info.track(track);
+        out.push('<div data-auto="delete" class="track-cmd clearfix">');
+        out.push('<ul>');
+        out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
+        out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
+        out.push(makeMenuCmd('play', 'Play'));
+        out.push(makeMenuCmd('pause', 'Pause'));
+        out.push(makeMenuCmd('skip', 'skip'));
+        out.push(makeMenuCmd('vol:up', 'Vol +', true));
+        out.push(makeMenuCmd('vol:down', 'Vol -', true));
+        out.push('</ul>');
+        out.push('</div>');
+      }
+      $element.append(out.join(''));
+
+      $element.on('click', 'a[data-cmd]', buttonClick);
+      scrollToView($element);
     }
 
     function albumInfo(event) {
@@ -437,9 +478,6 @@ define(['jquery', 'build', 'info', 'index'],
         case '#alpha':
           display(build.buildAlpha(hash[1]));
           break;
-        case '#controls':
-          display(build.buildControls());
-          break;
         case '#styles':
           showPage('styles');
           break;
@@ -468,6 +506,7 @@ define(['jquery', 'build', 'info', 'index'],
       $('#hash').on('click', 'div[data-track]', trackInfo);
       $('#queue').on('click', 'div[data-track]', queueInfo);
       $('#hash').on('click', 'img[data-album]', albumInfo);
+      $('#playing').on('click', 'img', currentInfo);
       resize();
       $('#logo').click(toggleFullscreen);
       $('#menu a').click(function (){showPage(activePage);});

@@ -45,6 +45,7 @@ function playingChange(current) {
   $('#currentTrack').html(item.track);
   $('#currentCover').attr('src', 'covers/' + item.art + '.png');
   currentTrack = item.id;
+  $('#playing').data('track', currentTrack);
 }
 
 

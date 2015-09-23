@@ -14,21 +14,6 @@ define(['jquery', 'info'], function($, info) {
   }
 
 
-  function buildControls() {
-    var out = [];
-    out.push('<ul class="menu">');
-    out.push('<li><a id="play-pause" data-cmd="play">Play</button></a>');
-    out.push('<li><a data-cmd="skip">Skip</a></li>');
-    out.push('</ul>');
-    out.push('<div class="clearfix"></div>');
-    out.push('<ul class="menu">');
-    out.push('<li><a data-cmd="vol:up">Vol +</a></li>');
-    out.push('<li><a data-cmd="vol:down">Vol -</a></li>');
-    out.push('</ul>');
-    return out.join('');
-  }
-
-
   function highlight(info, text){
     for (i = 0; i < text.length; i++) {
       var regex = new RegExp(text[i], 'gi');
@@ -371,7 +356,6 @@ define(['jquery', 'info'], function($, info) {
     buildArtist: buildArtist,
     buildAlbum: buildAlbum,
     buildAlpha: buildAlpha,
-    buildControls: buildControls,
     buildSearch: buildSearch,
     buildQueueItem: buildQueueItem,
     buildStyles: buildStyles,

@@ -207,14 +207,10 @@ define(['jquery', 'build', 'info', 'index'],
       var $element = $(this);
       var album = $element.data('album');
       $element = $element.parent();
-
-      // close if showing
-      if ($element.find('div.track-cmd').length) {
-        $element.find('div.track-cmd').remove();
+      if (closeOpenInfo($element)){
         return;
       }
-      // remove any open controls
-      $('div.track-cmd').remove();
+
       if (album) {
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
@@ -232,21 +228,15 @@ define(['jquery', 'build', 'info', 'index'],
       var out = [];
       var $element = $(this);
 
-      var track = $element.data('track');
-      // close if showing
-      if ($element.find('div.track-cmd').length) {
-        $element.find('div.track-cmd').remove();
+      if (closeOpenInfo($element)){
         return;
       }
-      // remove any open controls
+
+      var track = $element.data('track');
       $('div.track-cmd').remove();
       if (track) {
         track = info.track(track);
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
-        out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
-        out.push('<div class="track-title">');
-        out.push(track.getAlbum().title);
-        out.push('</div>');
         out.push('<ul>');
         out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
         out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
@@ -265,15 +255,13 @@ define(['jquery', 'build', 'info', 'index'],
       var out = [];
       var i;
       var $element = $(this);
-      var track = $element.data('track');
-      var album = $element.data('album');
-      // close if showing
-      if ($element.find('div.track-cmd').length) {
-        $element.find('div.track-cmd').remove();
+
+      if (closeOpenInfo($element)){
         return;
       }
-      // remove any open controls
-      $('div.track-cmd').remove();
+
+      var track = $element.data('track');
+      var album = $element.data('album');
       if (track) {
         track = info.track(track);
         out.push('<div data-auto="delete" class="track-cmd clearfix">');

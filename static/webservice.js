@@ -80,7 +80,13 @@ define(['event', 'config', 'db', 'queue', 'player'],
       delete streams[streamId];
     }
 
-    function messageStream(type, msg){
+    function messageStream(type, msg, streamId){
+      if (streamId){
+        if (streams[streamId]){
+          message(streams[streamId], type, msg);
+        }
+        return;
+      }
       var stream;
       for (stream in streams){
         if (streams.hasOwnProperty(stream)){

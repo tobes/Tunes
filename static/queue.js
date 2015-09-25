@@ -6,7 +6,16 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
     var queue = [];
     var queueIds = [];
 
+    function fixId(id){
+        return parseInt(id, 10);
+    }
+
     function setReady(src, id) {
+      console.log('set ready ' + id, src);
+      if (src === false){
+        removeById(id);
+        return;
+      }
       var i;
       console.log(id);
       for (i = 0; i < queue.length; i++) {
@@ -99,12 +108,14 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
     }
 
     function addTrackById(id) {
+      id = fixId(id);
       db.get('track', id, function(track) {
         queueAdd(track);
       });
     }
 
     function addAlbumById(id) {
+      id = fixId(id);
       db.get('album', id, function(album) {
         db.getKeys(
           'track',

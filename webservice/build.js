@@ -28,8 +28,8 @@ define(['jquery', 'info'], function($, info) {
   }
 
   function processSearchTerms(text){
-    var text = text.toLowerCase();
-    text = text.replace(/[^a-z0-9 ]/g, '')
+    text = text.toLowerCase();
+    text = text.replace(/[^a-z0-9 ]/g, '');
     var i;
     var newText = '';
     var chr;

@@ -435,7 +435,7 @@ define(['db', 'config'], function(db, config) {
   console.log('import loaded');
 
   return {
-    walk: walk
+//    walk: walk
   };
 
 });

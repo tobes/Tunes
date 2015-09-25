@@ -119,9 +119,18 @@ function processCurrent(data) {
 }
 
 function playingTick(){
-  // firefox on android would not reopen closed connections
-  if (evtSource.readyState === 2){
-    stream();
+  switch (evtSource.readyState) {
+    case 0:
+      $('#menu-toggle').addClass('animation-flash');
+      break;
+    case 1:
+      $('#menu-toggle').removeClass('animation-flash');
+      break;
+    case 2:
+      $('#menu-toggle').addClass('animation-flash');
+      // firefox on android would not reopen closed connections
+      stream();
+    break;
   }
   if (currentItem === undefined){
     return;

@@ -26,6 +26,7 @@ define(function() {
           })
           .on('error', function(err) {
             console.log('an error happened: ' + err.message);
+            callback(false, data);
           })
           .saveToFile(file);
       }

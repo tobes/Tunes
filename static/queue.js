@@ -10,6 +10,27 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
         return parseInt(id, 10);
     }
 
+    function findIndexForId(id) {
+      var i;
+      for (i = 0; i < queue.length; i++) {
+        if (queue[i].id === id) {
+          return i;
+        }
+      }
+      return -1;
+    }
+    function removeById(id){
+      id = fixId(id);
+      var index = findIndexForId(id);
+      if (index !== -1){
+      console.log('delete', id, queue);
+        queue = removeIndex(queue, index);
+        queueIds = removeIndex(queueIds, index);
+      }
+      event.trigger('playlistUpdate', queue);
+      console.log('delete', queue);
+    }
+
     function setReady(src, id) {
       console.log('set ready ' + id, src);
       if (src === false){
@@ -165,6 +186,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
 
     return {
       add: queueAdd,
+      removeById: removeById,
       addTrackById: addTrackById,
       addAlbumById: addAlbumById,
       get: get,

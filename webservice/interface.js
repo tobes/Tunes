@@ -3,12 +3,16 @@
 
 define(['jquery', 'build', 'info', 'index'],
   function($, build, info, textsearch) {
+
+    var MESSAGE_DISPLAY_TIME = 3000;
+
     var isFullscreen = false;
     var scrolls = {};
     var lastHash;
     var progress = 0;
     var styleSize = 'medium';
     var styleTheme = 'night';
+    var lastSearch = '';
 
     var activePage;
     var menuDivs = [
@@ -66,7 +70,7 @@ define(['jquery', 'build', 'info', 'index'],
       styleTheme = $element.data('style') || styleTheme;
       styleSize = $element.data('size') || styleSize;
       $('html').removeClass().addClass(styleTheme + ' ' + styleSize);
-      window.history.back();
+     // window.history.back();
     }
 
 
@@ -141,6 +145,9 @@ define(['jquery', 'build', 'info', 'index'],
       }
     }
 
+    function scrollTop(pos) {
+      window.scrollTo(window.scrollX, pos);
+    }
 
     function escapeHtml(unsafe) {
       return unsafe
@@ -414,7 +421,8 @@ define(['jquery', 'build', 'info', 'index'],
     function display(html) {
       $('#hash').empty().append(html);
       showPage('hash');
-      $('#container').scrollTop(0);
+      //$('#container').scrollTop(0);
+      scrollTop(0);
     }
 
 
@@ -422,9 +430,14 @@ define(['jquery', 'build', 'info', 'index'],
       if (!isNumeric(id)) {
         showPage('artist');
         if (id) {
-          artistScroll('artist-' + id);
+          if (/^[A-Z\#]$/.test(id)){
+            artistScroll('artist-' + id);
+          } else {
+            scrollTop(0);
+          }
         } else {
-          $('#container').scrollTop(scrolls.artist || 0);
+          //$('#container').scrollTop(scrolls.artist || 0);
+          scrollTop(scrolls.artist || 0);
         }
         return;
       }
@@ -436,9 +449,14 @@ define(['jquery', 'build', 'info', 'index'],
       if (!isNumeric(id)) {
         showPage('album');
         if (id) {
-          artistScroll('album-' + id);
+          if (/^[A-Z\#]$/.test(id)){
+            artistScroll('album-' + id);
+          } else {
+            scrollTop(0);
+          }
         } else {
-          $('#container').scrollTop(scrolls.album || 0);
+          //$('#container').scrollTop(scrolls.album || 0);
+          scrollTop(scrolls.album || 0);
         }
         return;
       }
@@ -449,13 +467,13 @@ define(['jquery', 'build', 'info', 'index'],
     function locationHashChanged() {
       var hash = location.hash.split('-');
       if (lastHash === '#artist') {
-        scrolls.artist = $('#container').scrollTop();
+        scrolls.artist = window.scrollY;
       }
       if (lastHash === '#album') {
-        scrolls.album = $('#container').scrollTop();
+        scrolls.album = window.scrollY;
       }
       if (lastHash && lastHash.split('-')[0] === '#results') {
-        scrolls.results = $('#container').scrollTop();
+        scrolls.results = window.scrollY
       }
       lastHash = location.hash;
       switch (hash[0]) {

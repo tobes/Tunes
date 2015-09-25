@@ -256,6 +256,17 @@ html.purple div.results div.track-title {
 html.purple div.results div.track-album {
   color: #a385c2;
 }
+html.purple .yt {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #663399;
+  color: #ffffff;
+}
+html.purple #search-text {
+  background-color: #ffffff;
+  color: #663399;
+}
 html.purple .queue-place {
   padding-left: 2px;
   padding-right: 2px;
@@ -641,6 +652,17 @@ html.red div.results div.track-title {
 }
 html.red div.results div.track-album {
   color: #c26666;
+}
+html.red .yt {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #990000;
+  color: #ffffff;
+}
+html.red #search-text {
+  background-color: #ffffff;
+  color: #990000;
 }
 html.red .queue-place {
   padding-left: 2px;
@@ -1028,6 +1050,17 @@ html.green div.results div.track-title {
 html.green div.results div.track-album {
   color: #66a266;
 }
+html.green .yt {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #006400;
+  color: #ffffff;
+}
+html.green #search-text {
+  background-color: #ffffff;
+  color: #006400;
+}
 html.green .queue-place {
   padding-left: 2px;
   padding-right: 2px;
@@ -1412,6 +1445,17 @@ html.purple-inverse div.results div.track-title {
   color: #ffffff;
 }
 html.purple-inverse div.results div.track-album {
+  color: #ffffff;
+}
+html.purple-inverse .yt {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #ffffff;
+  color: #663399;
+}
+html.purple-inverse #search-text {
+  background-color: #663399;
   color: #ffffff;
 }
 html.purple-inverse .queue-place {
@@ -1799,6 +1843,17 @@ html.night div.results div.track-title {
 }
 html.night div.results div.track-album {
   color: #c2c2c2;
+}
+html.night .yt {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #999999;
+  color: #222222;
+}
+html.night #search-text {
+  background-color: #222222;
+  color: #999999;
 }
 html.night .queue-place {
   padding-left: 2px;

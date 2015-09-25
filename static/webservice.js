@@ -11,7 +11,6 @@ define(['event', 'config', 'db', 'queue', 'player'],
     var ipAddress = [];
     var server;
     var feedQueue = [];
-    var messages = [];
     var url;
 
     var CONTENT_TYPES = {
@@ -72,8 +71,8 @@ define(['event', 'config', 'db', 'queue', 'player'],
 
     function registerStream(streamId, response){
       streams[streamId] = response;
-      message(response, 'current',JSON.stringify(player.current()));
-      message(response, 'queue',JSON.stringify(feedQueue));
+      message(response, 'current', JSON.stringify(player.current()));
+      message(response, 'queue', JSON.stringify(feedQueue));
     }
 
     function clearStream(streamId){

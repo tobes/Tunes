@@ -42,7 +42,6 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
         return;
       }
       var i;
-      console.log(id);
       for (i = 0; i < queue.length; i++) {
         if (queue[i].id === id) {
           console.log('update queue');
@@ -160,7 +159,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
     function addTrackById(id) {
       id = fixId(id);
       if (/^YT:/.test(id)){
-        addYoutube(id)
+        addYoutube(id);
         return;
       }
       db.get('track', id, function(track) {

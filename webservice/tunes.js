@@ -17,7 +17,6 @@ var currentTrack;
 var currentPaused;
 var currentItem;
 var currentTimeOffset;
-var currentStreamId;
 
 
 function formatTime(time) {
@@ -98,7 +97,7 @@ function pausedChange(paused) {
 
 
 function processStreamId(data) {
-  currentStreamId = data.data;
+  $('html').data('stream_id', data.data);
 }
 
 

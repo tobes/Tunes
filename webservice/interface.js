@@ -7,6 +7,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
     var MESSAGE_DISPLAY_TIME = 3000;
 
     var isFullscreen = false;
+    var isAdmin = true;
     var scrolls = {};
     var lastHash;
     var progress = 0;
@@ -87,7 +88,8 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       }
       var cmd = $element.data('cmd');
       if (cmd) {
-        $.getJSON('cmd/' + cmd);
+        var streamId = $('html').data('stream_id');
+        $.getJSON('cmd/' + cmd, {streamId: streamId});
       }
       // hide any auto-hiding elements (button container)
       if ($element.data('noclose') !== true){
@@ -163,7 +165,15 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       return '<li><a href="' + link + '">' + escapeHtml(title) + '</a></li>';
     }
 
+    function cmdValid(cmd){
+      cmd = cmd.split('-')[0];
+      return (isAdmin || cmd === 'add');
+    }
+
     function makeMenuCmd(cmd, title, noClose){
+      if (!cmdValid(cmd)){
+        return '';
+      }
       return '<li><a data-cmd="' + cmd + '"' + (noClose ? ' data-noclose="true"' : '') + '>' + escapeHtml(title) + '</a></li>';
     }
 
@@ -206,7 +216,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       //}
       $element.append(out.join(''));
 
-      $element.on('click', 'a[data-cmd]', buttonClick);
       scrollToView($element);
     }
 
@@ -259,7 +268,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       }
       $element.append(out.join(''));
 
-      $element.on('click', 'a[data-cmd]', buttonClick);
       scrollToView($element);
     }
 
@@ -284,7 +292,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
         out.push('</div>');
       $element.append(out.join(''));
 
-      $element.on('click', 'a[data-cmd]', buttonClick);
       scrollToView($element);
     }
 
@@ -330,7 +337,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       }
       $element.append(out.join(''));
 
-      $element.on('click', 'a[data-cmd]', buttonClick);
       scrollToView($element);
     }
 
@@ -566,6 +572,9 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       $('#currentProgressDiv').click(progressClick);
       $('#styles').on('click', 'a[data-style]', setStyle);
       $('#styles').on('click', 'a[data-size]', setStyle);
+
+      $('#queue').on('click', 'a[data-cmd]', buttonClick);
+      $('#hash').on('click', 'a[data-cmd]', buttonClick);
       // android browser needs delay to initiate
       setTimeout(progressSet, 1);
       window.onresize = resize;

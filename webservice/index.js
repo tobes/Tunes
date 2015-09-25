@@ -67,13 +67,14 @@ define(['info', 'latin'], function(info, latin) {
     buildPartialIndex();
   }
 
-
   function getIndex(results, text, rank) {
     var i;
     var j;
     var index;
     var track;
+    var stopWord;
     for (i = 0; i < text.length; i++) {
+      stopWord = latin.isStopWord(text[i]);
       index = searchIndex[text[i]];
       if (index) {
         for (j = 0; j < index.length; j++) {
@@ -83,7 +84,11 @@ define(['info', 'latin'], function(info, latin) {
               rank: 0
             };
           }
-          results[track].rank += rank;
+          if (!stopWord){
+            results[track].rank += rank;
+          } else {
+            results[track].rank += rank / 10;
+          }
         }
       }
     }
@@ -100,14 +105,12 @@ define(['info', 'latin'], function(info, latin) {
         words = info.track(result).getWords();
         rank = results[result].rank + (1 / words);
         out.push({
+          type: 'local',
           id: result,
           rank: rank
         });
       }
     }
-    out.sort(function(a, b) {
-      return a.rank < b.rank;
-    });
     return out;
   }
 
@@ -131,7 +134,7 @@ define(['info', 'latin'], function(info, latin) {
         }
       }
     }
-    getIndex(results, partials, 0.8);
+    getIndex(results, partials, 0.5);
     return sortResults(results);
   }
 

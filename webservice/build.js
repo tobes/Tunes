@@ -46,10 +46,13 @@ define(['jquery', 'info'], function($, info) {
   }
 
   function buildResults(results, text) {
+    results.sort(function(a, b) {
+      return a.rank < b.rank;
+    });
     var i;
     var track;
     var out = [];
-    text = processSearchTerms(text)
+    text = processSearchTerms(text);
     out.push('<div class="results">');
     for (i = 0; i < results.length; i++) {
       // limit results //FIXME

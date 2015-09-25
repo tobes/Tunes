@@ -497,11 +497,16 @@ define(['jquery', 'build', 'info', 'index'],
           $('#search-form').submit(function(event) {
             event.preventDefault();
             var text = $('#search-text').val();
+            lastSearch = text;
             location.href = '#results-' + encodeURIComponent(text);
             $(this).find('input').blur();
           });
+          $('#search-text').click(function(e){ $(this).focus(); });
+            $('#search-text').trigger('click').val(escapeHtml(lastSearch));
+
           break;
         case '#results':
+          var $msg = message('Searching...', true);
           var text = decodeURIComponent(hash[1]);
           var results = textsearch.search(text);
           display(build.buildResults(results, text));
@@ -534,7 +539,20 @@ define(['jquery', 'build', 'info', 'index'],
     }
 
 
+    function message(text, keep) {
+      var $msg = $('<li>').text(text);
+      $('#messages ul').append($msg);
+      function destroy(){
+        $msg.remove();
+      }
+      if (!keep) {
+        setTimeout(destroy, MESSAGE_DISPLAY_TIME);
+      }
+      return $msg;
+    }
+
     return {
+      message: message,
       init: init
         // showPage: showPage
     };

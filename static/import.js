@@ -431,6 +431,9 @@ define(['db', 'config'], function(db, config) {
     console.log('Id3 scan complete!');
   }
 
+  // scanId3();
+  // create a new parser from a node ReadStream
+  // getDirs('/home/toby/Albums/', processDirs);
 
   console.log('import loaded');
 

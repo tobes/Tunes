@@ -29,8 +29,8 @@ define(['db'], function(db) {
 
 
   return {
-  //  randomTrack: randomTrack,
-    randomTrack: randomConverted,
+   randomTrack: randomTrack,
+ //  randomTrack: randomConverted,
   };
 
 });

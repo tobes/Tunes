@@ -7,7 +7,7 @@ requirejs.config({
 });
 
 requirejs(['jquery', 'index', 'build', 'info', 'interface'],
-          function($, textsearch, build, info, interface) {
+          function($, textsearch, build, info, _interface) {
 
 var TICK_INTERVAL = 250;
 var ERROR_TIMEOUT = 10000;
@@ -98,6 +98,7 @@ function pausedChange(paused) {
 
 function processStreamId(data) {
   $('html').data('stream_id', data.data);
+//  _interface.message('Stream: ' + currentStreamId);
 }
 
 
@@ -159,7 +160,7 @@ function playingTick(){
 
 function processMessage(data){
   var data = JSON.parse(data.data);
-  interface.message(data.text);
+  _interface.message(data.text);
 }
 
 function stream() {
@@ -181,7 +182,7 @@ function stream() {
 function processData(data){
   info.process(data);
   textsearch.buildIndexes();
-  interface.init();
+  _interface.init();
   stream();
   setInterval(playingTick, 200);
 }

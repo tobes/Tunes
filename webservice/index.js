@@ -111,6 +111,9 @@ define(['info', 'latin'], function(info, latin) {
         });
       }
     }
+//    out.sort(function(a, b) {
+//      return a.rank < b.rank;
+//    });
     return out;
   }
 

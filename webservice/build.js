@@ -268,14 +268,15 @@ define(['jquery', 'info'], function($, info) {
       ['night', 'Night'],
       ['red', 'Red'],
       ['green', 'Green']
-    ]
+    ];
 
     var sizes = [
       ['size-small', 'Small'],
       ['size-medium', 'Medium'],
       ['size-large', 'Large'],
       ['size-xlarge', 'Huge']
-    ]
+    ];
+    var i;
     var out = [];
     out.push('<div class="listing break-header">Theme</div>');
     out.push('<ul class="menu clearfix">');
@@ -290,7 +291,7 @@ define(['jquery', 'info'], function($, info) {
         styles[i][1],
         '</a></li>'
         ]
-      )
+      );
     }
     out.push('</ul>');
     out.push('<div class="listing break-header">Size</div>');
@@ -306,7 +307,7 @@ define(['jquery', 'info'], function($, info) {
         sizes[i][1],
         '</a></li>'
         ]
-      )
+      );
     }
     out.push('</ul>');
     $('#styles').append(out.join(''));

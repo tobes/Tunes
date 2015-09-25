@@ -74,7 +74,6 @@ define(['event', 'config', 'db', 'queue', 'player'],
       streams[streamId] = response;
       message(response, 'current',JSON.stringify(player.current()));
       message(response, 'queue',JSON.stringify(feedQueue));
-      message(response, 'message', msgBuild('connected'));
     }
 
     function clearStream(streamId){

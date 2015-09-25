@@ -127,6 +127,11 @@ define(['event', 'config', 'db', 'queue', 'player'],
           'message',
           msgBuild(track.track + ' added')
         );
+      } else if (track.title){
+        messageStream(
+          'message',
+          msgBuild(track.title + ' added')
+        );
       }
     }
 
@@ -172,7 +177,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
           event.trigger('controlVolDown');
           break;
         case 'add':
-          queue.addTrackById(parseInt(parts[1], 10));
+          queue.addTrackById(parts[1]);
           break;
         case 'album':
           queue.addAlbumById(parseInt(parts[1], 10));

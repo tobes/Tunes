@@ -38,10 +38,20 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
 
     function playingChange(current) {
       var item = current.item;
-      $('#currentAlbum').html(item.album);
-      $('#currentArtist').html(item.artist);
-      $('#currentTrack').html(item.track);
-      $('#currentCover').attr('src', 'covers/' + item.art + '.png');
+      if (item.type === 'jukebox'){
+        $('#currentCover').attr('src', 'covers/' + item.art + '.png');
+      }
+        $('#currentArtist').html(item.artist);
+        $('#currentTrack').html(item.track);
+        $('#currentAlbum').html(item.album);
+      if (item.type === 'youtube'){
+        $('#currentCover').attr('src', item.thumb);
+        $('#currentArtist').html(item.title);
+        $('#currentTrack').html('');
+        $('#currentAlbum').html('');
+      }
+      currentTrack = item.id;
+      $('#playing').data('track', currentTrack);
     }
 
     function playingUpdate(current) {
@@ -71,7 +81,13 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
         $list.find('.queue-track').html(item.track);
         $list.find('.queue-track-no').html(item.trackNo);
         $list.find('.queue-duration').html(item.duration);
-        $list.find('.queue-cover').attr('src', 'covers/' + item.art + 'T.png');
+        if (item.type === 'jukebox'){
+          $list.find('.queue-cover').attr('src', 'covers/' + item.art + 'T.png');
+        }
+        if (item.type === 'youtube'){
+          $list.find('.queue-cover').attr('src', item.thumb);
+        }
+
         if (!item.ready) {
           $list.addClass('not-ready');
         }

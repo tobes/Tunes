@@ -1,13 +1,17 @@
 /*global define */
 
-define('queue', ['convert', 'event', 'random', 'config', 'db'],
-  function(convert, event, random, config, db) {
+define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
+  function(convert, event, random, config, db, youtube) {
 
     var queue = [];
     var queueIds = [];
 
     function fixId(id){
+      if (/^YT:/.test(id)){
+        return id;
+      } else {
         return parseInt(id, 10);
+      }
     }
 
     function findIndexForId(id) {
@@ -63,6 +67,16 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
         console.log('item already in queue', item);
         return false;
       }
+      queue.push(item);
+      queueIds.push(item.id);
+      return true;
+    }
+
+    function queueAddLocal(item, source) {
+      if (!item){
+        console.log('no item to add', item);
+        return false;
+      }
 
       var art;
       if (item.art){
@@ -70,34 +84,49 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
       } else {
         art = 0;
       }
+
       var queueItem = {
         type: 'jukebox',
         ready: false,
         id: item.id,
-        item: item,
         album: item.album,
         artist: item.artist,
         track: item.title,
-        trackNo: '#',
-        duration: '-:--',
+        trackNo: item.trackno,
+        duration: item.duration,
         art: art,
         albumId: item.albumId,
         artistId: item.artistId,
       };
-      queue.push(queueItem);
-      queueIds.push(item.id);
-      convert.convert(item, setReady, item.id);
-      return queueItem;
+
+      if (_queueAdd(queueItem)){
+        convert.convert(item, setReady, item.id);
+        return queueItem;
+      }
     }
 
     function queueAdd(item, source) {
-      var queueItem = _queueAdd(item, source);
+      var queueItem = queueAddLocal(item, source);
       if (queueItem){
         event.trigger('playlistUpdate', queue);
         event.trigger('playlistTrackAdded', queueItem);
       }
     }
 
+    function addYoutube(id){
+      youtube.getInfo(id, function(item) {
+        console.log('Youtube');
+        console.log(item);
+        if (item){
+          if (_queueAdd(item)) {
+            youtube.downloadYouTubeAudio(id, setReady, id);
+            event.trigger('playlistTrackAdded', item);
+          }
+          event.trigger('playlistUpdate', queue);
+        }
+      });
+
+    }
 
     function removeIndex(list, index) {
       var i;
@@ -130,6 +159,10 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
 
     function addTrackById(id) {
       id = fixId(id);
+      if (/^YT:/.test(id)){
+        addYoutube(id)
+        return;
+      }
       db.get('track', id, function(track) {
         queueAdd(track);
       });
@@ -144,7 +177,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db'],
           function(tracks){
             var i;
             for (i=0; i < tracks.length; i++){
-              _queueAdd(tracks[i]);
+              queueAddLocal(tracks[i]);
             }
             event.trigger('playlistUpdate', queue);
             event.trigger('playlistAlbumAdded', album);

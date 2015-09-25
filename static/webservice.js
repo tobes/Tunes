@@ -178,6 +178,9 @@ define(['event', 'config', 'db', 'queue', 'player'],
         case 'add':
           queue.addTrackById(parts[1]);
           break;
+        case 'delete':
+          queue.removeById(parts[1]);
+          break;
         case 'album':
           queue.addAlbumById(parseInt(parts[1], 10));
           break;

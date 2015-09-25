@@ -207,7 +207,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
       [/^\/cmd\/(.*)$/, serveCommand, '.json'],
     ];
 
-    function processRequest2(request, response, post) {
+    function processRequest2(request, response, get, post) {
       var url = request.url;
       var content;
       var contentType;
@@ -216,8 +216,10 @@ define(['event', 'config', 'db', 'queue', 'player'],
       var found = false;
       var match;
       var data = {
+        get:get,
         post: post,
         response: response,
+        request: request,
       };
       if (url === "/stream") {
         response.writeHead(
@@ -278,6 +280,9 @@ define(['event', 'config', 'db', 'queue', 'player'],
 
     function processRequest(request, response) {
       var post;
+      var split = request.url.split('?');
+      request.url = split[0];
+      var get = qs.parse(split[1] || '');
       if (request.method === 'POST') {
         var data = '';
         request.on('data', function(chunk) {
@@ -285,10 +290,10 @@ define(['event', 'config', 'db', 'queue', 'player'],
         });
         request.on('end', function() {
           post = qs.parse(data);
-          processRequest2(request, response, post);
+          processRequest2(request, response, get, post);
         });
       } else {
-        processRequest2(request, response);
+        processRequest2(request, response, get);
       }
     }
 

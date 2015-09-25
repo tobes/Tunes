@@ -40,9 +40,17 @@ function formatTime(time) {
 
 function playingChange(current) {
   var item = current.item;
-  $('#currentArtist').html(item.artist);
-  $('#currentTrack').html(item.track);
-  $('#currentCover').attr('src', 'covers/' + item.art + '.png');
+  console.log(item);
+  if (item.type === 'jukebox'){
+    $('#currentCover').attr('src', 'covers/' + item.art + '.png');
+  }
+    $('#currentArtist').html(item.artist);
+    $('#currentTrack').html(item.track);
+  if (item.type === 'youtube'){
+    $('#currentCover').attr('src', item.art);
+    $('#currentArtist').html(item.title);
+    $('#currentTrack').html('<span class="yt">YouTube</span>');
+  }
   currentTrack = item.id;
   $('#playing').data('track', currentTrack);
 }

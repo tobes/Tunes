@@ -1,8 +1,8 @@
 /*global define, document, window, location */
 
 
-define(['jquery', 'build', 'info', 'index'],
-  function($, build, info, textsearch) {
+define(['jquery', 'build', 'info', 'index', 'youtube'],
+  function($, build, info, textsearch, youtube) {
 
     var MESSAGE_DISPLAY_TIME = 3000;
 
@@ -188,12 +188,14 @@ define(['jquery', 'build', 'info', 'index'],
       }
 
       var track = $element.data('track');
-      if (track) {
+     // if (track) {
         track = info.track(track);
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
-        out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
-        out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
+        if (track){
+          out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
+          out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
+        }
         out.push(makeMenuCmd('play', 'Play'));
         out.push(makeMenuCmd('pause', 'Pause'));
         out.push(makeMenuCmd('skip', 'skip'));
@@ -201,7 +203,7 @@ define(['jquery', 'build', 'info', 'index'],
         out.push(makeMenuCmd('vol:down', 'Vol -', true));
         out.push('</ul>');
         out.push('</div>');
-      }
+      //}
       $element.append(out.join(''));
 
       $element.on('click', 'a[data-cmd]', buttonClick);
@@ -242,14 +244,44 @@ define(['jquery', 'build', 'info', 'index'],
       var track = $element.data('track');
       $('div.track-cmd').remove();
       if (track) {
-        track = info.track(track);
+        var track_ = info.track(track);
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
-        out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
-        out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
+        if (track_){
+          out.push(makeMenuLink('#artist-' + track_.getArtist().id, 'Artist'));
+          out.push(makeMenuLink('#album-' + track_.getAlbum().id, 'Album'));
+          out.push(makeMenuCmd('delete-' + track_.id, 'Delete'));
+        } else {
+          out.push(makeMenuCmd('delete-' + track, 'Delete'));
+        }
         out.push('</ul>');
         out.push('</div>');
       }
+      $element.append(out.join(''));
+
+      $element.on('click', 'a[data-cmd]', buttonClick);
+      scrollToView($element);
+    }
+
+    function youtubeInfo(event) {
+      event.stopPropagation();
+      var out = [];
+      var $element = $(this);
+
+      if (closeOpenInfo($element)){
+        return;
+      }
+
+      var videoId = $element.data('youtube');
+        out.push('<div data-auto="delete" class="track-cmd clearfix">');
+        out.push('<ul>');
+        if (!info.inQueue(videoId)) {
+          out.push(makeMenuCmd('add-' + videoId, 'Play'));
+        } else {
+          out.push('<li><a>This track is in the queue</a></li>');
+        }
+        out.push('</ul>');
+        out.push('</div>');
       $element.append(out.join(''));
 
       $element.on('click', 'a[data-cmd]', buttonClick);
@@ -508,15 +540,21 @@ define(['jquery', 'build', 'info', 'index'],
         case '#results':
           var $msg = message('Searching...', true);
           var text = decodeURIComponent(hash[1]);
-          var results = textsearch.search(text);
-          display(build.buildResults(results, text));
-          $('#container').scrollTop(scrolls.results || 0);
+          youtube.search(text, function(results){
+            results = results.concat(textsearch.search(text));
+            $msg.remove();
+            display(build.buildResults(results, text));
+            //$('#container').scrollTop(scrolls.results || 0);
+            scrollTop(scrolls.results || 0);
+          });
           break;
+
       }
     }
 
     function init() {
       $('#hash').on('click', 'div[data-track]', trackInfo);
+      $('#hash').on('click', 'div[data-youtube]', youtubeInfo);
       $('#queue').on('click', 'div[data-track]', queueInfo);
       $('#hash').on('click', 'img[data-album]', albumInfo);
       $('#playing').on('click', 'img', currentInfo);

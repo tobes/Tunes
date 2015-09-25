@@ -45,12 +45,52 @@ define(['jquery', 'info'], function($, info) {
     return text;
   }
 
+  function resultLocal(result, text){
+    var out = [];
+    var track = info.track(result.id);
+    out.push('<div data-track="' + track.id + '">');
+    out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
+    out.push('<div class="track-title">');
+    out.push(highlight(track.title, text));
+   // out.push(' [' + result.rank + ']');
+    out.push('</div>');
+    out.push('<div class="track-artist">');
+    out.push(highlight(track.getArtist().name, text));
+    out.push('</div>');
+    out.push('<div class="track-album">');
+    out.push(highlight(track.getAlbum().title, text));
+    out.push('</div>');
+    out.push('</div>');
+    return out;
+  }
+
+  function resultYoutube(result, text){
+    var out = [];
+    out.push('<div data-youtube="' + result.id + '" class="clearfix">');
+    out.push('<img src="' + result.thumb + '">');
+    out.push('<div class="track-title">');
+    out.push('<span class="yt">YouTube</span> ');
+    out.push(highlight(result.title, text));
+    out.push(' (' + result.duration + ')');
+   // out.push(' [' + result.rank + ']');
+    out.push('</div>');
+    out.push('<div class="track-artist">');
+    out.push(highlight(result.description, text));
+    out.push('</div>');
+   // out.push('<div class="track-album">');
+   // out.push(highlight(track.getAlbum().title, text));
+   // out.push('</div>');
+    out.push('</div>');
+    return out;
+  }
+
+
   function buildResults(results, text) {
     results.sort(function(a, b) {
       return a.rank < b.rank;
     });
     var i;
-    var track;
+    var result;
     var out = [];
     text = processSearchTerms(text);
     out.push('<div class="results">');
@@ -59,19 +99,15 @@ define(['jquery', 'info'], function($, info) {
       if (i > 100) {
         break;
       }
-      track = info.track(results[i].id);
-      out.push('<div data-track="' + track.id + '">');
-      out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
-      out.push('<div class="track-title">');
-      out.push(highlight(track.title, text));
-      out.push('</div>');
-      out.push('<div class="track-artist">');
-      out.push(highlight(track.getArtist().name, text));
-      out.push('</div>');
-      out.push('<div class="track-album">');
-      out.push(highlight(track.getAlbum().title, text));
-      out.push('</div>');
-      out.push('</div>');
+      result = results[i];
+      switch (result.type){
+        case 'local':
+          out = out.concat(resultLocal(result, text));
+          break;
+        case 'youtube':
+          out = out.concat(resultYoutube(result, text));
+          break;
+      }
     }
     out.push('</div>');
     return out.join('');
@@ -335,7 +371,7 @@ define(['jquery', 'info'], function($, info) {
   }
 
 
-  function buildQueueItem(item, count) {
+  function buildQueueItemLocal(item, count) {
     return [
       '<div class="queue-item clearfix" data-track="',
       item.id,
@@ -343,7 +379,7 @@ define(['jquery', 'info'], function($, info) {
       '<img src="/covers/',
       item.art,
       'T.png">',
-      '<div class="queue-content">',
+      '<div class="queue-content clearfix">',
       '<div class="queue-track">',
       '<span class="queue-place',
       item.ready ? '' : ' animation-flash',
@@ -363,6 +399,39 @@ define(['jquery', 'info'], function($, info) {
     ].join('');
   }
 
+
+  function buildQueueItemYoutube(item, count) {
+    return [
+      '<div class="queue-item clearfix" data-track="',
+      item.id,
+      '">',
+      '<img src="',
+      item.thumb,
+      '">',
+      '<div class="queue-content clearfix">',
+      '<div class="queue-track">',
+      '<span class="queue-place',
+      item.ready ? '' : ' animation-flash',
+      '">',
+      count,
+      '</span> ',
+      '<span class="yt">YouTube</span> ',
+      item.title,
+      '</div>',
+      '</div>',
+      '</div>',
+    ].join('');
+  }
+
+
+  function buildQueueItem(item, count) {
+    switch (item.type){
+      case 'jukebox':
+        return buildQueueItemLocal(item, count);
+      case 'youtube':
+        return buildQueueItemYoutube(item, count);
+    }
+  }
 
 
   return {

@@ -177,9 +177,19 @@ define(['event', 'config', 'db', 'queue', 'player'],
           break;
         case 'vol:up':
           event.trigger('controlVolUp');
+          messageStream(
+            'message',
+            msgBuild('Volume ' + player.getVolume() + '%'),
+            data.get.streamId
+          );
           break;
         case 'vol:down':
           event.trigger('controlVolDown');
+          messageStream(
+            'message',
+            msgBuild('Volume ' + player.getVolume() + '%'),
+            data.get.streamId
+          );
           break;
         case 'add':
           queue.addTrackById(parts[1]);

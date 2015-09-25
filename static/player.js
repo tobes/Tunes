@@ -178,6 +178,10 @@ define('player', ['jquery', 'event', 'queue', 'config'],
       setVol();
     }
 
+    function getVolume(){
+      return Math.round(masterVolume * 100);
+    }
+
     function init(){
       // create players
       createPlayer();
@@ -196,6 +200,7 @@ define('player', ['jquery', 'event', 'queue', 'config'],
     console.log('Player: loaded');
 
     return {
+      getVolume: getVolume,
       'current': function(){return current;}
     };
 

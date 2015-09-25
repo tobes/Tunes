@@ -15,9 +15,14 @@ define(['jquery', 'info'], function($, info) {
 
 
   function highlight(info, text){
+    var i;
+    var regex;
+    function style(match) {
+      return '<i>' + match + '</i>';
+    }
     for (i = 0; i < text.length; i++) {
-      var regex = new RegExp(text[i], 'gi');
-      info = info.replace(regex, function(match, $1, $2) { return '<i>' + match + '</i>'});
+      regex = new RegExp(text[i], 'gi');
+      info = info.replace(regex, style);
     }
     return info;
   }

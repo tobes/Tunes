@@ -103,7 +103,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
         artistId: item.artistId,
       };
 
-      if (_queueAdd(queueItem)){
+      if (_queueAdd(queueItem, source)){
         convert.convert(item, setReady, item.id);
         return queueItem;
       }

@@ -24,7 +24,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       'styles',
     ];
 
-    // ['play', 'pause', 'skip', 'vol:up', 'vol:down', 'add', 'delete', 'album'];
+    // ['play', 'pause', 'skip', 'vol:up', 'vol:down', 'add', 'delete', 'album', 'limit:up', 'limit:down'];
 
     function isNumeric(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);
@@ -581,7 +581,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       $('#styles').on('click', 'a[data-size]', setStyle);
 
       $('#queue').on('click', 'a[data-cmd]', buttonClick);
-   //   $('#playing').on('click', 'a[data-cmd]', buttonClick);
       $('#hash').on('click', 'a[data-cmd]', buttonClick);
       // android browser needs delay to initiate
       setTimeout(progressSet, 1);

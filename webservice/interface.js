@@ -554,9 +554,17 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
             isAdmin = (pw === PASSWORD);
             $(this).find('input').blur();
             location.href = '#info';
+            if (isAdmin){
+              message('Admin enabled');
+            } else {
+              message('Password incorrect');
+            }
           });
           $('#password').click(function(){ $(this).focus(); });
-            $('#password').trigger('click').val(escapeHtml(lastSearch));
+          $('#password').trigger('click').val(escapeHtml(lastSearch));
+          $('#admin-form a').click(function (){
+            $('#admin-form').submit();
+          });
 
           break;
         case '#search':
@@ -565,11 +573,15 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
             event.preventDefault();
             var text = $('#search-text').val();
             lastSearch = text;
-            location.href = '#results-' + encodeURIComponent(text);
             $(this).find('input').blur();
+            $('#search-form').hide();
+            location.href = '#results-' + encodeURIComponent(text);
           });
           $('#search-text').click(function(){ $(this).focus(); });
-            $('#search-text').trigger('click').val(escapeHtml(lastSearch));
+          $('#search-text').trigger('click').val(escapeHtml(lastSearch));
+          $('#search-form a').click(function (){
+            $('#search-form').submit();
+          });
 
           break;
         case '#results':

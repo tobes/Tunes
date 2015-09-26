@@ -4,10 +4,11 @@ define(['jquery', 'info'], function($, info) {
 
   function buildSearch() {
     var out = [];
-    out.push('<h1>Search</h1>');
     out.push('<form id="search-form">');
+    out.push('<h1>Search</h1>');
     out.push('<p>');
     out.push('<input id="search-text" type="text">');
+    out.push('<ul><li><a>Go</a></li></ul>');
     out.push('</p>');
     out.push('</form>');
     return out.join('');
@@ -15,10 +16,11 @@ define(['jquery', 'info'], function($, info) {
 
   function buildAdmin() {
     var out = [];
-    out.push('<h1>Admin password</h1>');
     out.push('<form id="admin-form">');
+    out.push('<h1>Admin password</h1>');
     out.push('<p>');
-    out.push('<input id="password" type="text">');
+    out.push('<input id="password" type="password">');
+    out.push('<ul><li><a>Go</a></li></ul>');
     out.push('</p>');
     out.push('</form>');
     return out.join('');

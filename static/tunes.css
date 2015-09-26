@@ -29,3 +29,7 @@ div.queue-item p {
 .queue-content {
     margin-left: 60px
 }
+
+audio {
+  display:none;
+}

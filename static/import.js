@@ -252,11 +252,14 @@ define(['db', 'config'], function(db, config) {
           var parser = mm(fs.createReadStream(result[i].path), {
             duration: true
           }, function(err, metadata) {
-            if (err) throw err;
-            id3.push({
-              track: result[i],
-              id3: metadata
-            });
+            if (err) {
+              console.log(err);
+            } else {
+              id3.push({
+                track: result[i],
+                id3: metadata
+              });
+            }
             console.log('id3: ' + i + ' - ' + metadata.artist[0]);
             i++;
             next();

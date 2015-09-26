@@ -94,9 +94,9 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
         $.getJSON('cmd/' + cmd, {streamId: streamId});
       }
       // hide any auto-hiding elements (button container)
-      if ($element.data('noclose') !== true){
-        $('div[data-auto=delete]').remove();
-      }
+     // if ($element.data('noclose') !== true){
+        //$('div[data-auto=delete]').remove();
+     // }
       showPage(activePage);
     }
 

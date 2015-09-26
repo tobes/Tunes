@@ -1,6 +1,6 @@
 /*global define, gapi */
 
-define(['config'], function(config) {
+define(['config', 'gapi'], function(config, gapi) {
 
   var path = require('path');
   var ytdl = require('ytdl-core');

@@ -3,6 +3,12 @@
 requirejs.config({
   paths: {
     jquery: 'jquery',
+    gapi: 'https://apis.google.com/js/client.js?onload=googleApiClientReady'
+  },
+  shim: {
+    gapi: {
+      exports: 'gapi'
+    }
   }
 });
 

@@ -1,6 +1,6 @@
 /*global define, gapi */
 
-define(['latin', 'info'], function(latin, info) {
+define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
 
   function decodeISO8601(str) {
     var parts = str.match(/(\d+)(?=[MHS])/ig) || [];

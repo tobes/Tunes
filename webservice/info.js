@@ -7,6 +7,7 @@ define(function() {
   var alphasAlbum = [];
   var queue = [];
   var feedData = {};
+  var config = {};
 
   function processTrackData(data) {
     var track;
@@ -229,13 +230,25 @@ define(function() {
     queue = data;
   }
 
+  function configGet(key) {
+    return config[key];
+  }
+
+  function configSet(key, value) {
+    config[key] = value;
+  }
+
   return {
     process: process,
     alphaBit: alphaBit,
     alphasArtist: alphasArtist,
     alphasAlbum: alphasAlbum,
+
     setQueue: setQueue,
     inQueue: inQueue,
+
+    configGet: configGet,
+    configSet: configSet,
 
     trackList: trackList,
     artistList: artistList,

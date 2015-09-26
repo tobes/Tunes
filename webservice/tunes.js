@@ -163,6 +163,13 @@ function processMessage(data){
   var data = JSON.parse(data.data);
   _interface.message(data.text);
 }
+
+function processConfig(data){
+  data = JSON.parse(data.data);
+  info.configSet(data.key, data.value);
+  interface.message(data.key + ': ' + data.value);
+}
+
 function processInit(){
   if (!initalized) {
     initalized = true;
@@ -180,6 +187,8 @@ function stream() {
   evtSource.addEventListener('current', processCurrent, false);
   // messages
   evtSource.addEventListener('message', processMessage, false);
+  // config
+  evtSource.addEventListener('config', processConfig, false);
   // init
   evtSource.addEventListener('init', processInit, false);
 }

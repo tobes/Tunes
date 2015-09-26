@@ -66,17 +66,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
     }
 
     function msgBuild(text){
-      return JSON.stringify({'text': text});
-    }
-
-    function registerStream(streamId, response){
-      streams[streamId] = response;
-      message(response, 'current', JSON.stringify(player.current()));
-      message(response, 'queue', JSON.stringify(feedQueue));
-    }
-
-    function clearStream(streamId){
-      delete streams[streamId];
+      return JSON.stringify({text: text});
     }
 
     function messageStream(type, msg, streamId){
@@ -92,6 +82,27 @@ define(['event', 'config', 'db', 'queue', 'player'],
           message(streams[stream], type, msg);
         }
       }
+    }
+
+    function msg(text, streamId){
+      // quick messaging helper
+      messageStream('message', msgBuild(text), streamId);
+    }
+
+    function configSet(key, value, streamId){
+      var m = JSON.stringify({key: key, value: value});
+      messageStream('config', m, streamId);
+    }
+
+
+    function registerStream(streamId, response){
+      streams[streamId] = response;
+      message(response, 'current', JSON.stringify(player.current()));
+      message(response, 'queue', JSON.stringify(feedQueue));
+    }
+
+    function clearStream(streamId){
+      delete streams[streamId];
     }
 
     function serveFile(file, response, contentType) {
@@ -163,6 +174,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
       var content = {
         result: 'success'
       };
+      var streamId = data.get.streamId;
       var parts = data.match[1].split('-');
       switch (parts[0]) {
         case 'play':
@@ -176,19 +188,11 @@ define(['event', 'config', 'db', 'queue', 'player'],
           break;
         case 'vol:up':
           event.trigger('controlVolUp');
-          messageStream(
-            'message',
-            msgBuild('Volume ' + player.getVolume() + '%'),
-            data.get.streamId
-          );
+          msg('Volume ' + player.getVolume() + '%', streamId);
           break;
         case 'vol:down':
           event.trigger('controlVolDown');
-          messageStream(
-            'message',
-            msgBuild('Volume ' + player.getVolume() + '%'),
-            data.get.streamId
-          );
+          msg('Volume ' + player.getVolume() + '%', streamId);
           break;
         case 'add':
           queue.addTrackById(parts[1]);
@@ -203,7 +207,6 @@ define(['event', 'config', 'db', 'queue', 'player'],
       }
       return JSON.stringify(content);
     }
-
 
     function serveCover(data) {
       var file = path.join('covers', data.match[1]);

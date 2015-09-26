@@ -1,6 +1,6 @@
 /*global define, gapi */
 
-define(function() {
+define(['config'], function(config) {
 
   var path = require('path');
   var ytdl = require('ytdl-core');
@@ -86,7 +86,7 @@ define(function() {
   }
 
   function getInfo(id, callback) {
-    gapi.client.setApiKey('AIzaSyD49-XZ2JV7Rws3KDM2T7nA56Jbi-O7djY');
+    gapi.client.setApiKey(config.ytApiKey);
     gapi.client.load('youtube', 'v3', function() {
       makeRequest(id, callback);
     });

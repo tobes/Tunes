@@ -20,6 +20,8 @@ define(function() {
     importAudioExtensions: ['.mp3', '.flac', '.ogg', '.wav'],
     importImageExtensions: ['.jpg', '.png', '.gif'],
     importLimiter: 100,
+
+    ytApiKey: 'AIzaSyALdttsiV7C' + 'mv2fNmDEGmvG6MF4aIHigiA',
   };
 
 });

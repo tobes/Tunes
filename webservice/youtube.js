@@ -1,6 +1,6 @@
 /*global define, gapi */
 
-define(['latin'], function(latin) {
+define(['latin', 'info'], function(latin, info) {
 
   function decodeISO8601(str) {
     var parts = str.match(/(\d+)(?=[MHS])/ig) || [];
@@ -96,7 +96,7 @@ define(['latin'], function(latin) {
   }
 
   function search(q, callback) {
-    gapi.client.setApiKey('AIzaSyD49-XZ2JV7Rws3KDM2T7nA56Jbi-O7djY');
+    gapi.client.setApiKey(info.configGet('ytApiKey'));
     gapi.client.load('youtube', 'v3', function() {
       makeRequest(q, callback);
     });

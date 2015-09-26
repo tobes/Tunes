@@ -13,7 +13,7 @@ define(function() {
 
     webservicePort: 1969,
     webserviceActive: 1,
-    webserviceSecure: 1,
+    webserviceSecure: 0,
     webserviceSecureKey: 'ssl/key.pem',
     webserviceSecureCert: 'ssl/cert.pem',
 

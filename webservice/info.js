@@ -122,6 +122,10 @@ define(function() {
     return false;
   }
 
+  function queueLength() {
+    return queue.length;
+  }
+
   function artist(id) {
     var i;
     var item = info.artist[id];
@@ -246,6 +250,7 @@ define(function() {
 
     setQueue: setQueue,
     inQueue: inQueue,
+    queueLength: queueLength,
 
     configGet: configGet,
     configSet: configSet,

@@ -213,6 +213,8 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
         out.push(makeMenuCmd('skip', 'skip'));
         out.push(makeMenuCmd('vol:up', 'Vol +', true));
         out.push(makeMenuCmd('vol:down', 'Vol -', true));
+        out.push(makeMenuCmd('limit:up', 'Limit +', true));
+        out.push(makeMenuCmd('limit:down', 'Limit -', true));
         out.push('</ul>');
         out.push('</div>');
       //}
@@ -274,6 +276,10 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
     }
 
     function playButton(id){
+      if (info.queueLength() >= info.configGet('queueLimit')) {
+        return '<li><a>The queue is currently full</a></li>';
+      }
+
       if (info.inQueue(id)) {
         return '<li><a>This track is in the queue</a></li>';
       }

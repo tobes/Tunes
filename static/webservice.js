@@ -197,6 +197,16 @@ define(['event', 'config', 'db', 'queue', 'player'],
           event.trigger('controlVolDown');
           msg('Volume ' + player.getVolume() + '%', streamId);
           break;
+        case 'limit:up':
+          event.trigger('queueLimitUp');
+          msg('Limit ' + queue.getLimit(), streamId);
+          configSet('queueLimit', queue.getLimit());
+          break;
+        case 'limit:down':
+          event.trigger('queueLimitDown');
+          msg('Limit ' + queue.getLimit(), streamId);
+          configSet('queueLimit', queue.getLimit());
+          break;
         case 'add':
           queue.addTrackById(parts[1]);
           break;

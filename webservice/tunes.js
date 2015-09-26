@@ -17,6 +17,7 @@ var currentTrack;
 var currentPaused;
 var currentItem;
 var currentTimeOffset;
+var initalized = false;
 
 
 function formatTime(time) {
@@ -162,6 +163,12 @@ function processMessage(data){
   var data = JSON.parse(data.data);
   _interface.message(data.text);
 }
+function processInit(){
+  if (!initalized) {
+    initalized = true;
+    interface.init();
+  }
+}
 
 function stream() {
   evtSource = new EventSource("/stream");
@@ -173,6 +180,8 @@ function stream() {
   evtSource.addEventListener('current', processCurrent, false);
   // messages
   evtSource.addEventListener('message', processMessage, false);
+  // init
+  evtSource.addEventListener('init', processInit, false);
 }
 
 
@@ -182,7 +191,6 @@ function stream() {
 function processData(data){
   info.process(data);
   textsearch.buildIndexes();
-  _interface.init();
   stream();
   setInterval(playingTick, 200);
 }

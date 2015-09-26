@@ -4,6 +4,8 @@ define(function() {
 
   return {
     queueAutoMin: 1,
+    queueLimit: 12,
+
     autoPlay: false,
     fadeTime: 7000,
     tickTime: 100,

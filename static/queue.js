@@ -5,6 +5,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
 
     var queue = [];
     var queueIds = [];
+    var queueLimit = config.queueLimit;
 
     function fixId(id){
       if (/^YT:/.test(id)){
@@ -64,6 +65,10 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
       }
       if (queueIds.indexOf(item.id) !== -1){
         console.log('item already in queue', item);
+        return false;
+      }
+      if (queueIds.length >= queueLimit) {
+        console.log('queue is full', item);
         return false;
       }
       queue.push(item);
@@ -195,23 +200,24 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
       }
     }
 
-
-    function logQueue() {
-      var i;
-      var item;
-      console.log('Queue ---------');
-      for (i = 0; i < queue.length; i++) {
-        item = queue[i];
-
-        console.log(i, item.id, item.ready ? 'ready' : 'not ready');
-        console.log(item.item.basename);
-      }
-      console.log('---------------');
+    function queueLimitUp() {
+      queueLimit++;
     }
 
+    function queueLimitDown() {
+      queueLimit--;
+      if (queueLimit < 1){
+        queueLimit = 1;
+      }
+    }
 
-    //  event.add('playlistUpdate', logQueue);
+    function getLimit(){
+      return queueLimit;
+    }
+
     event.add('tick', tick);
+    event.add('queueLimitUp', queueLimitUp);
+    event.add('queueLimitDown', queueLimitDown);
 
 
     console.log('queue loaded');
@@ -222,6 +228,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
       addTrackById: addTrackById,
       addAlbumById: addAlbumById,
       get: get,
+      getLimit: getLimit,
     };
 
   });

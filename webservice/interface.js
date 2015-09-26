@@ -1,4 +1,4 @@
-/*global define, document, window, location */
+/*global define, document, window, location, screen */
 
 
 define(['jquery', 'build', 'info', 'index', 'youtube'],
@@ -7,7 +7,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
     var MESSAGE_DISPLAY_TIME = 3000;
 
     var isFullscreen = false;
-    var isAdmin = true;
+    var isAdmin = false;
     var scrolls = {};
     var lastHash;
     var progress = 0;
@@ -100,14 +100,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       showPage(activePage);
     }
 
-    function progressClick(){
-      progress++;
-      if (progress > 2){
-        progress = 0;
-      }
-      progressSet();
-    }
-
 
     function progressSet(){
       var $div = $('#currentProgressDiv');
@@ -122,6 +114,14 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
           $div.addClass('progressRemaining');
           break;
       }
+    }
+
+    function progressClick(){
+      progress++;
+      if (progress > 2){
+        progress = 0;
+      }
+      progressSet();
     }
 
     function artistScroll(name) {
@@ -365,10 +365,9 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       if (aa.various) { // various?
         // title
         return (a.title > b.title ? 1 : -1);
-      } else {
-        // trackNo
-        return (a.trackNo > b.trackNo ? 1 : -1);
       }
+      // trackNo
+      return (a.trackNo > b.trackNo ? 1 : -1);
     }
 
 
@@ -455,7 +454,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
 
 
     function resize() {
-      var height = $(window).height();
       var $toggle = $('#menu-toggle');
       $toggle.show();
       var width = Math.min($('#container').width(), screen.width);
@@ -481,7 +479,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
             scrollTop(0);
           }
         } else {
-          //$('#container').scrollTop(scrolls.artist || 0);
           scrollTop(scrolls.artist || 0);
         }
         return;
@@ -500,7 +497,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
             scrollTop(0);
           }
         } else {
-          //$('#container').scrollTop(scrolls.album || 0);
           scrollTop(scrolls.album || 0);
         }
         return;
@@ -508,6 +504,18 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       display(build.buildAlbum(id));
     }
 
+
+    function message(text, keep) {
+      var $msg = $('<li>').text(text);
+      $('#messages ul').append($msg);
+      function destroy(){
+        $msg.remove();
+      }
+      if (!keep) {
+        setTimeout(destroy, MESSAGE_DISPLAY_TIME);
+      }
+      return $msg;
+    }
 
     function locationHashChanged() {
       var hash = location.hash.split('-');
@@ -518,7 +526,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
         scrolls.album = window.scrollY;
       }
       if (lastHash && lastHash.split('-')[0] === '#results') {
-        scrolls.results = window.scrollY
+        scrolls.results = window.scrollY;
       }
       lastHash = location.hash;
       switch (hash[0]) {
@@ -546,7 +554,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
             location.href = '#results-' + encodeURIComponent(text);
             $(this).find('input').blur();
           });
-          $('#search-text').click(function(e){ $(this).focus(); });
+          $('#search-text').click(function(){ $(this).focus(); });
             $('#search-text').trigger('click').val(escapeHtml(lastSearch));
 
           break;
@@ -557,7 +565,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
             results = results.concat(textsearch.search(text));
             $msg.remove();
             display(build.buildResults(results, text));
-            //$('#container').scrollTop(scrolls.results || 0);
             scrollTop(scrolls.results || 0);
           });
           break;
@@ -592,18 +599,6 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       locationHashChanged();
     }
 
-
-    function message(text, keep) {
-      var $msg = $('<li>').text(text);
-      $('#messages ul').append($msg);
-      function destroy(){
-        $msg.remove();
-      }
-      if (!keep) {
-        setTimeout(destroy, MESSAGE_DISPLAY_TIME);
-      }
-      return $msg;
-    }
 
     return {
       message: message,

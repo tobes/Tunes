@@ -172,6 +172,7 @@ function processInit(){
   if (!initalized) {
     initalized = true;
     interface.init();
+    interface.message('All systems are go...');
   }
 }
 

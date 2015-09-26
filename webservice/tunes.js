@@ -166,7 +166,6 @@ function processMessage(data){
 function processConfig(data){
   data = JSON.parse(data.data);
   info.configSet(data.key, data.value);
-  interface.message(data.key + ': ' + data.value);
 }
 
 function processInit(){

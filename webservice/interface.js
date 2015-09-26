@@ -5,6 +5,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
   function($, build, info, textsearch, youtube) {
 
     var MESSAGE_DISPLAY_TIME = 3000;
+    var PASSWORD = 'fish';
 
     var isFullscreen = false;
     var isAdmin = false;
@@ -544,6 +545,19 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
           break;
         case '#info':
           showPage('info');
+          break;
+        case '#admin':
+          display(build.buildAdmin());
+          $('#admin-form').submit(function(event) {
+            event.preventDefault();
+            var pw = $('#password').val();
+            isAdmin = (pw === PASSWORD);
+            $(this).find('input').blur();
+            location.href = '#info';
+          });
+          $('#password').click(function(){ $(this).focus(); });
+            $('#password').trigger('click').val(escapeHtml(lastSearch));
+
           break;
         case '#search':
           display(build.buildSearch());

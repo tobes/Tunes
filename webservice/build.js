@@ -13,6 +13,17 @@ define(['jquery', 'info'], function($, info) {
     return out.join('');
   }
 
+  function buildAdmin() {
+    var out = [];
+    out.push('<h1>Admin password</h1>');
+    out.push('<form id="admin-form">');
+    out.push('<p>');
+    out.push('<input id="password" type="text">');
+    out.push('</p>');
+    out.push('</form>');
+    return out.join('');
+  }
+
 
   function highlight(info, text){
     var i;
@@ -441,6 +452,7 @@ define(['jquery', 'info'], function($, info) {
     buildAlbum: buildAlbum,
     buildAlpha: buildAlpha,
     buildSearch: buildSearch,
+    buildAdmin: buildAdmin,
     buildQueueItem: buildQueueItem,
     buildStyles: buildStyles,
     buildResults: buildResults

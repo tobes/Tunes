@@ -273,6 +273,13 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       scrollToView($element);
     }
 
+    function playButton(id){
+      if (info.inQueue(id)) {
+        return '<li><a>This track is in the queue</a></li>';
+      }
+      return makeMenuCmd('add-' + id, 'Play');
+    }
+
     function youtubeInfo(event) {
       event.stopPropagation();
       var out = [];
@@ -285,11 +292,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       var videoId = $element.data('youtube');
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
-        if (!info.inQueue(videoId)) {
-          out.push(makeMenuCmd('add-' + videoId, 'Play'));
-        } else {
-          out.push('<li><a>This track is in the queue</a></li>');
-        }
+        out.push(playButton(videoId));
         out.push('</ul>');
         out.push('</div>');
       $element.append(out.join(''));
@@ -314,11 +317,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
         track = info.track(track);
         out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
-        if (!info.inQueue(track.id)) {
-          out.push(makeMenuCmd('add-' + track.id, 'Play'));
-        } else {
-          out.push('<li><a>This track is in the queue</a></li>');
-        }
+        out.push(playButton(track.id));
         if ($element.find('.track-artist').length) {
           out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
         }

@@ -1,18 +1,20 @@
 /*global define */
 
-define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
-  function(convert, event, random, config, db, youtube) {
+define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube', 'soundcloud'],
+  function(convert, event, random, config, db, youtube, soundcloud) {
 
     var queue = [];
     var queueIds = [];
     var queueLimit = config.queueLimit;
 
-    function fixId(id){
-      if (/^YT:/.test(id)){
+    function fixId(id) {
+      if (/^YT:/.test(id)) {
         return id;
-      } else {
-        return parseInt(id, 10);
       }
+      if (/^SC:/.test(id)) {
+        return id;
+      }
+      return parseInt(id, 10);
     }
 
     function findIndexForId(id) {
@@ -130,7 +132,20 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
           event.trigger('playlistUpdate', queue);
         }
       });
+    }
 
+    function addSoundcloud(id) {
+      soundcloud.getInfo(id, function(item) {
+        console.log('SoundCloud');
+        console.log(item);
+        if (item) {
+          if (_queueAdd(item)) {
+            soundcloud.downloadAudio(item, setReady);
+            event.trigger('playlistTrackAdded', item);
+          }
+          event.trigger('playlistUpdate', queue);
+        }
+      });
     }
 
     function removeIndex(list, index) {
@@ -163,9 +178,15 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
     }
 
     function addTrackById(id) {
+      console.log(id);
       id = fixId(id);
-      if (/^YT:/.test(id)){
+      console.log(id);
+      if (/^YT:/.test(id)) {
         addYoutube(id);
+        return;
+      }
+      if (/^SC:/.test(id)) {
+        addSoundcloud(id);
         return;
       }
       db.get('track', id, function(track) {

@@ -256,7 +256,14 @@ html.purple div.results div.track-title {
 html.purple div.results div.track-album {
   color: #a385c2;
 }
-html.purple .yt {
+html.purple .youtube {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #663399;
+  color: #ffffff;
+}
+html.purple .soundcloud {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
@@ -653,7 +660,14 @@ html.red div.results div.track-title {
 html.red div.results div.track-album {
   color: #c26666;
 }
-html.red .yt {
+html.red .youtube {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #990000;
+  color: #ffffff;
+}
+html.red .soundcloud {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
@@ -1050,7 +1064,14 @@ html.green div.results div.track-title {
 html.green div.results div.track-album {
   color: #66a266;
 }
-html.green .yt {
+html.green .youtube {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #006400;
+  color: #ffffff;
+}
+html.green .soundcloud {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
@@ -1447,7 +1468,14 @@ html.purple-inverse div.results div.track-title {
 html.purple-inverse div.results div.track-album {
   color: #ffffff;
 }
-html.purple-inverse .yt {
+html.purple-inverse .youtube {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #ffffff;
+  color: #663399;
+}
+html.purple-inverse .soundcloud {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
@@ -1844,7 +1872,14 @@ html.night div.results div.track-title {
 html.night div.results div.track-album {
   color: #c2c2c2;
 }
-html.night .yt {
+html.night .youtube {
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  background-color: #999999;
+  color: #222222;
+}
+html.night .soundcloud {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;

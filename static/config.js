@@ -22,6 +22,8 @@ define(function() {
     importLimiter: 100,
 
     ytApiKey: 'AIzaSyALdttsiV7C' + 'mv2fNmDEGmvG6MF4aIHigiA',
+
+    soundcloudApiKey: 'a0cf2b817456e65d' + '0355fa27a478b9b2',
   };
 
 });

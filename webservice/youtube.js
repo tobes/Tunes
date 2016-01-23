@@ -63,6 +63,7 @@ define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
         ids.push(id);
         data[id] = {
           type: 'youtube',
+          type_desc: 'YouTube',
           id: 'YT:' + id,
           title: item.snippet.title,
           description: item.snippet.description,

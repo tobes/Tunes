@@ -5,6 +5,8 @@ npm install jimp
 npm install ytdl-core
 npm install youtube-node
 
+npm install  node-soundcloud
+
 mkdir converted
 # open firewall port (1969) on local network for webservice
 # fedora `firewall-config`

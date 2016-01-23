@@ -101,6 +101,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
       message(response, 'queue', JSON.stringify(feedQueue));
       configSet('queueLimit', queue.getLimit(), streamId);
       configSet('ytApiKey', config.ytApiKey, streamId);
+      configSet('soundcloudApiKey', config.soundcloudApiKey, streamId);
       message(response, 'init', '');
     }
 

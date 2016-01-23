@@ -78,18 +78,29 @@ define(['jquery', 'info'], function($, info) {
     return out;
   }
 
-  function resultYoutube(result, text){
+  function truncate(arg, n) {
+    arg = arg || '';
+    var isTooLong = arg.length > n,
+      s_ = isTooLong ? arg.substr(0, n - 1) : arg;
+    s_ = isTooLong ? s_.substr(0, s_.lastIndexOf(' ')) : s_;
+    return isTooLong ? s_ + '&hellip;' : s_;
+  };
+
+  function resultRemote(result, text) {
     var out = [];
     out.push('<div data-youtube="' + result.id + '" class="clearfix">');
     out.push('<img src="' + result.thumb + '">');
     out.push('<div class="track-title">');
-    out.push('<span class="yt">YouTube</span> ');
+    out.push('<span class="' + result.type + '">' + result.type_desc + '</span> ');
     out.push(highlight(result.title, text));
     out.push(' (' + result.duration + ')');
    // out.push(' [' + result.rank + ']');
+    if (result.user){
+      out.push(' [' + result.user + ']');
+    }
     out.push('</div>');
     out.push('<div class="track-artist">');
-    out.push(highlight(result.description, text));
+    out.push(highlight(truncate(result.description, 300), text));
     out.push('</div>');
     // out.push('<div class="track-album">');
     // out.push(highlight(track.getAlbum().title, text));
@@ -119,7 +130,10 @@ define(['jquery', 'info'], function($, info) {
           out = out.concat(resultLocal(result, text));
           break;
         case 'youtube':
-          out = out.concat(resultYoutube(result, text));
+          out = out.concat(resultRemote(result, text));
+          break;
+        case 'soundcloud':
+          out = out.concat(resultRemote(result, text));
           break;
       }
     }
@@ -414,7 +428,7 @@ define(['jquery', 'info'], function($, info) {
   }
 
 
-  function buildQueueItemYoutube(item, count) {
+  function buildQueueItemRemote(item, count) {
     return [
       '<div class="queue-item clearfix" data-track="',
       item.id,
@@ -429,8 +443,9 @@ define(['jquery', 'info'], function($, info) {
       '">',
       count,
       '</span> ',
-      '<span class="yt">YouTube</span> ',
+      '<span class="' + item.type + '">' + item.type_desc + '</span> ',
       item.title,
+      ' [' + item.user + ']',
       '</div>',
       '</div>',
       '</div>',
@@ -439,12 +454,10 @@ define(['jquery', 'info'], function($, info) {
 
 
   function buildQueueItem(item, count) {
-    switch (item.type){
-      case 'jukebox':
+    if (item.type === 'jukebox') {
         return buildQueueItemLocal(item, count);
-      case 'youtube':
-        return buildQueueItemYoutube(item, count);
     }
+        return buildQueueItemRemote(item, count);
   }
 
 

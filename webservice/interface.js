@@ -1,8 +1,9 @@
 /*global define, document, window, location, screen */
 
 
-define(['jquery', 'build', 'info', 'index', 'youtube'],
-  function($, build, info, textsearch, youtube) {
+
+define(['jquery', 'build', 'info', 'index', 'youtube', 'soundcloud'],
+  function($, build, info, textsearch, youtube, soundcloud) {
 
     var MESSAGE_DISPLAY_TIME = 3000;
     var PASSWORD = 'fish';
@@ -50,11 +51,11 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       var $menu = $('#menu');
       if ($menu.css('display') !== 'none') {
         $menu.hide();
-        showPage(activePage);
       } else {
         var hash = location.hash.split('-')[0];
         var $alpha = $('#menu-alpha');
         if (hash === '#artist') {
+        showPage(activePage);
           $alpha.attr('href', '#alpha-artist');
           $alpha.parent().show();
         } else if (hash === '#album') {
@@ -259,9 +260,9 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       $('div.track-cmd').remove();
       if (track) {
         var track_ = info.track(track);
-        out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
         if (track_){
+        out.push('<div data-auto="delete" class="track-cmd clearfix">');
           out.push(makeMenuLink('#artist-' + track_.getArtist().id, 'Artist'));
           out.push(makeMenuLink('#album-' + track_.getAlbum().id, 'Album'));
           out.push(makeMenuCmd('delete-' + track_.id, 'Delete'));
@@ -518,6 +519,20 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
       return $msg;
     }
 
+    function makeResults(results, text, $msg){
+      if (results.soundcloud === undefined){
+        return;
+      }
+      if (results.youtube === undefined){
+        return;
+      }
+      results = textsearch.search(text).concat(results.soundcloud, results.youtube);
+      $msg.remove();
+      display(build.buildResults(results, text));
+      scrollTop(scrolls.results || 0);
+    }
+
+
     function locationHashChanged() {
       var hash = location.hash.split('-');
       if (lastHash === '#artist') {
@@ -587,12 +602,21 @@ define(['jquery', 'build', 'info', 'index', 'youtube'],
         case '#results':
           var $msg = message('Searching...', true);
           var text = decodeURIComponent(hash[1]);
-          youtube.search(text, function(results){
-            results = results.concat(textsearch.search(text));
-            $msg.remove();
-            display(build.buildResults(results, text));
-            scrollTop(scrolls.results || 0);
+          var results_dict = {
+            soundcloud: undefined,
+            youtube: undefined
+          };
+
+          soundcloud.search(text, function(results){
+            results_dict.soundcloud = results;
+            makeResults(results_dict, text, $msg);
           });
+
+          youtube.search(text, function(results){
+            results_dict.youtube = results;
+            makeResults(results_dict, text, $msg);
+          });
+
           break;
 
       }

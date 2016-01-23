@@ -3,9 +3,13 @@
 requirejs.config({
   paths: {
     jquery: 'jquery',
+    scapi: 'https://connect.soundcloud.com/sdk/sdk-3.0.0',
     gapi: 'https://apis.google.com/js/client.js?onload=googleApiClientReady'
   },
   shim: {
+    scapi: {
+      exports: 'SC'
+    },
     gapi: {
       exports: 'gapi'
     }

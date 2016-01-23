@@ -2,8 +2,8 @@
 
 
 
-define(['jquery', 'build', 'info', 'index', 'youtube', 'soundcloud'],
-  function($, build, info, textsearch, youtube, soundcloud) {
+define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
+  function($, build, info, textsearch, latin, youtube, soundcloud) {
 
     var MESSAGE_DISPLAY_TIME = 3000;
     var PASSWORD = 'fish';
@@ -519,6 +519,47 @@ define(['jquery', 'build', 'info', 'index', 'youtube', 'soundcloud'],
       return $msg;
     }
 
+    function rank(terms, item){
+      var i;
+      var r = 1;
+      var title = item.title || '';
+      var description = item.description || '';
+      title = title.toLowerCase();
+      description = description.toLowerCase();
+      var t_w = title.split(' ').length;
+      var d_w = description.split(' ').length;
+      for (i = 0; i <terms.length; i++){
+        if (title.indexOf(terms[i]) > -1){
+          if (latin.isStopWord(terms[i])){
+            r += 0.2 / t_w;
+          } else {
+            r += 1 / t_w;
+          }
+        }
+        if (description.indexOf(terms[i]) > -1){
+          if (latin.isStopWord(terms[i])){
+            r += 0.2 / d_w;
+          } else {
+            r += 1 / d_w;
+          }
+        }
+      }
+      return r;
+    }
+
+    function rankResults(q, results){
+      var i;
+      var item;
+      var terms = q.toLowerCase().split(' ');
+      for (i=0; i <results.length; i++){
+        item = results[i];
+        if (!item.rank){
+        item.rank = rank(terms, item);
+        }
+      }
+
+    }
+
     function makeResults(results, text, $msg){
       if (results.soundcloud === undefined){
         return;
@@ -527,6 +568,7 @@ define(['jquery', 'build', 'info', 'index', 'youtube', 'soundcloud'],
         return;
       }
       results = textsearch.search(text).concat(results.soundcloud, results.youtube);
+      rankResults(text, results);
       $msg.remove();
       display(build.buildResults(results, text));
       scrollTop(scrolls.results || 0);

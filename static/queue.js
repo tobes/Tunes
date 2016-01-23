@@ -8,10 +8,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
     var queueLimit = config.queueLimit;
 
     function fixId(id) {
-      if (/^YT:/.test(id)) {
-        return id;
-      }
-      if (/^SC:/.test(id)) {
+      if (/^(YT|SC):/.test(id)) {
         return id;
       }
       return parseInt(id, 10);
@@ -163,11 +160,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
 
     function addTrackById(id) {
       id = fixId(id);
-      if (/^YT:/.test(id)) {
-        addRemote(id);
-        return;
-      }
-      if (/^SC:/.test(id)) {
+      if (/^(YT|SC):/.test(id)) {
         addRemote(id);
         return;
       }

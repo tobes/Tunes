@@ -62,6 +62,7 @@ define(['config'], function(config) {
           id: id,
           title: item.snippet.title,
           description: item.snippet.description,
+          user: item.snippet.channelTitle,
           duration: duration,
           thumb: item.snippet.thumbnails.default.url,
           art: item.snippet.thumbnails.high.url

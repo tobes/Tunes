@@ -4,40 +4,12 @@ define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
 
   function decodeISO8601(str) {
     var parts = str.match(/(\d+)(?=[MHS])/ig) || [];
-    var formatted = parts.map(function(item) {
-      if (item.length < 2) {
-        return '0' + item;
-      }
-      return item;
-    }).join(':');
-    return formatted;
-  }
-
-
-  function rank(terms, item){
-    var i;
-    var r = 1;
-    var title = item.title.toLowerCase();
-    var description = item.description.toLowerCase();
-    var t_w = title.split(' ').length;
-    var d_w = description.split(' ').length;
-    for (i = 0; i <terms.length; i++){
-      if (title.indexOf(terms[i]) > -1){
-        if (latin.isStopWord(terms[i])){
-          r += 0.2 / t_w;
-        } else {
-          r += 1 / t_w;
-        }
-      }
-      if (description.indexOf(terms[i]) > -1){
-        if (latin.isStopWord(terms[i])){
-          r += 0.2 / d_w;
-        } else {
-          r += 1 / d_w;
-        }
-      }
-    }
-    return r;
+    parts.reverse();
+    return (
+      ((parseInt(parts[2], 10) || 0) *3600)
+      + ((parseInt(parts[1] , 10)|| 0) *60)
+      + ((parseInt(parts[0], 10) || 0))
+    );
   }
 
   function makeRequest(q, callback) {
@@ -52,7 +24,6 @@ define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
       maxResults: 50,
       part: 'snippet'
     });
-    var terms = q.toLowerCase().split(' ');
     request.execute(function(response) {
       var ids = [];
       var data = {};
@@ -66,6 +37,7 @@ define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
           type_desc: 'YouTube',
           id: 'YT:' + id,
           title: item.snippet.title,
+          user: item.snippet.channelTitle,
           description: item.snippet.description,
           thumb: item.snippet.thumbnails.default.url
         };
@@ -86,7 +58,6 @@ define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
           duration = decodeISO8601(item.contentDetails.duration);
           dataItem = data[id];
           dataItem.duration = duration;
-          dataItem.rank = rank(terms, dataItem);
           out.push(dataItem);
         }
         callback(out);

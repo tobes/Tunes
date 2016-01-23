@@ -66,7 +66,6 @@ define(['jquery', 'info'], function($, info) {
     out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
     out.push('<div class="track-title">');
     out.push(highlight(track.title, text));
-    // out.push(' [' + result.rank + ']');
     out.push('</div>');
     out.push('<div class="track-artist">');
     out.push(highlight(track.getArtist().name, text));
@@ -84,7 +83,22 @@ define(['jquery', 'info'], function($, info) {
       s_ = isTooLong ? arg.substr(0, n - 1) : arg;
     s_ = isTooLong ? s_.substr(0, s_.lastIndexOf(' ')) : s_;
     return isTooLong ? s_ + '&hellip;' : s_;
-  };
+  }
+
+  function formatDuration(s) {
+    var seconds = s % 60 << 0;
+    var minutes = (s / 60) % 60 << 0;
+    var hours = (s / 60 / 60) << 0;
+
+    var parts = hours ? [hours, minutes, seconds] : [minutes, seconds];
+    var formatted = parts.map(function(item) {
+      if (item < 10) {
+        return '0' + item;
+      }
+      return item;
+    }).join(':');
+    return formatted;
+  }
 
   function resultRemote(result, text) {
     var out = [];
@@ -93,18 +107,16 @@ define(['jquery', 'info'], function($, info) {
     out.push('<div class="track-title">');
     out.push('<span class="' + result.type + '">' + result.type_desc + '</span> ');
     out.push(highlight(result.title, text));
-    out.push(' (' + result.duration + ')');
-   // out.push(' [' + result.rank + ']');
-    if (result.user){
-      out.push(' [' + result.user + ']');
+    out.push(' (' + formatDuration(result.duration) + ')');
+    if (result.user) {
+      out.push('<div class="track-user">');
+      out.push(' [ ' + result.user + ' ]');
+      out.push('</div>');
     }
     out.push('</div>');
     out.push('<div class="track-artist">');
     out.push(highlight(truncate(result.description, 300), text));
     out.push('</div>');
-    // out.push('<div class="track-album">');
-    // out.push(highlight(track.getAlbum().title, text));
-    // out.push('</div>');
     out.push('</div>');
     return out;
   }
@@ -129,10 +141,7 @@ define(['jquery', 'info'], function($, info) {
         case 'local':
           out = out.concat(resultLocal(result, text));
           break;
-        case 'youtube':
-          out = out.concat(resultRemote(result, text));
-          break;
-        case 'soundcloud':
+        default:
           out = out.concat(resultRemote(result, text));
           break;
       }
@@ -400,64 +409,66 @@ define(['jquery', 'info'], function($, info) {
 
 
   function buildQueueItemLocal(item, count) {
-    return [
-      '<div class="queue-item clearfix" data-track="',
-      item.id,
-      '">',
-      '<img src="/covers/',
-      item.art,
-      'T.png">',
-      '<div class="queue-content clearfix">',
-      '<div class="queue-track">',
-      '<span class="queue-place',
-      item.ready ? '' : ' animation-flash',
-      '">',
-      count,
-      '</span> ',
-      item.track,
-      '</div>',
-      '<div><b class="queue-artist">',
-      item.artist,
-      '</b></div>',
-      '<div>',
-      item.album,
-      '</div>',
-      '</div>',
-      '</div>',
-    ].join('');
+    var out = [];
+    out.push('<div class="queue-item clearfix" data-track="');
+    out.push(item.id);
+    out.push('">');
+    out.push('<img src="/covers/');
+    out.push(item.art);
+    out.push('T.png">');
+    out.push('<div class="queue-content clearfix">');
+    out.push('<div class="queue-track">');
+    out.push('<span class="queue-place');
+    out.push(item.ready ? '' : ' animation-flash');
+    out.push('">');
+    out.push(count);
+    out.push('</span> ');
+    out.push(item.track);
+    out.push('</div>');
+    out.push('<div><b class="queue-artist">');
+    out.push(item.artist);
+    out.push('</b></div>');
+    out.push('<div>');
+    out.push(item.album);
+    out.push('</div>');
+    out.push('</div>');
+    out.push('</div>');
+    return out.join('');
   }
 
 
   function buildQueueItemRemote(item, count) {
-    return [
-      '<div class="queue-item clearfix" data-track="',
-      item.id,
-      '">',
-      '<img src="',
-      item.thumb,
-      '">',
-      '<div class="queue-content clearfix">',
-      '<div class="queue-track">',
-      '<span class="queue-place',
-      item.ready ? '' : ' animation-flash',
-      '">',
-      count,
-      '</span> ',
-      '<span class="' + item.type + '">' + item.type_desc + '</span> ',
-      item.title,
-      ' [' + item.user + ']',
-      '</div>',
-      '</div>',
-      '</div>',
-    ].join('');
+    var out = [];
+    out.push('<div class="queue-item clearfix" data-track="');
+    out.push(item.id);
+    out.push('">');
+    out.push('<img src="');
+    out.push(item.thumb);
+    out.push('">');
+    out.push('<div class="queue-content clearfix">');
+    out.push('<div class="queue-track">');
+    out.push('<span class="queue-place');
+    out.push(item.ready ? '' : ' animation-flash');
+    out.push('">');
+    out.push(count);
+    out.push('</span> ');
+    out.push('<span class="' + item.type + '">' + item.type_desc + '</span> ');
+    out.push(item.title);
+    out.push('<div><b class="queue-user">');
+    out.push(item.user);
+    out.push('</b></div>');
+    out.push('</div>');
+    out.push('</div>');
+    out.push('</div>');;
+    return out.join('');
   }
 
 
   function buildQueueItem(item, count) {
     if (item.type === 'jukebox') {
-        return buildQueueItemLocal(item, count);
+      return buildQueueItemLocal(item, count);
     }
-        return buildQueueItemRemote(item, count);
+    return buildQueueItemRemote(item, count);
   }
 
 

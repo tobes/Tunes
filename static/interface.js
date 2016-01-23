@@ -5,6 +5,11 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
 
     var parts = {};
 
+    function unhttps(arg){
+      return arg.replace(/^https:/, 'http:');
+    }
+
+
     function build(template, location, callback) {
       function insert(data) {
         $(location).html(data);
@@ -38,14 +43,13 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
 
     function playingChange(current) {
       var item = current.item;
-      if (item.type === 'jukebox'){
+      if (item.type === 'jukebox') {
         $('#currentCover').attr('src', 'covers/' + item.art + '.png');
-      }
         $('#currentArtist').html(item.artist);
         $('#currentTrack').html(item.track);
         $('#currentAlbum').html(item.album);
-      if (item.type === 'youtube'){
-        $('#currentCover').attr('src', item.thumb);
+      } else {
+        $('#currentCover').attr('src', unhttps(item.thumb));
         $('#currentArtist').html(item.title);
         $('#currentTrack').html('');
         $('#currentAlbum').html('');
@@ -81,11 +85,10 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
         $list.find('.queue-track').html(item.track);
         $list.find('.queue-track-no').html(item.trackNo);
         $list.find('.queue-duration').html(item.duration);
-        if (item.type === 'jukebox'){
+        if (item.type === 'jukebox') {
           $list.find('.queue-cover').attr('src', 'covers/' + item.art + 'T.png');
-        }
-        if (item.type === 'youtube'){
-          $list.find('.queue-cover').attr('src', item.thumb);
+        } else {
+          $list.find('.queue-cover').attr('src', unhttps(item.thumb));
         }
 
         if (!item.ready) {

@@ -1,4 +1,4 @@
-/*global define, gapi */
+/*global define */
 
 define(['config'], function(config) {
 
@@ -30,7 +30,7 @@ define(['config'], function(config) {
       .saveToFile(file);
   }
 
-  function _downloadAudio(item, callback, data) {
+  function downloadAudio(item, callback) {
     var id = item.id;
     var file = path.join('converted', id + '.ogg');
     var stream = new Readable();
@@ -42,31 +42,10 @@ define(['config'], function(config) {
         });
         res.on('end', function() {
           stream.push(null);
-          convert(file, stream, callback, data);
+          convert(file, stream, callback, id);
         });
       });
     });
-  }
-
-  function downloadAudio(item, callback) {
-    var attempt = 0;
-
-    function work(file, data) {
-      if (file) {
-        console.log('loaded ' + item.id);
-        console.log(file);
-        callback(file, data);
-        return;
-      }
-      if (attempt++ > 5) {
-        console.log('failed to load ' + item.id);
-        callback(file, data);
-        return;
-      }
-      console.log('download ' + item.id + ' attempt ' + attempt);
-      _downloadAudio(item, work, item.id);
-    }
-    work();
   }
 
   function ms2time(ms) {

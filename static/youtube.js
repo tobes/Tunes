@@ -1,4 +1,4 @@
-/*global define, gapi */
+/*global define */
 
 define(['config'], function(config) {
 
@@ -10,44 +10,29 @@ define(['config'], function(config) {
   var youTube = new YouTube();
   youTube.setKey(config.ytApiKey);
 
-  function _downloadYouTubeAudio(id, callback, data){
+  function downloadAudio(item, callback) {
+    var id = item.id;
     var file = path.join('converted', id + '.ogg');
     var ytId = id.split(':')[1];
     var url = 'http://www.youtube.com/watch?v=' + ytId;
-    var stream = ytdl(url, {filter:'audioonly'});
-    var proc = new ffmpeg({source:stream});
+    var stream = ytdl(url, {
+      filter: 'audioonly'
+    });
+    var proc = new ffmpeg({
+      source: stream
+    });
     proc.toFormat('ogg')
       .on('end', function() {
         console.log('file has been converted successfully');
         if (callback) {
-          callback(file, data);
+          callback(file, id);
         }
       })
       .on('error', function(err) {
         console.log('an error happened: ' + err.message);
-        callback(false, data);
+        callback(false, id);
       })
       .saveToFile(file);
-  }
-
-  function downloadYouTubeAudio(id, callback){
-    var attempt = 0;
-    function work(file, data){
-      if (file){
-        console.log('loaded ' + id);
-        console.log(file);
-        callback(file, data);
-        return;
-      }
-      if (attempt++ > 5){
-        console.log('failed to load ' + id);
-        callback(file, data);
-        return;
-      }
-      console.log('download ' + id + ' attempt ' + attempt);
-      _downloadYouTubeAudio(id, work, id);
-    }
-    work();
   }
 
   function decodeISO8601(str) {
@@ -66,8 +51,7 @@ define(['config'], function(config) {
     youTube.getById(ytid, function(error, result) {
       if (error) {
         console.log(error);
-      }
-      else {
+      } else {
         var duration;
         var out;
         var item = result.items[0];
@@ -88,7 +72,7 @@ define(['config'], function(config) {
   }
 
   return {
-    downloadYouTubeAudio: downloadYouTubeAudio,
+    downloadAudio: downloadAudio,
     getInfo: getInfo
   };
 

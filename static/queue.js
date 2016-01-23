@@ -1,7 +1,7 @@
 /*global define */
 
-define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube', 'soundcloud'],
-  function(convert, event, random, config, db, youtube, soundcloud) {
+define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
+  function(convert, event, random, config, db, remote) {
 
     var queue = [];
     var queueIds = [];
@@ -120,27 +120,11 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube', 'sound
       }
     }
 
-    function addYoutube(id) {
-      youtube.getInfo(id, function(item) {
-        console.log('Youtube');
-        console.log(item);
+    function addRemote(id) {
+      remote.getInfo(id, function(item) {
         if (item) {
           if (_queueAdd(item)) {
-            youtube.downloadYouTubeAudio(id, setReady, id);
-            event.trigger('playlistTrackAdded', item);
-          }
-          event.trigger('playlistUpdate', queue);
-        }
-      });
-    }
-
-    function addSoundcloud(id) {
-      soundcloud.getInfo(id, function(item) {
-        console.log('SoundCloud');
-        console.log(item);
-        if (item) {
-          if (_queueAdd(item)) {
-            soundcloud.downloadAudio(item, setReady);
+            remote.downloadAudio(item, setReady);
             event.trigger('playlistTrackAdded', item);
           }
           event.trigger('playlistUpdate', queue);
@@ -178,15 +162,13 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube', 'sound
     }
 
     function addTrackById(id) {
-      console.log(id);
       id = fixId(id);
-      console.log(id);
       if (/^YT:/.test(id)) {
-        addYoutube(id);
+        addRemote(id);
         return;
       }
       if (/^SC:/.test(id)) {
-        addSoundcloud(id);
+        addRemote(id);
         return;
       }
       db.get('track', id, function(track) {

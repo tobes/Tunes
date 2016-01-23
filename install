@@ -1,4 +1,4 @@
-npm install ffluent-ffmpeg
+npm install fluent-ffmpeg
 npm install musicmetadata
 npm install jimp
 

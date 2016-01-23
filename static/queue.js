@@ -24,11 +24,12 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
       }
       return -1;
     }
-    function removeById(id){
+
+    function removeById(id) {
       id = fixId(id);
       var index = findIndexForId(id);
-      if (index !== -1){
-      console.log('delete', id, queue);
+      if (index !== -1) {
+        console.log('delete', id, queue);
         queue = removeIndex(queue, index);
         queueIds = removeIndex(queueIds, index);
       }
@@ -38,7 +39,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
 
     function setReady(src, id) {
       console.log('set ready ' + id, src);
-      if (src === false){
+      if (src === false) {
         removeById(id);
         return;
       }
@@ -55,7 +56,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
 
 
     function _queueAdd(item, source) {
-      if (!item){
+      if (!item) {
         console.log('no item to add', item);
         return false;
       }
@@ -63,7 +64,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
       if (source === 'auto' && queue.length === config.queueAutoMin) {
         return false;
       }
-      if (queueIds.indexOf(item.id) !== -1){
+      if (queueIds.indexOf(item.id) !== -1) {
         console.log('item already in queue', item);
         return false;
       }
@@ -77,13 +78,13 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
     }
 
     function queueAddLocal(item, source) {
-      if (!item){
+      if (!item) {
         console.log('no item to add', item);
         return false;
       }
 
       var art;
-      if (item.art){
+      if (item.art) {
         art = item.albumId;
       } else {
         art = 0;
@@ -103,7 +104,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
         artistId: item.artistId,
       };
 
-      if (_queueAdd(queueItem, source)){
+      if (_queueAdd(queueItem, source)) {
         convert.convert(item, setReady, item.id);
         return queueItem;
       }
@@ -111,17 +112,17 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
 
     function queueAdd(item, source) {
       var queueItem = queueAddLocal(item, source);
-      if (queueItem){
+      if (queueItem) {
         event.trigger('playlistUpdate', queue);
         event.trigger('playlistTrackAdded', queueItem);
       }
     }
 
-    function addYoutube(id){
+    function addYoutube(id) {
       youtube.getInfo(id, function(item) {
         console.log('Youtube');
         console.log(item);
-        if (item){
+        if (item) {
           if (_queueAdd(item)) {
             youtube.downloadYouTubeAudio(id, setReady, id);
             event.trigger('playlistTrackAdded', item);
@@ -178,9 +179,9 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
         db.getKeys(
           'track',
           album.tracks.split(',').map(Number),
-          function(tracks){
+          function(tracks) {
             var i;
-            for (i=0; i < tracks.length; i++){
+            for (i = 0; i < tracks.length; i++) {
               queueAddLocal(tracks[i]);
             }
             event.trigger('playlistUpdate', queue);
@@ -206,12 +207,12 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'youtube'],
 
     function queueLimitDown() {
       queueLimit--;
-      if (queueLimit < 1){
+      if (queueLimit < 1) {
         queueLimit = 1;
       }
     }
 
-    function getLimit(){
+    function getLimit() {
       return queueLimit;
     }
 

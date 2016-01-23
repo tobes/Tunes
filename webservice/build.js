@@ -27,9 +27,10 @@ define(['jquery', 'info'], function($, info) {
   }
 
 
-  function highlight(info, text){
+  function highlight(info, text) {
     var i;
     var regex;
+
     function style(match) {
       return '<i>' + match + '</i>';
     }
@@ -40,7 +41,7 @@ define(['jquery', 'info'], function($, info) {
     return info;
   }
 
-  function processSearchTerms(text){
+  function processSearchTerms(text) {
     text = text.toLowerCase();
     text = text.replace(/[^a-z0-9 ]/g, '');
     var i;
@@ -48,7 +49,7 @@ define(['jquery', 'info'], function($, info) {
     var chr;
     for (i = 0; i < text.length; i++) {
       chr = text.charAt(i);
-      if (chr === ' '){
+      if (chr === ' ') {
         newText += ' ';
       } else {
         newText += '(' + chr + '|[^\x00-\x7F]+)';
@@ -58,14 +59,14 @@ define(['jquery', 'info'], function($, info) {
     return text;
   }
 
-  function resultLocal(result, text){
+  function resultLocal(result, text) {
     var out = [];
     var track = info.track(result.id);
     out.push('<div data-track="' + track.id + '">');
     out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
     out.push('<div class="track-title">');
     out.push(highlight(track.title, text));
-   // out.push(' [' + result.rank + ']');
+    // out.push(' [' + result.rank + ']');
     out.push('</div>');
     out.push('<div class="track-artist">');
     out.push(highlight(track.getArtist().name, text));
@@ -90,9 +91,9 @@ define(['jquery', 'info'], function($, info) {
     out.push('<div class="track-artist">');
     out.push(highlight(result.description, text));
     out.push('</div>');
-   // out.push('<div class="track-album">');
-   // out.push(highlight(track.getAlbum().title, text));
-   // out.push('</div>');
+    // out.push('<div class="track-album">');
+    // out.push(highlight(track.getAlbum().title, text));
+    // out.push('</div>');
     out.push('</div>');
     return out;
   }
@@ -113,7 +114,7 @@ define(['jquery', 'info'], function($, info) {
         break;
       }
       result = results[i];
-      switch (result.type){
+      switch (result.type) {
         case 'local':
           out = out.concat(resultLocal(result, text));
           break;
@@ -332,32 +333,32 @@ define(['jquery', 'info'], function($, info) {
     var out = [];
     out.push('<div class="listing break-header">Theme</div>');
     out.push('<ul class="menu clearfix">');
-    for (i =0; i < styles.length; i++){
+    for (i = 0; i < styles.length; i++) {
       out = out.concat(
         [
-        '<li class="style-menu ',
-        styles[i][0],
-        '"><a data-style="',
-        styles[i][0],
-        '">',
-        styles[i][1],
-        '</a></li>'
+          '<li class="style-menu ',
+          styles[i][0],
+          '"><a data-style="',
+          styles[i][0],
+          '">',
+          styles[i][1],
+          '</a></li>'
         ]
       );
     }
     out.push('</ul>');
     out.push('<div class="listing break-header">Size</div>');
     out.push('<ul class="menu">');
-    for (i =0; i < sizes.length; i++){
+    for (i = 0; i < sizes.length; i++) {
       out = out.concat(
         [
-        '<li class="size-menu ',
-        sizes[i][0],
-        '"><a data-size="',
-        sizes[i][0],
-        '">',
-        sizes[i][1],
-        '</a></li>'
+          '<li class="size-menu ',
+          sizes[i][0],
+          '"><a data-size="',
+          sizes[i][0],
+          '">',
+          sizes[i][1],
+          '</a></li>'
         ]
       );
     }

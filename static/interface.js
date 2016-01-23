@@ -60,15 +60,15 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
 
     function playingUpdate(current) {
       var progress;
-      if (!current.paused){
-      $('#currentPosition').html(formatTime(current.position));
-      $('#currentDuration').html(formatTime(current.duration));
-      if (current.duration) {
-        progress = current.position * 100 / current.duration;
-      } else {
-        progress = 0;
-      }
-      $('#currentProgress').val(progress);
+      if (!current.paused) {
+        $('#currentPosition').html(formatTime(current.position));
+        $('#currentDuration').html(formatTime(current.duration));
+        if (current.duration) {
+          progress = current.position * 100 / current.duration;
+        } else {
+          progress = 0;
+        }
+        $('#currentProgress').val(progress);
       }
     }
 

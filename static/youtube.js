@@ -1,10 +1,14 @@
 /*global define, gapi */
 
-define(['config', 'gapi'], function(config, gapi) {
+define(['config'], function(config) {
 
+  var YouTube = require('youtube-node');
   var path = require('path');
   var ytdl = require('ytdl-core');
   var ffmpeg = require('fluent-ffmpeg');
+
+  var youTube = new YouTube();
+  youTube.setKey(config.ytApiKey);
 
   function _downloadYouTubeAudio(id, callback, data){
     var file = path.join('converted', id + '.ogg');
@@ -57,38 +61,29 @@ define(['config', 'gapi'], function(config, gapi) {
     return formatted;
   }
 
-  function makeRequest(id, callback) {
-    // basic info
-    id = id.split(':')[1];
-    var item;
-    var request = gapi.client.youtube.videos.list({
-      id: id,
-      part: 'snippet, contentDetails'
-    });
-    request.execute(function(response) {
-      var duration;
-      var out;
-      item = response.items[0];
-      id = item.id;
-      duration = decodeISO8601(item.contentDetails.duration);
-      out = {
-        type: 'youtube',
-        id: 'YT:' + id,
-        title: item.snippet.title,
-        description: item.snippet.description,
-        duration: duration,
-        thumb: item.snippet.thumbnails.default.url,
-        art: item.snippet.thumbnails.high.url
-      };
-      callback(out);
-    });
-
-  }
-
   function getInfo(id, callback) {
-    gapi.client.setApiKey(config.ytApiKey);
-    gapi.client.load('youtube', 'v3', function() {
-      makeRequest(id, callback);
+    var ytid = id.split(':')[1];
+    youTube.getById(ytid, function(error, result) {
+      if (error) {
+        console.log(error);
+      }
+      else {
+        var duration;
+        var out;
+        var item = result.items[0];
+        duration = decodeISO8601(item.contentDetails.duration);
+        out = {
+          type: 'youtube',
+          type_desc: 'YouTube',
+          id: id,
+          title: item.snippet.title,
+          description: item.snippet.description,
+          duration: duration,
+          thumb: item.snippet.thumbnails.default.url,
+          art: item.snippet.thumbnails.high.url
+        };
+        callback(out);
+      }
     });
   }
 

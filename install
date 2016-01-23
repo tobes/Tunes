@@ -3,6 +3,7 @@ npm install musicmetadata
 npm install jimp
 
 npm install ytdl-core
+npm install youtube-node
 
 mkdir converted
 # open firewall port (1969) on local network for webservice

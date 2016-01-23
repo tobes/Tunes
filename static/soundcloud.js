@@ -63,6 +63,11 @@ define(['config'], function(config) {
     return formatted;
   }
 
+  function largeImg(url) {
+    if (url) {
+      return url.replace('large.', 't500x500.');
+    }
+  }
 
   function getInfo(id, callback) {
     var scid = id.split(':')[1];
@@ -82,7 +87,8 @@ define(['config'], function(config) {
         duration: ms2time(track.duration),
         user: track.user.username,
         thumb: track.artwork_url || track.user.avatar_url,
-        art: track.artwork_url || track.user.avatar_url
+        art: largeImg(track.artwork_url) || track.user.avatar_url
+
       };
       callback(out);
     });

@@ -16,7 +16,6 @@ requirejs.config({
     }
   }
 });
-
 // initialize the database before we do anything
 requirejs(['db', 'event'], function(db, event) {
   console.log('==============================');

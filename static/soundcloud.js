@@ -86,9 +86,7 @@ define(['config'], function(config) {
 
 
   function getInfo(id, callback) {
-    console.log('***');
     var scid = id.split(':')[1];
-    console.log('***');
     SC.get('/tracks/' + scid, function(err, track) {
       if (err) {
         throw err;

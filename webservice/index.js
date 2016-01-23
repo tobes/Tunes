@@ -84,7 +84,7 @@ define(['info', 'latin'], function(info, latin) {
               rank: 0
             };
           }
-          if (!stopWord){
+          if (!stopWord) {
             results[track].rank += rank;
           } else {
             results[track].rank += rank / 10;
@@ -111,9 +111,6 @@ define(['info', 'latin'], function(info, latin) {
         });
       }
     }
-//    out.sort(function(a, b) {
-//      return a.rank < b.rank;
-//    });
     return out;
   }
 

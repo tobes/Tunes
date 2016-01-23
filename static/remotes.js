@@ -2,7 +2,7 @@
 
 define(['youtube', 'soundcloud'], function(youtube, soundcloud) {
 
-  function getInfo(id, callback){
+  function getInfo(id, callback) {
     if (/^YT:/.test(id)) {
       youtube.getInfo(id, callback);
     }

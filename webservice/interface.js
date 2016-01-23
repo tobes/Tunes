@@ -55,7 +55,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
         var hash = location.hash.split('-')[0];
         var $alpha = $('#menu-alpha');
         if (hash === '#artist') {
-        showPage(activePage);
+          showPage(activePage);
           $alpha.attr('href', '#alpha-artist');
           $alpha.parent().show();
         } else if (hash === '#album') {
@@ -75,7 +75,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       styleTheme = $element.data('style') || styleTheme;
       styleSize = $element.data('size') || styleSize;
       $('html').removeClass().addClass(styleTheme + ' ' + styleSize);
-     // window.history.back();
+      // window.history.back();
     }
 
 
@@ -93,22 +93,24 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       var cmd = $element.data('cmd');
       if (cmd) {
         var streamId = $('html').data('stream_id');
-        $.getJSON('cmd/' + cmd, {streamId: streamId});
+        $.getJSON('cmd/' + cmd, {
+          streamId: streamId
+        });
       }
       // hide any auto-hiding elements (button container)
-     // if ($element.data('noclose') !== true){
-        //$('div[data-auto=delete]').remove();
-     // }
+      // if ($element.data('noclose') !== true){
+      //$('div[data-auto=delete]').remove();
+      // }
       showPage(activePage);
     }
 
 
-    function progressSet(){
+    function progressSet() {
       var $div = $('#currentProgressDiv');
       $div.removeClass('progressPosition');
       $div.removeClass('progressRemaining');
 
-      switch (progress){
+      switch (progress) {
         case 0:
           $div.addClass('progressPosition');
           break;
@@ -118,9 +120,9 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       }
     }
 
-    function progressClick(){
+    function progressClick() {
       progress++;
-      if (progress > 2){
+      if (progress > 2) {
         progress = 0;
       }
       progressSet();
@@ -129,7 +131,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
     function artistScroll(name) {
       // setTimeout to ensure the element is displayed
       // before scrolling
-      setTimeout(function (){
+      setTimeout(function() {
         var node = document.getElementById(name);
         node.scrollIntoView();
       }, 1);
@@ -157,31 +159,31 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
 
     function escapeHtml(unsafe) {
       return unsafe
-       .replace(/&/g, "&amp;")
-       .replace(/</g, "&lt;")
-       .replace(/>/g, "&gt;")
-       .replace(/"/g, "&quot;")
-       .replace(/'/g, "&#039;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
 
-    function makeMenuLink(link, title){
+    function makeMenuLink(link, title) {
       return '<li><a href="' + link + '">' + escapeHtml(title) + '</a></li>';
     }
 
-    function cmdValid(cmd){
+    function cmdValid(cmd) {
       cmd = cmd.split('-')[0];
       return (isAdmin || cmd === 'add');
     }
 
-    function makeMenuCmd(cmd, title, noClose){
-      if (!cmdValid(cmd)){
+    function makeMenuCmd(cmd, title, noClose) {
+      if (!cmdValid(cmd)) {
         return '';
       }
       return '<li><a data-cmd="' + cmd + '"' + (noClose ? ' data-noclose="true"' : '') + '>' + escapeHtml(title) + '</a></li>';
     }
 
-    function closeOpenInfo($element){
+    function closeOpenInfo($element) {
       // close if showing
       if ($element.find('div.track-cmd').length) {
         $element.find('div.track-cmd').remove();
@@ -197,28 +199,28 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       var out = [];
       var $element = $(this).parent();
 
-      if (closeOpenInfo($element)){
+      if (closeOpenInfo($element)) {
         return;
       }
 
       var track = $element.data('track');
-     // if (track) {
-        track = info.track(track);
-        out.push('<div data-auto="delete" class="track-cmd clearfix">');
-        out.push('<ul>');
-        if (track){
-          out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
-          out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
-        }
-        out.push(makeMenuCmd('play', 'Play'));
-        out.push(makeMenuCmd('pause', 'Pause'));
-        out.push(makeMenuCmd('skip', 'skip'));
-        out.push(makeMenuCmd('vol:up', 'Vol +', true));
-        out.push(makeMenuCmd('vol:down', 'Vol -', true));
-        out.push(makeMenuCmd('limit:up', 'Limit +', true));
-        out.push(makeMenuCmd('limit:down', 'Limit -', true));
-        out.push('</ul>');
-        out.push('</div>');
+      // if (track) {
+      track = info.track(track);
+      out.push('<div data-auto="delete" class="track-cmd clearfix">');
+      out.push('<ul>');
+      if (track) {
+        out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
+        out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
+      }
+      out.push(makeMenuCmd('play', 'Play'));
+      out.push(makeMenuCmd('pause', 'Pause'));
+      out.push(makeMenuCmd('skip', 'skip'));
+      out.push(makeMenuCmd('vol:up', 'Vol +', true));
+      out.push(makeMenuCmd('vol:down', 'Vol -', true));
+      out.push(makeMenuCmd('limit:up', 'Limit +', true));
+      out.push(makeMenuCmd('limit:down', 'Limit -', true));
+      out.push('</ul>');
+      out.push('</div>');
       //}
       $element.append(out.join(''));
 
@@ -231,7 +233,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       var $element = $(this);
       var album = $element.data('album');
       $element = $element.parent();
-      if (closeOpenInfo($element)){
+      if (closeOpenInfo($element)) {
         return;
       }
 
@@ -252,7 +254,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       var out = [];
       var $element = $(this);
 
-      if (closeOpenInfo($element)){
+      if (closeOpenInfo($element)) {
         return;
       }
 
@@ -261,8 +263,8 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       if (track) {
         var track_ = info.track(track);
         out.push('<ul>');
-        if (track_){
-        out.push('<div data-auto="delete" class="track-cmd clearfix">');
+        if (track_) {
+          out.push('<div data-auto="delete" class="track-cmd clearfix">');
           out.push(makeMenuLink('#artist-' + track_.getArtist().id, 'Artist'));
           out.push(makeMenuLink('#album-' + track_.getAlbum().id, 'Album'));
           out.push(makeMenuCmd('delete-' + track_.id, 'Delete'));
@@ -277,7 +279,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       scrollToView($element);
     }
 
-    function playButton(id){
+    function playButton(id) {
       if (info.queueLength() >= info.configGet('queueLimit')) {
         return '<li><a>The queue is currently full</a></li>';
       }
@@ -293,16 +295,16 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       var out = [];
       var $element = $(this);
 
-      if (closeOpenInfo($element)){
+      if (closeOpenInfo($element)) {
         return;
       }
 
       var videoId = $element.data('youtube');
-        out.push('<div data-auto="delete" class="track-cmd clearfix">');
-        out.push('<ul>');
-        out.push(playButton(videoId));
-        out.push('</ul>');
-        out.push('</div>');
+      out.push('<div data-auto="delete" class="track-cmd clearfix">');
+      out.push('<ul>');
+      out.push(playButton(videoId));
+      out.push('</ul>');
+      out.push('</div>');
       $element.append(out.join(''));
 
       scrollToView($element);
@@ -315,7 +317,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       var i;
       var $element = $(this);
 
-      if (closeOpenInfo($element)){
+      if (closeOpenInfo($element)) {
         return;
       }
 
@@ -475,7 +477,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       if (!isNumeric(id)) {
         showPage('artist');
         if (id) {
-          if (/^[A-Z\#]$/.test(id)){
+          if (/^[A-Z\#]$/.test(id)) {
             artistScroll('artist-' + id);
           } else {
             scrollTop(0);
@@ -493,7 +495,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       if (!isNumeric(id)) {
         showPage('album');
         if (id) {
-          if (/^[A-Z\#]$/.test(id)){
+          if (/^[A-Z\#]$/.test(id)) {
             artistScroll('album-' + id);
           } else {
             scrollTop(0);
@@ -510,7 +512,8 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
     function message(text, keep) {
       var $msg = $('<li>').text(text);
       $('#messages ul').append($msg);
-      function destroy(){
+
+      function destroy() {
         $msg.remove();
       }
       if (!keep) {
@@ -519,7 +522,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       return $msg;
     }
 
-    function rank(terms, item){
+    function rank(terms, item) {
       var i;
       var r = 1;
       var title = item.title || '';
@@ -528,16 +531,16 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       description = description.toLowerCase();
       var t_w = title.split(' ').length;
       var d_w = description.split(' ').length;
-      for (i = 0; i <terms.length; i++){
-        if (title.indexOf(terms[i]) > -1){
-          if (latin.isStopWord(terms[i])){
+      for (i = 0; i < terms.length; i++) {
+        if (title.indexOf(terms[i]) > -1) {
+          if (latin.isStopWord(terms[i])) {
             r += 0.2 / t_w;
           } else {
             r += 1 / t_w;
           }
         }
-        if (description.indexOf(terms[i]) > -1){
-          if (latin.isStopWord(terms[i])){
+        if (description.indexOf(terms[i]) > -1) {
+          if (latin.isStopWord(terms[i])) {
             r += 0.2 / d_w;
           } else {
             r += 1 / d_w;
@@ -547,24 +550,24 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       return r;
     }
 
-    function rankResults(q, results){
+    function rankResults(q, results) {
       var i;
       var item;
       var terms = q.toLowerCase().split(' ');
-      for (i=0; i <results.length; i++){
+      for (i = 0; i < results.length; i++) {
         item = results[i];
-        if (!item.rank){
-        item.rank = rank(terms, item);
+        if (!item.rank) {
+          item.rank = rank(terms, item);
         }
       }
 
     }
 
-    function makeResults(results, text, $msg){
-      if (results.soundcloud === undefined){
+    function makeResults(results, text, $msg) {
+      if (results.soundcloud === undefined) {
         return;
       }
-      if (results.youtube === undefined){
+      if (results.youtube === undefined) {
         return;
       }
       results = textsearch.search(text).concat(results.soundcloud, results.youtube);
@@ -611,15 +614,17 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
             isAdmin = (pw === PASSWORD);
             $(this).find('input').blur();
             location.href = '#info';
-            if (isAdmin){
+            if (isAdmin) {
               message('Admin enabled');
             } else {
               message('Password incorrect');
             }
           });
-          $('#password').click(function(){ $(this).focus(); });
+          $('#password').click(function() {
+            $(this).focus();
+          });
           $('#password').trigger('click').val(escapeHtml(lastSearch));
-          $('#admin-form a').click(function (){
+          $('#admin-form a').click(function() {
             $('#admin-form').submit();
           });
 
@@ -634,9 +639,11 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
             $('#search-form').hide();
             location.href = '#results-' + encodeURIComponent(text);
           });
-          $('#search-text').click(function(){ $(this).focus(); });
+          $('#search-text').click(function() {
+            $(this).focus();
+          });
           $('#search-text').trigger('click').val(escapeHtml(lastSearch));
-          $('#search-form a').click(function (){
+          $('#search-form a').click(function() {
             $('#search-form').submit();
           });
 
@@ -649,12 +656,12 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
             youtube: undefined
           };
 
-          soundcloud.search(text, function(results){
+          soundcloud.search(text, function(results) {
             results_dict.soundcloud = results;
             makeResults(results_dict, text, $msg);
           });
 
-          youtube.search(text, function(results){
+          youtube.search(text, function(results) {
             results_dict.youtube = results;
             makeResults(results_dict, text, $msg);
           });
@@ -672,7 +679,9 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       $('#playing').on('click', 'img', currentInfo);
       resize();
       $('#logo').click(toggleFullscreen);
-      $('#menu a').click(function (){showPage(activePage);});
+      $('#menu a').click(function() {
+        showPage(activePage);
+      });
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'a', buttonClick);
       $('#currentProgressDiv').click(progressClick);

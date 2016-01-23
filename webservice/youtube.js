@@ -6,9 +6,7 @@ define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
     var parts = str.match(/(\d+)(?=[MHS])/ig) || [];
     parts.reverse();
     return (
-      ((parseInt(parts[2], 10) || 0) *3600)
-      + ((parseInt(parts[1] , 10)|| 0) *60)
-      + ((parseInt(parts[0], 10) || 0))
+      ((parseInt(parts[2], 10) || 0) * 3600) + ((parseInt(parts[1], 10) || 0) * 60) + ((parseInt(parts[0], 10) || 0))
     );
   }
 

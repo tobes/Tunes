@@ -5,7 +5,7 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
 
     var parts = {};
 
-    function unhttps(arg){
+    function unhttps(arg) {
       return arg.replace(/^https:/, 'http:');
     }
 

@@ -17,7 +17,7 @@ define(['latin', 'info', 'scapi'], function(latin, info, scapi) {
         id: 'SC:' + item.id,
         title: item.title,
         description: item.description,
-        duration: (item.duration/1000 << 0),
+        duration: (item.duration / 1000 << 0),
         user: item.user.username,
         thumb: item.artwork_url || item.user.avatar_url
       };

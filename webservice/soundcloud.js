@@ -1,10 +1,10 @@
 /*global define, gapi */
 
-define(['latin', 'info', 'scapi'], function(latin, info, scapi) {
+define(['info', 'scapi'], function(info, scapi) {
 
   var initialized = false;
 
-  function makeResults(q, result, callback) {
+  function makeResults(result, callback) {
     var i;
     var item;
     var dataItem;
@@ -42,7 +42,7 @@ define(['latin', 'info', 'scapi'], function(latin, info, scapi) {
       },
       limit: 50
     }).then(function(tracks) {
-      makeResults(q, tracks, callback);
+      makeResults(tracks, callback);
     });
   }
 

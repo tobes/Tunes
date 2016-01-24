@@ -16,8 +16,8 @@ requirejs.config({
   }
 });
 
-requirejs(['jquery', 'index', 'build', 'info', 'interface'],
-  function($, textsearch, build, info, interface) {
+requirejs(['jquery', 'build', 'info', 'interface'],
+  function($, build, info, interface) {
 
     var TICK_INTERVAL = 250;
     var ERROR_TIMEOUT = 10000;
@@ -203,18 +203,9 @@ requirejs(['jquery', 'index', 'build', 'info', 'interface'],
 
 
 
-
-
-    function processData(data) {
-      info.process(data);
-      textsearch.buildIndexes();
+    $(function() {
       stream();
       setInterval(playingTick, 200);
-    }
-
-
-    $(function() {
-      $.getJSON('data.json', processData);
     });
 
 

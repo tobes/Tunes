@@ -229,7 +229,6 @@ define(['event', 'config', 'db', 'queue', 'player'],
     }
 
     var routes = [
-      ['/data.json', jsonData, '.json'],
       [/^\/covers\/(\d*T?.png)$/, serveCover, '.png'],
       [/^\/cmd\/(.*)$/, serveCommand, '.json'],
     ];

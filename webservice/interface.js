@@ -2,8 +2,8 @@
 
 
 
-define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
-  function($, build, info, textsearch, latin, youtube, soundcloud) {
+define(['jquery', 'build', 'info', 'latin', 'youtube', 'soundcloud'],
+  function($, build, info, latin, youtube, soundcloud) {
 
     var MESSAGE_DISPLAY_TIME = 3000;
     var PASSWORD = 'fish';
@@ -570,7 +570,7 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       if (results.youtube === undefined) {
         return;
       }
-      results = textsearch.search(text).concat(results.soundcloud, results.youtube);
+      results = [].concat(results.soundcloud, results.youtube);
       rankResults(text, results);
       $msg.remove();
       display(build.buildResults(results, text));
@@ -694,8 +694,6 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       setTimeout(progressSet, 1);
       window.onresize = resize;
       window.onhashchange = locationHashChanged;
-      build.buildArtistList();
-      build.buildAlbumList();
       build.buildStyles();
       locationHashChanged();
     }

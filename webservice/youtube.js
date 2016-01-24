@@ -1,6 +1,6 @@
-/*global define, gapi */
+/*global define, setTimeout */
 
-define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
+define(['info', 'gapi'], function(info, gapi) {
 
   function decodeISO8601(str) {
     var parts = str.match(/(\d+)(?=[MHS])/ig) || [];
@@ -66,10 +66,17 @@ define(['latin', 'info', 'gapi'], function(latin, info, gapi) {
   }
 
   function search(q, callback) {
-    gapi.client.setApiKey(info.configGet('ytApiKey'));
-    gapi.client.load('youtube', 'v3', function() {
-      makeRequest(q, callback);
-    });
+    // check gapi is initialised
+    if (!gapi.client) {
+      setTimeout(function() {
+        search(q, callback);
+      }, 100);
+    } else {
+      gapi.client.setApiKey(info.configGet('ytApiKey'));
+      gapi.client.load('youtube', 'v3', function() {
+        makeRequest(q, callback);
+      });
+    }
   }
 
 

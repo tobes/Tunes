@@ -22,6 +22,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
       '.jpg': 'image/jpg',
       '.wav': 'audio/wav',
       '.ogg': 'audio/ogg',
+      '.webapp': 'application/x-web-app-manifest+json',
     };
 
     var FEEDS = {

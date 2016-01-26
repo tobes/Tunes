@@ -80,16 +80,7 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
 
     function processQueue(data) {
       var queue = JSON.parse(data.data);
-      var i;
-      var item;
-      var $item;
-      var $queue = $('#queue').empty();
-      for (i = 0; i < queue.length; i++) {
-        item = queue[i];
-        $item = build.buildQueueItem(item, i + 1);
-        $queue.append($.parseHTML($item));
-      }
-      info.setQueue(queue);
+      build.buildQueue(queue);
     }
 
 

@@ -1,7 +1,7 @@
 /*global define, document*/
 
-define(['event', 'config', 'db', 'queue', 'player'],
-  function(event, config, db, queue, player) {
+define(['event', 'config', 'search_index', 'queue', 'player'],
+  function(event, config, search_index, queue, player) {
 
     var path = require('path');
     var fs = require('fs');
@@ -20,31 +20,11 @@ define(['event', 'config', 'db', 'queue', 'player'],
       '.json': 'application/json',
       '.png': 'image/png',
       '.jpg': 'image/jpg',
+      '.svg': 'image/svg+xml',
       '.wav': 'audio/wav',
       '.ogg': 'audio/ogg',
       '.webapp': 'application/x-web-app-manifest+json',
     };
-
-    var FEEDS = {
-      artist: ['id', 'name'],
-      album: ['id', 'title', 'artistId', 'art', 'various'],
-      track: ['id', 'title', 'artistId', 'albumId', 'trackno'],
-    };
-
-    var feedArtist;
-    db.all('artist', FEEDS.artist, function(result) {
-      feedArtist = result;
-    });
-
-    var feedAlbum;
-    db.all('album', FEEDS.album, function(result) {
-      feedAlbum = result;
-    });
-
-    var feedTrack;
-    db.all('track', FEEDS.track, function(result) {
-      feedTrack = result;
-    });
 
     function getIPAdress() {
       var ifaces = require('os').networkInterfaces();
@@ -164,14 +144,11 @@ define(['event', 'config', 'db', 'queue', 'player'],
       }
     }
 
-
-    function jsonData() {
-      return JSON.stringify({
-        album: feedAlbum,
-        artist: feedArtist,
-        track: feedTrack,
-        feed: FEEDS
-      });
+    function serveSearch(data) {
+      console.log(data.get.q);
+      var results = search_index.search(data.get.q);
+      console.log(results);
+      return JSON.stringify(results);
     }
 
 
@@ -231,6 +208,7 @@ define(['event', 'config', 'db', 'queue', 'player'],
     var routes = [
       [/^\/covers\/(\d*T?.png)$/, serveCover, '.png'],
       [/^\/cmd\/(.*)$/, serveCommand, '.json'],
+      [/^\/search\/$/, serveSearch, '.json'],
     ];
 
     function processRequest2(request, response, get, post) {
@@ -297,6 +275,8 @@ define(['event', 'config', 'db', 'queue', 'player'],
         url += 'index.html';
       }
       file = path.join('webservice', url);
+      console.log(file)
+      console.log(url)
 
       var ext = path.extname(url);
       contentType = CONTENT_TYPES[ext];

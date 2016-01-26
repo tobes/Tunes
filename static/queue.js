@@ -95,12 +95,12 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
         id: item.id,
         album: item.album,
         artist: item.artist,
-        track: item.title,
+        title: item.title,
         trackNo: item.trackno,
-        duration: item.duration,
-        art: art,
+        duration: item.duration << 0,
         albumId: item.albumId,
         artistId: item.artistId,
+        thumb: '/covers/' + art + 'T.png',
       };
 
       if (_queueAdd(queueItem, source)) {

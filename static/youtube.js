@@ -37,13 +37,10 @@ define(['config'], function(config) {
 
   function decodeISO8601(str) {
     var parts = str.match(/(\d+)(?=[MHS])/ig) || [];
-    var formatted = parts.map(function(item) {
-      if (item.length < 2) {
-        return '0' + item;
-      }
-      return item;
-    }).join(':');
-    return formatted;
+    parts.reverse();
+    return (
+      ((parseInt(parts[2], 10) || 0) * 3600) + ((parseInt(parts[1], 10) || 0) * 60) + ((parseInt(parts[0], 10) || 0))
+    );
   }
 
   function getInfo(id, callback) {

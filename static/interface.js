@@ -46,7 +46,7 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
       if (item.type === 'jukebox') {
         $('#currentCover').attr('src', 'covers/' + item.art + '.png');
         $('#currentArtist').html(item.artist);
-        $('#currentTrack').html(item.track);
+        $('#currentTrack').html(item.title);
         $('#currentAlbum').html(item.album);
       } else {
         $('#currentCover').attr('src', unhttps(item.art));
@@ -81,10 +81,10 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
         $list = $(parts.queue_item);
         item = queue[i];
         if (item.type === 'jukebox') {
-          $list.find('.queue-cover').attr('src', 'covers/' + item.art + 'T.png');
+          $list.find('.queue-cover').attr('src', item.thumb.substr(1));
           $list.find('.queue-artist').html(item.artist);
           $list.find('.queue-album').html(item.album);
-          $list.find('.queue-track').html(item.track);
+          $list.find('.queue-track').html(item.title);
           $list.find('.queue-track-no').html(item.trackNo);
           $list.find('.queue-duration').html(item.duration);
         } else {

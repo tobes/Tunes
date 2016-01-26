@@ -48,21 +48,6 @@ define(['config'], function(config) {
     });
   }
 
-  function ms2time(ms) {
-    var seconds = (ms / 1000) % 60 << 0;
-    var minutes = (ms / 1000 / 60) << 0;
-    var hours = (ms / 1000 / 60 / 60) << 0;
-
-    var parts = hours ? [hours, minutes, seconds] : [minutes, seconds];
-    var formatted = parts.map(function(item) {
-      if (item < 10) {
-        return '0' + item;
-      }
-      return item;
-    }).join(':');
-    return formatted;
-  }
-
   function largeImg(url) {
     if (url) {
       return url.replace('large.', 't500x500.');
@@ -84,7 +69,7 @@ define(['config'], function(config) {
         source: track.stream_url,
         title: track.title,
         description: track.description,
-        duration: ms2time(track.duration),
+        duration: track.duration / 1000 << 0,
         user: track.user.username,
         thumb: track.artwork_url || track.user.avatar_url,
         art: largeImg(track.artwork_url) || track.user.avatar_url

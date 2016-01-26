@@ -3,6 +3,7 @@
 define(['info', 'latin'], function(info, latin) {
 
 
+  var initialized = false;
   var searchIndex = {};
   var searchPartialIndex = {};
 
@@ -58,6 +59,7 @@ define(['info', 'latin'], function(info, latin) {
 
 
   function buildIndexes() {
+    console.log('building indexes');
     searchIndex = {};
     var i;
     var tracks = info.trackList();
@@ -65,6 +67,8 @@ define(['info', 'latin'], function(info, latin) {
       buildIndex(info.track(tracks[i]));
     }
     buildPartialIndex();
+    console.log('built indexes');
+    initialized = true;
   }
 
   function getIndex(results, text, rank) {
@@ -97,17 +101,26 @@ define(['info', 'latin'], function(info, latin) {
 
   function sortResults(results) {
     var result;
-    var words;
-    var rank;
+    var track;
+    var album;
+    var artist;
     var out = [];
     for (result in results) {
       if (results.hasOwnProperty(result)) {
-        words = info.track(result).getWords();
-        rank = results[result].rank + (1 / words);
+        track = info.track(result);
+        album = track.getAlbum();
+        artist = track.getArtist();
         out.push({
-          type: 'local',
-          id: result,
-          rank: rank
+          type: 'jukebox',
+          //type_desc: 'Tunes!',
+          id: parseInt(result, 10),
+          title: track.title,
+          artist: artist.name,
+          artistId: artist.id,
+          album: album.title,
+          albumId: album.id,
+          duration: track.duration << 0,
+          thumb: '/covers/' + album.art + 'T.png',
         });
       }
     }
@@ -116,6 +129,10 @@ define(['info', 'latin'], function(info, latin) {
 
 
   function search(text) {
+    if (!initialized){
+      console.log('Search not ready');
+      return [];
+    }
     var i;
     var j;
     var words;
@@ -138,9 +155,9 @@ define(['info', 'latin'], function(info, latin) {
     return sortResults(results);
   }
 
+  info.init(buildIndexes);
 
   return {
-    buildIndexes: buildIndexes,
     search: search
   };
 

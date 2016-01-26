@@ -2,8 +2,8 @@
 
 
 
-define(['jquery', 'build', 'info', 'latin', 'youtube', 'soundcloud'],
-  function($, build, info, latin, youtube, soundcloud) {
+define(['jquery', 'build', 'info', 'search'],
+  function($, build, info, search) {
 
     var MESSAGE_DISPLAY_TIME = 3000;
     var PASSWORD = 'fish';
@@ -253,23 +253,23 @@ define(['jquery', 'build', 'info', 'latin', 'youtube', 'soundcloud'],
       event.stopPropagation();
       var out = [];
       var $element = $(this);
+      var item = $element.data();
+      console.log($element.data());
 
       if (closeOpenInfo($element)) {
         return;
       }
 
-      var track = $element.data('track');
       $('div.track-cmd').remove();
-      if (track) {
-        var track_ = info.track(track);
+      if (item) {
+        out.push('<div data-auto="delete" class="track-cmd clearfix">');
         out.push('<ul>');
-        if (track_) {
-          out.push('<div data-auto="delete" class="track-cmd clearfix">');
-          out.push(makeMenuLink('#artist-' + track_.getArtist().id, 'Artist'));
-          out.push(makeMenuLink('#album-' + track_.getAlbum().id, 'Album'));
-          out.push(makeMenuCmd('delete-' + track_.id, 'Delete'));
+        if (item.type === 'jukebox') {
+          out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
+          out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
+          out.push(makeMenuCmd('delete-' + item.id, 'Delete'));
         } else {
-          out.push(makeMenuCmd('delete-' + track, 'Delete'));
+          out.push(makeMenuCmd('delete-' + item.id, 'Delete'));
         }
         out.push('</ul>');
         out.push('</div>');
@@ -290,19 +290,21 @@ define(['jquery', 'build', 'info', 'latin', 'youtube', 'soundcloud'],
       return makeMenuCmd('add-' + id, 'Play');
     }
 
-    function youtubeInfo(event) {
+    function resultInfo(event) {
       event.stopPropagation();
       var out = [];
       var $element = $(this);
+      var data = $element.data();
 
+      console.log($element);
+      console.log($element.data());
       if (closeOpenInfo($element)) {
         return;
       }
 
-      var videoId = $element.data('youtube');
       out.push('<div data-auto="delete" class="track-cmd clearfix">');
       out.push('<ul>');
-      out.push(playButton(videoId));
+      out.push(playButton(data.id));
       out.push('</ul>');
       out.push('</div>');
       $element.append(out.join(''));
@@ -316,7 +318,6 @@ define(['jquery', 'build', 'info', 'latin', 'youtube', 'soundcloud'],
       var out = [];
       var i;
       var $element = $(this);
-
       if (closeOpenInfo($element)) {
         return;
       }
@@ -522,61 +523,6 @@ define(['jquery', 'build', 'info', 'latin', 'youtube', 'soundcloud'],
       return $msg;
     }
 
-    function rank(terms, item) {
-      var i;
-      var r = 1;
-      var title = item.title || '';
-      var description = item.description || '';
-      title = title.toLowerCase();
-      description = description.toLowerCase();
-      var t_w = title.split(' ').length;
-      var d_w = description.split(' ').length;
-      for (i = 0; i < terms.length; i++) {
-        if (title.indexOf(terms[i]) > -1) {
-          if (latin.isStopWord(terms[i])) {
-            r += 0.2 / t_w;
-          } else {
-            r += 1 / t_w;
-          }
-        }
-        if (description.indexOf(terms[i]) > -1) {
-          if (latin.isStopWord(terms[i])) {
-            r += 0.2 / d_w;
-          } else {
-            r += 1 / d_w;
-          }
-        }
-      }
-      return r;
-    }
-
-    function rankResults(q, results) {
-      var i;
-      var item;
-      var terms = q.toLowerCase().split(' ');
-      for (i = 0; i < results.length; i++) {
-        item = results[i];
-        if (!item.rank) {
-          item.rank = rank(terms, item);
-        }
-      }
-
-    }
-
-    function makeResults(results, text, $msg) {
-      if (results.soundcloud === undefined) {
-        return;
-      }
-      if (results.youtube === undefined) {
-        return;
-      }
-      results = [].concat(results.soundcloud, results.youtube);
-      rankResults(text, results);
-      $msg.remove();
-      display(build.buildResults(results, text));
-      scrollTop(scrolls.results || 0);
-    }
-
 
     function locationHashChanged() {
       var hash = location.hash.split('-');
@@ -651,30 +597,19 @@ define(['jquery', 'build', 'info', 'latin', 'youtube', 'soundcloud'],
         case '#results':
           var $msg = message('Searching...', true);
           var text = decodeURIComponent(hash[1]);
-          var results_dict = {
-            soundcloud: undefined,
-            youtube: undefined
-          };
-
-          soundcloud.search(text, function(results) {
-            results_dict.soundcloud = results;
-            makeResults(results_dict, text, $msg);
+          search.search(text, function(results) {
+            $msg.remove();
+            display(build.buildResults(results, text));
+            scrollTop(scrolls.results || 0);
           });
-
-          youtube.search(text, function(results) {
-            results_dict.youtube = results;
-            makeResults(results_dict, text, $msg);
-          });
-
           break;
-
       }
     }
 
     function init() {
+      $('#hash').on('click', 'div[data-result]', resultInfo);
       $('#hash').on('click', 'div[data-track]', trackInfo);
-      $('#hash').on('click', 'div[data-youtube]', youtubeInfo);
-      $('#queue').on('click', 'div[data-track]', queueInfo);
+      $('#queue').on('click', 'div.queue-item', queueInfo);
       $('#hash').on('click', 'img[data-album]', albumInfo);
       $('#playing').on('click', 'img', currentInfo);
       resize();

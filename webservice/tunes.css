@@ -232,16 +232,74 @@ html.purple .album-head {
   color: #ffffff;
   background-color: #ccbbdd;
 }
-html.purple div.results img,
+html.purple .track-user {
+  font-size: 0.8em;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: right;
+  clear: right;
+}
 html.purple div#queue img {
+  clear: both;
   width: 64px;
   height: 64px;
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #663399;
   padding: 1px;
   background-color: #ffffff;
+  border: 1px solid #663399;
+}
+html.purple .result-img {
+  clear: both;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  background-color: #ffffff;
+  border: 1px solid #663399;
+}
+html.purple .result-source {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: right;
+  position: relative;
+  padding: 1px;
+  background-color: #ffffff;
+  color: #663399;
+  border: 1px solid #663399;
+}
+html.purple .result-duration {
+  font-size: 0.75em;
+  padding-left: 5px;
+}
+html.purple svg {
+  width: 32px;
+  height: 32px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  float: right;
+  position: relative;
+}
+html.purple path {
+  fill: #663399;
+}
+html.purple div.result-img {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+  width: 80px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  margin-right: 10px;
+  border: 1px solid #663399;
+  background-color: #ffffff;
+  text-align: center;
 }
 html.purple div.results > div {
   border-bottom: 1px solid #ccbbdd;
@@ -256,19 +314,15 @@ html.purple div.results div.track-title {
 html.purple div.results div.track-album {
   color: #a385c2;
 }
-html.purple .youtube {
+html.purple .result-type {
+  font-size: 0.8em;
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
   background-color: #663399;
   color: #ffffff;
-}
-html.purple .soundcloud {
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 2px;
-  background-color: #663399;
-  color: #ffffff;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 html.purple #search-text {
   background-color: #ffffff;
@@ -636,16 +690,74 @@ html.red .album-head {
   color: #ffffff;
   background-color: #ddaaaa;
 }
-html.red div.results img,
+html.red .track-user {
+  font-size: 0.8em;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: right;
+  clear: right;
+}
 html.red div#queue img {
+  clear: both;
   width: 64px;
   height: 64px;
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #990000;
   padding: 1px;
   background-color: #ffffff;
+  border: 1px solid #990000;
+}
+html.red .result-img {
+  clear: both;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  background-color: #ffffff;
+  border: 1px solid #990000;
+}
+html.red .result-source {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: right;
+  position: relative;
+  padding: 1px;
+  background-color: #ffffff;
+  color: #990000;
+  border: 1px solid #990000;
+}
+html.red .result-duration {
+  font-size: 0.75em;
+  padding-left: 5px;
+}
+html.red svg {
+  width: 32px;
+  height: 32px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  float: right;
+  position: relative;
+}
+html.red path {
+  fill: #990000;
+}
+html.red div.result-img {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+  width: 80px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  margin-right: 10px;
+  border: 1px solid #990000;
+  background-color: #ffffff;
+  text-align: center;
 }
 html.red div.results > div {
   border-bottom: 1px solid #ddaaaa;
@@ -660,19 +772,15 @@ html.red div.results div.track-title {
 html.red div.results div.track-album {
   color: #c26666;
 }
-html.red .youtube {
+html.red .result-type {
+  font-size: 0.8em;
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
   background-color: #990000;
   color: #ffffff;
-}
-html.red .soundcloud {
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 2px;
-  background-color: #990000;
-  color: #ffffff;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 html.red #search-text {
   background-color: #ffffff;
@@ -1040,16 +1148,74 @@ html.green .album-head {
   color: #ffffff;
   background-color: #aacbaa;
 }
-html.green div.results img,
+html.green .track-user {
+  font-size: 0.8em;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: right;
+  clear: right;
+}
 html.green div#queue img {
+  clear: both;
   width: 64px;
   height: 64px;
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #006400;
   padding: 1px;
   background-color: #ffffff;
+  border: 1px solid #006400;
+}
+html.green .result-img {
+  clear: both;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  background-color: #ffffff;
+  border: 1px solid #006400;
+}
+html.green .result-source {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: right;
+  position: relative;
+  padding: 1px;
+  background-color: #ffffff;
+  color: #006400;
+  border: 1px solid #006400;
+}
+html.green .result-duration {
+  font-size: 0.75em;
+  padding-left: 5px;
+}
+html.green svg {
+  width: 32px;
+  height: 32px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  float: right;
+  position: relative;
+}
+html.green path {
+  fill: #006400;
+}
+html.green div.result-img {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+  width: 80px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  margin-right: 10px;
+  border: 1px solid #006400;
+  background-color: #ffffff;
+  text-align: center;
 }
 html.green div.results > div {
   border-bottom: 1px solid #aacbaa;
@@ -1064,19 +1230,15 @@ html.green div.results div.track-title {
 html.green div.results div.track-album {
   color: #66a266;
 }
-html.green .youtube {
+html.green .result-type {
+  font-size: 0.8em;
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
   background-color: #006400;
   color: #ffffff;
-}
-html.green .soundcloud {
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 2px;
-  background-color: #006400;
-  color: #ffffff;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 html.green #search-text {
   background-color: #ffffff;
@@ -1444,16 +1606,74 @@ html.purple-inverse .album-head {
   color: #663399;
   background-color: #ffffff;
 }
-html.purple-inverse div.results img,
+html.purple-inverse .track-user {
+  font-size: 0.8em;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: right;
+  clear: right;
+}
 html.purple-inverse div#queue img {
+  clear: both;
   width: 64px;
   height: 64px;
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #ffffff;
   padding: 1px;
   background-color: #663399;
+  border: 1px solid #ffffff;
+}
+html.purple-inverse .result-img {
+  clear: both;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  background-color: #663399;
+  border: 1px solid #ffffff;
+}
+html.purple-inverse .result-source {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: right;
+  position: relative;
+  padding: 1px;
+  background-color: #663399;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+html.purple-inverse .result-duration {
+  font-size: 0.75em;
+  padding-left: 5px;
+}
+html.purple-inverse svg {
+  width: 32px;
+  height: 32px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  float: right;
+  position: relative;
+}
+html.purple-inverse path {
+  fill: #ffffff;
+}
+html.purple-inverse div.result-img {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+  width: 80px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  margin-right: 10px;
+  border: 1px solid #ffffff;
+  background-color: #663399;
+  text-align: center;
 }
 html.purple-inverse div.results > div {
   border-bottom: 1px solid #ffffff;
@@ -1468,19 +1688,15 @@ html.purple-inverse div.results div.track-title {
 html.purple-inverse div.results div.track-album {
   color: #ffffff;
 }
-html.purple-inverse .youtube {
+html.purple-inverse .result-type {
+  font-size: 0.8em;
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
   background-color: #ffffff;
   color: #663399;
-}
-html.purple-inverse .soundcloud {
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 2px;
-  background-color: #ffffff;
-  color: #663399;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 html.purple-inverse #search-text {
   background-color: #663399;
@@ -1848,16 +2064,74 @@ html.night .album-head {
   color: #222222;
   background-color: #dddddd;
 }
-html.night div.results img,
+html.night .track-user {
+  font-size: 0.8em;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: right;
+  clear: right;
+}
 html.night div#queue img {
+  clear: both;
   width: 64px;
   height: 64px;
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #999999;
   padding: 1px;
   background-color: #222222;
+  border: 1px solid #999999;
+}
+html.night .result-img {
+  clear: both;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  background-color: #222222;
+  border: 1px solid #999999;
+}
+html.night .result-source {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  float: right;
+  position: relative;
+  padding: 1px;
+  background-color: #222222;
+  color: #999999;
+  border: 1px solid #999999;
+}
+html.night .result-duration {
+  font-size: 0.75em;
+  padding-left: 5px;
+}
+html.night svg {
+  width: 32px;
+  height: 32px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  float: right;
+  position: relative;
+}
+html.night path {
+  fill: #999999;
+}
+html.night div.result-img {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+  width: 80px;
+  float: left;
+  position: relative;
+  padding: 1px;
+  margin-right: 10px;
+  border: 1px solid #999999;
+  background-color: #222222;
+  text-align: center;
 }
 html.night div.results > div {
   border-bottom: 1px solid #dddddd;
@@ -1872,19 +2146,15 @@ html.night div.results div.track-title {
 html.night div.results div.track-album {
   color: #c2c2c2;
 }
-html.night .youtube {
+html.night .result-type {
+  font-size: 0.8em;
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
   background-color: #999999;
   color: #222222;
-}
-html.night .soundcloud {
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 2px;
-  background-color: #999999;
-  color: #222222;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 html.night #search-text {
   background-color: #222222;

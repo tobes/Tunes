@@ -396,16 +396,85 @@ html{
     background-color:@color-light;
   }
 
+.track-user{
+  font-size:0.8em;
+  display:inline-block;
+  padding-left:@padding/2;
+  padding-right:@padding/2;
+//  color:@main-bg;
+//  background-color:@main-color;
+  float:right;
+  clear:right;
+}
 
-  div.results img, div#queue img{
+
+  div#queue img{
+    clear:both;
     width:64px;
     height:64px;
     margin-right:@padding;
     float:left;
     position:relative;
-    border:1px solid @main-color;
     padding:1px;
     background-color:@main-bg;
+    border:1px solid @main-color;
+  }
+
+.result-img {
+  clear:both;
+  width:64px;
+  height:64px;
+  margin-right:@padding;
+  float:left;
+  position:relative;
+  padding:1px;
+  background-color:@main-bg;
+  border:1px solid @main-color;
+}
+
+.result-source {
+  width:64px;
+  height:64px;
+  margin-right:@padding;
+  float:right;
+  position:relative;
+  padding:1px;
+  background-color:@main-bg;
+  color:@main-color;
+  border:1px solid @main-color;
+}
+
+.result-duration {
+  font-size:0.75em;
+//  background-color:@main-color;
+//  color:@main-bg;
+//  padding-right:@padding/2;
+  padding-left:@padding/2;
+}
+
+svg {
+width:32px;
+height:32px;
+padding-bottom:@padding;
+padding-left:@padding;
+float:right;
+position:relative;
+}
+path {
+fill:@main-color;
+}
+  div.result-img {
+    display:block;
+    margin: 0 auto;
+    clear:both;
+    width:80px;
+    float:left;
+    position:relative;
+    padding:1px;
+    margin-right: @padding;
+    border:1px solid @main-color;
+    background-color:@main-bg;
+    text-align:center;
   }
 
   div.results > div {
@@ -428,20 +497,21 @@ html{
     color: @color-secondry;
   }
 
-.youtube {
+.result-type {
+  font-size:0.8em;
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
   background-color: @main-color;
   color: @main-bg;
+  margin-right: @padding;
+  margin-bottom: @padding;
+}
+
+.youtube {
 }
 
 .soundcloud {
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 2px;
-  background-color: @main-color;
-  color: @main-bg;
 }
 
 #search-text {

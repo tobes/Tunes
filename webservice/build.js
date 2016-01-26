@@ -1,6 +1,6 @@
 /*global define */
 
-define(['jquery', 'info'], function($, info) {
+define(['jquery', 'info', 'search'], function($, info, search) {
 
   function buildSearch() {
     var out = [];
@@ -26,8 +26,23 @@ define(['jquery', 'info'], function($, info) {
     return out.join('');
   }
 
+  function buildLogin() {
+    var out = [];
+    out.push('<form id="login-form">');
+    out.push('<h1>Log in</h1>');
+    out.push('<p>');
+    out.push('<input id="username" type="text">');
+    out.push('<ul><li><a>Go</a></li></ul>');
+    out.push('</p>');
+    out.push('</form>');
+    return out.join('');
+  }
+
 
   function highlight(info, text) {
+    // if (!info){
+    //   return '';
+    // }
     var i;
     var regex;
 
@@ -59,24 +74,6 @@ define(['jquery', 'info'], function($, info) {
     return text;
   }
 
-  function resultLocal(result, text) {
-    var out = [];
-    var track = info.track(result.id);
-    out.push('<div data-track="' + track.id + '">');
-    out.push('<img src="/covers/' + track.getAlbum().art + 'T.png">');
-    out.push('<div class="track-title">');
-    out.push(highlight(track.title, text));
-    out.push('</div>');
-    out.push('<div class="track-artist">');
-    out.push(highlight(track.getArtist().name, text));
-    out.push('</div>');
-    out.push('<div class="track-album">');
-    out.push(highlight(track.getAlbum().title, text));
-    out.push('</div>');
-    out.push('</div>');
-    return out;
-  }
-
   function truncate(arg, n) {
     arg = arg || '';
     var isTooLong = arg.length > n,
@@ -91,41 +88,63 @@ define(['jquery', 'info'], function($, info) {
     var hours = (s / 60 / 60) << 0;
 
     var parts = hours ? [hours, minutes, seconds] : [minutes, seconds];
-    var formatted = parts.map(function(item) {
-      if (item < 10) {
-        return '0' + item;
+    var out = [];
+    var i;
+    for (i = 0; i < parts.length; i++) {
+      if (parts[i] < 10 && i !== 0) {
+        out.push('0' + parts[i]);
+      } else {
+        out.push(parts[i]);
       }
-      return item;
-    }).join(':');
+    }
+    return out.join(':');
     return formatted;
   }
 
-  function resultRemote(result, text) {
+  function resultItem(item, text) {
     var out = [];
-    out.push('<div data-youtube="' + result.id + '" class="clearfix">');
-    out.push('<img src="' + result.thumb + '">');
+    out.push('<div data-result="" class="clearfix">');
+
+    // out.push('<div class="result-img">');
+    out.push('<img class="result-img" src="' + item.thumb + '">');
+    // out.push('</div>');
+
     out.push('<div class="track-title">');
-    out.push('<span class="' + result.type + '">' + result.type_desc + '</span> ');
-    out.push(highlight(result.title, text));
-    out.push(' (' + formatDuration(result.duration) + ')');
-    if (result.user) {
-      out.push('<div class="track-user">');
-      out.push(' [ ' + result.user + ' ]');
-      out.push('</div>');
+    out.push(search.svg(item.type));
+   // out.push(' [ ' + item.rank + ' ]');
+    out.push(highlight(item.title, text));
+    if (item.duration) {
+    out.push('<span class="result-duration">');
+    out.push('(' + formatDuration(item.duration) + ')');
+    out.push('</span>');
     }
     out.push('</div>');
+    if (item.artist) {
+      out.push('<div class="track-artist">');
+      out.push(highlight(item.artist, text));
+      out.push('</div>');
+    }
+    if (item.album) {
+      out.push('<div class="track-album">');
+      out.push(highlight(item.album, text));
+      out.push('</div>');
+    }
+    if (item.user) {
+      out.push('<div class="track-user">');
+      out.push(item.user);
+      out.push('</div>');
+    }
+    if (false && item.description) {
     out.push('<div class="track-artist">');
-    out.push(highlight(truncate(result.description, 300), text));
+    out.push(highlight(truncate(item.description, 150), text));
     out.push('</div>');
+    }
     out.push('</div>');
-    return out;
+    return $(out.join('')).data(item);
   }
 
 
   function buildResults(results, text) {
-    results.sort(function(a, b) {
-      return a.rank < b.rank;
-    });
     var i;
     var result;
     var out = [];
@@ -137,15 +156,9 @@ define(['jquery', 'info'], function($, info) {
         break;
       }
       result = results[i];
-      switch (result.type) {
-        case 'local':
-          out = out.concat(resultLocal(result, text));
-          break;
-        default:
-          out = out.concat(resultRemote(result, text));
-          break;
-      }
+      out = out.concat(resultItem(result, text));
     }
+    return $('<div class="results">').append(out);
     out.push('</div>');
     return out.join('');
   }
@@ -408,69 +421,52 @@ define(['jquery', 'info'], function($, info) {
   }
 
 
-  function buildQueueItemLocal(item, count) {
-    var out = [];
-    out.push('<div class="queue-item clearfix" data-track="');
-    out.push(item.id);
-    out.push('">');
-    out.push('<img src="/covers/');
-    out.push(item.art);
-    out.push('T.png">');
-    out.push('<div class="queue-content clearfix">');
-    out.push('<div class="queue-track">');
-    out.push('<span class="queue-place');
-    out.push(item.ready ? '' : ' animation-flash');
-    out.push('">');
-    out.push(count);
-    out.push('</span> ');
-    out.push(item.track);
-    out.push('</div>');
-    out.push('<div><b class="queue-artist">');
-    out.push(item.artist);
-    out.push('</b></div>');
-    out.push('<div>');
-    out.push(item.album);
-    out.push('</div>');
-    out.push('</div>');
-    out.push('</div>');
-    return out.join('');
-  }
-
-
-  function buildQueueItemRemote(item, count) {
-    var out = [];
-    out.push('<div class="queue-item clearfix" data-track="');
-    out.push(item.id);
-    out.push('">');
-    out.push('<img src="');
-    out.push(item.thumb);
-    out.push('">');
-    out.push('<div class="queue-content clearfix">');
-    out.push('<div class="queue-track">');
-    out.push('<span class="queue-place');
-    out.push(item.ready ? '' : ' animation-flash');
-    out.push('">');
-    out.push(count);
-    out.push('</span> ');
-    out.push('<span class="' + item.type + '">' + item.type_desc + '</span> ');
-    out.push(item.title);
-    out.push('<div><b class="queue-user">');
-    out.push(item.user);
-    out.push('</b></div>');
-    out.push('</div>');
-    out.push('</div>');
-    out.push('</div>');;
-    return out.join('');
-  }
-
-
   function buildQueueItem(item, count) {
-    if (item.type === 'jukebox') {
-      return buildQueueItemLocal(item, count);
+    var out = [];
+    out.push('<div class="queue-item clearfix">');
+    out.push('<img src="' + item.thumb + '">');
+    out.push(search.svg(item.type));
+    out.push('<div class="queue-content clearfix">');
+    out.push('<div class="queue-track">');
+    out.push('<span class="queue-place');
+    out.push(item.ready ? '' : ' animation-flash');
+    out.push('">');
+    out.push(count);
+    out.push('</span> ');
+    out.push(item.title);
+    if (item.artist) {
+      out.push('<div class="track-artist">');
+      out.push(item.artist);
+      out.push('</div>');
     }
-    return buildQueueItemRemote(item, count);
+    if (item.album) {
+      out.push('<div class="track-album">');
+      out.push(item.album);
+      out.push('</div>');
+    }
+    if (item.user) {
+      out.push('<div class="track-user">');
+      out.push(item.user);
+      out.push('</div>');
+    }
+    out.push('</div>');
+    out.push('</div>');
+    out.push('</div>');
+    return $(out.join('')).data(item);
   }
 
+  function buildQueue(queue) {
+    var i;
+    var item;
+    var $item;
+    var $queue = $('#queue').empty();
+    for (i = 0; i < queue.length; i++) {
+      item = queue[i];
+      $item = buildQueueItem(item, i + 1);
+      $queue.append($item);
+    }
+    info.setQueue(queue);
+  }
 
   return {
     buildArtistList: buildArtistList,
@@ -480,7 +476,8 @@ define(['jquery', 'info'], function($, info) {
     buildAlpha: buildAlpha,
     buildSearch: buildSearch,
     buildAdmin: buildAdmin,
-    buildQueueItem: buildQueueItem,
+    buildLogin: buildLogin,
+    buildQueue: buildQueue,
     buildStyles: buildStyles,
     buildResults: buildResults
   };

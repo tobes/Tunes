@@ -75,7 +75,10 @@ define(['jquery', 'build', 'info', 'search'],
       styleTheme = $element.data('style') || styleTheme;
       styleSize = $element.data('size') || styleSize;
       $('html').removeClass().addClass(styleTheme + ' ' + styleSize);
-      // window.history.back();
+      if (localStorage){
+          localStorage.styleTheme = styleTheme;
+          localStorage.styleSize = styleSize;
+      }
     }
 
 
@@ -607,6 +610,13 @@ define(['jquery', 'build', 'info', 'search'],
     }
 
     function init() {
+      if (localStorage){
+          styleTheme = localStorage.styleTheme || styleTheme;
+          styleSize = localStorage.styleSize || styleSize;
+          setStyle();
+      }
+      $('#page').css({display: 'block'});
+
       $('#hash').on('click', 'div[data-result]', resultInfo);
       $('#hash').on('click', 'div[data-track]', trackInfo);
       $('#queue').on('click', 'div.queue-item', queueInfo);

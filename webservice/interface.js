@@ -200,20 +200,22 @@ define(['jquery', 'build', 'info', 'search'],
     function currentInfo(event) {
       event.stopPropagation();
       var out = [];
-      var $element = $(this).parent();
+      var $element = $('#playing');
 
       if (closeOpenInfo($element)) {
         return;
       }
 
-      var track = $element.data('track');
-      // if (track) {
-      track = info.track(track);
+      var item = $element.data();
       out.push('<div data-auto="delete" class="track-cmd clearfix">');
       out.push('<ul>');
-      if (track) {
-        out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
-        out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
+      if (item.artistId) {
+        // FIXME
+     //   out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
+      }
+      if (item.albumId) {
+        // FIXME
+      //  out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
       }
       out.push(makeMenuCmd('play', 'Play'));
       out.push(makeMenuCmd('pause', 'Pause'));

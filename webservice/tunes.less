@@ -571,12 +571,13 @@ color: @main-color;
     animation-name: flash;
   }
 
-  #playing img {
+  #currentCover {
     border: 1px solid @main-color;
     padding: 3px;
     width: 80%;
     box-sizing: margin-box;
     display: block;
+    margin-top: @padding;
     margin-left: auto;
     margin-right: auto;
   }
@@ -585,16 +586,16 @@ color: @main-color;
     text-align: center;
   }
 
-  #currentArtist {
+  #currentMainTitle {
     font-size: 1.3em;
     text-align: center;
   }
 
-  #currentAlbum {
+  #currentSubTitle {
     text-align: center;
   }
 
-  #currentArtist {} #playing div {} #currentProgress {
+  #currentProgress {
     color: @main-color;
     border: 1px solid @main-color;
     background-color: @main-bg;

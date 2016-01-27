@@ -51,14 +51,9 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
     function playingChange(current) {
       var item = current.item;
       $('#currentCover').attr('src', item.art);
-      if (item.type === 'jukebox') {
-        $('#currentArtist').html(item.artist);
-        $('#currentTrack').html(item.track);
-
-      } else {
-        $('#currentArtist').html(item.title);
-        $('#currentTrack').html('<span class="' + item.type + '">' + item.type_desc + '</span>');
-      }
+      $('#currentMainTitle').html(item.title);
+      $('#currentSubTitle').html(item.artist || item.user);
+      $('#currentSource').html(search.svg(item.type));
       currentTrack = item.id;
       $('#playing').data(item);
     }

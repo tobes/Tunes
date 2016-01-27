@@ -313,17 +313,23 @@ define(['jquery', 'build', 'info', 'search'],
       event.stopPropagation();
       var out = [];
       var $element = $(this);
-      var data = $element.data();
+      var item = $element.data();
 
-      console.log($element);
-      console.log($element.data());
       if (closeOpenInfo($element)) {
         return;
       }
 
       out.push('<div data-auto="delete" class="track-cmd clearfix">');
       out.push('<ul>');
-      out.push(playButton(data.id));
+      if (item.artistId) {
+        // FIXME
+     //   out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
+      }
+      if (item.albumId) {
+        // FIXME
+      //  out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
+      }
+      out.push(playButton(item.id));
       out.push('</ul>');
       out.push('</div>');
       $element.append(out.join(''));

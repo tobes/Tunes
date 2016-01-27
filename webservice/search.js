@@ -97,7 +97,7 @@ define(['latin'],
       }
       // sort into ranked order
       results.sort(function(a, b) {
-        return a.rank < b.rank;
+        return b.rank - a.rank;
       });
 
     }

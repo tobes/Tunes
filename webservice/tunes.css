@@ -378,23 +378,24 @@ html.purple .animation-flash {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-html.purple #playing img {
+html.purple #currentCover {
   border: 1px solid #663399;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
   display: block;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
 html.purple #currentTrack {
   text-align: center;
 }
-html.purple #currentArtist {
+html.purple #currentMainTitle {
   font-size: 1.3em;
   text-align: center;
 }
-html.purple #currentAlbum {
+html.purple #currentSubTitle {
   text-align: center;
 }
 html.purple #currentProgress {
@@ -836,23 +837,24 @@ html.red .animation-flash {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-html.red #playing img {
+html.red #currentCover {
   border: 1px solid #990000;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
   display: block;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
 html.red #currentTrack {
   text-align: center;
 }
-html.red #currentArtist {
+html.red #currentMainTitle {
   font-size: 1.3em;
   text-align: center;
 }
-html.red #currentAlbum {
+html.red #currentSubTitle {
   text-align: center;
 }
 html.red #currentProgress {
@@ -1294,23 +1296,24 @@ html.green .animation-flash {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-html.green #playing img {
+html.green #currentCover {
   border: 1px solid #006400;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
   display: block;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
 html.green #currentTrack {
   text-align: center;
 }
-html.green #currentArtist {
+html.green #currentMainTitle {
   font-size: 1.3em;
   text-align: center;
 }
-html.green #currentAlbum {
+html.green #currentSubTitle {
   text-align: center;
 }
 html.green #currentProgress {
@@ -1752,23 +1755,24 @@ html.purple-inverse .animation-flash {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-html.purple-inverse #playing img {
+html.purple-inverse #currentCover {
   border: 1px solid #ffffff;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
   display: block;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
 html.purple-inverse #currentTrack {
   text-align: center;
 }
-html.purple-inverse #currentArtist {
+html.purple-inverse #currentMainTitle {
   font-size: 1.3em;
   text-align: center;
 }
-html.purple-inverse #currentAlbum {
+html.purple-inverse #currentSubTitle {
   text-align: center;
 }
 html.purple-inverse #currentProgress {
@@ -2210,23 +2214,24 @@ html.night .animation-flash {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-html.night #playing img {
+html.night #currentCover {
   border: 1px solid #999999;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
   display: block;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
 html.night #currentTrack {
   text-align: center;
 }
-html.night #currentArtist {
+html.night #currentMainTitle {
   font-size: 1.3em;
   text-align: center;
 }
-html.night #currentAlbum {
+html.night #currentSubTitle {
   text-align: center;
 }
 html.night #currentProgress {

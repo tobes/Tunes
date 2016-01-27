@@ -2,8 +2,9 @@
 
 
 
-define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
-  function($, build, info, textsearch, latin, youtube, soundcloud) {
+define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud', 'user'],
+  function($, build, info, textsearch, latin, youtube, soundcloud, user) {
+
 
     var MESSAGE_DISPLAY_TIME = 3000;
     var PASSWORD = 'fish';
@@ -606,6 +607,13 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
         case '#info':
           showPage('info');
           break;
+        case '#login':
+            display(build.buildLogin());
+        $('#user-form').submit(function(event) {
+          event.preventDefault();
+          user.login($('#username'));
+        });
+            break;
         case '#admin':
           display(build.buildAdmin());
           $('#admin-form').submit(function(event) {

@@ -25,6 +25,15 @@ define(function() {
     db = evt.target.result;
 
     // Track
+    objectStore = db.createObjectStore("user", {
+      keyPath: 'id',
+      autoIncrement: true
+    });
+    objectStore.createIndex("name", "name", {
+      unique: true
+    });
+
+    // Track
     objectStore = db.createObjectStore("track", {
       keyPath: 'id',
       autoIncrement: true

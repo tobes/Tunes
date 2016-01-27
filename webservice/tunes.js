@@ -55,7 +55,7 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
       $('#currentSubTitle').html(build.escapeHtml(item.artist || item.user || ''));
       $('#currentSource').html(search.svg(item.type));
       currentTrack = item.id;
-      $('#playing').data(item);
+      $('#playing').removeData().data(item);
       // close current ifno if showing
       $('#playing').find('div.track-cmd').remove();
     }

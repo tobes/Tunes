@@ -32,6 +32,14 @@ define(['jquery', 'build', 'info', 'search'],
       return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
+    if (!Array.prototype.pushNotEmpty){
+      Array.prototype.pushNotEmpty = function (item){
+        if (item){
+          this.push(item);
+        }
+      }
+    }
+
     function showPage(page) {
       var i;
       for (i = 0; i < menuDivs.length; i++) {
@@ -267,19 +275,25 @@ define(['jquery', 'build', 'info', 'search'],
 
       $('div.track-cmd').remove();
       if (item) {
-        out.push('<div data-auto="delete" class="track-cmd clearfix">');
-        out.push('<ul>');
-        if (item.type === 'jukebox') {
-          out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
-          out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
-          out.push(makeMenuCmd('delete-' + item.id, 'Delete'));
-        } else {
-          out.push(makeMenuCmd('delete-' + item.id, 'Delete'));
+        if (item.artistId){
+          // FIXME
+          // out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
         }
-        out.push('</ul>');
-        out.push('</div>');
+        if (item.albumId){
+          // FIXME
+          // out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
+        }
+        out.pushNotEmpty(makeMenuCmd('delete-' + item.id, 'Delete'));
+        if (out.length){
+          out.unshift('<ul>');
+          out.push('</ul>');
+        }
       }
-      $element.append(out.join(''));
+      if (out.length){
+        out.unshift('<div data-auto="delete" class="track-cmd clearfix">');
+        out.push('</div>');
+        $element.append(out.join(''));
+      }
 
       scrollToView($element);
     }

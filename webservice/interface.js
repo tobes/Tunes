@@ -75,7 +75,10 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
       styleTheme = $element.data('style') || styleTheme;
       styleSize = $element.data('size') || styleSize;
       $('html').removeClass().addClass(styleTheme + ' ' + styleSize);
-      // window.history.back();
+      if (localStorage){
+          localStorage.styleTheme = styleTheme;
+          localStorage.styleSize = styleSize;
+      }
     }
 
 
@@ -672,6 +675,13 @@ define(['jquery', 'build', 'info', 'index', 'latin', 'youtube', 'soundcloud'],
     }
 
     function init() {
+      if (localStorage){
+          styleTheme = localStorage.styleTheme || styleTheme;
+          styleSize = localStorage.styleSize || styleSize;
+          setStyle();
+      }
+      $('#page').css({display: 'block'});
+
       $('#hash').on('click', 'div[data-track]', trackInfo);
       $('#hash').on('click', 'div[data-youtube]', youtubeInfo);
       $('#queue').on('click', 'div[data-track]', queueInfo);

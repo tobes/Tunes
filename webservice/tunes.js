@@ -56,6 +56,8 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
       $('#currentSource').html(search.svg(item.type));
       currentTrack = item.id;
       $('#playing').data(item);
+      // close current ifno if showing
+      $('#playing').find('div.track-cmd').remove();
     }
 
 

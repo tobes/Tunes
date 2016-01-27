@@ -101,6 +101,7 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
         albumId: item.albumId,
         artistId: item.artistId,
         thumb: '/covers/' + art + 'T.png',
+        art: '/covers/' + art + '.png',
       };
 
       if (_queueAdd(queueItem, source)) {

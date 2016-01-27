@@ -153,16 +153,13 @@ define(['jquery', 'info', 'search'], function($, info, search) {
     text = processSearchTerms(text);
     out.push('<div class="results">');
     for (i = 0; i < results.length; i++) {
-      // limit results //FIXME
-      if (i > 100) {
+      result = results[i];
+      if (result.rank === 0) {
         break;
       }
-      result = results[i];
       out = out.concat(resultItem(result, text));
     }
     return $('<div class="results">').append(out);
-    out.push('</div>');
-    return out.join('');
   }
 
   function artistTrackSort(a, b) {

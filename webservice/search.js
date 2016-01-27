@@ -50,7 +50,8 @@ define(['latin'],
         ['title', 1],
         ['description', 0.5],
         ['album', 1],
-        ['artist', 1]
+        ['artist', 1],
+        ['user', 0.5]
       ];
       var test;
       var t_w;
@@ -65,7 +66,7 @@ define(['latin'],
           test = item[field];
           if (test) {
             test = test.toLowerCase();
-            t_w = test.split(' ').length;
+            t_w = test.split(' ').length + 1;
             if (test.indexOf(terms[i]) > -1) {
               if (latin.isStopWord(terms[i])) {
                 r += (0.2 / t_w) * weight;
@@ -82,7 +83,7 @@ define(['latin'],
         }
       }
       if (numTerms) {
-        r += 1.0 * (count / numTerms);
+        r += 1.5 * (count / numTerms);
       }
       return r;
     }

@@ -1007,7 +1007,7 @@ define(function() {
   };
 
   function convert(text) {
-    return text.replace(/[^A-Za-z0-9\[\] ]/g, function(a) {
+    return text.replace(/[^A-Za-z0-9\[\]\-\_ ]/g, function(a) {
       return latin_map[a] || a;
     });
   }

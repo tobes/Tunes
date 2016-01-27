@@ -46,8 +46,12 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
       response.write('event: ' + type + '\ndata: ' + msg + '\n\n');
     }
 
-    function msgBuild(text){
-      return JSON.stringify({text: text});
+    function msgBuild(text, name){
+      var message = {text: text}
+      if (name){
+        message.name = name;
+      }
+      return JSON.stringify({text: message});
     }
 
     function messageStream(type, msg, streamId){
@@ -65,9 +69,9 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
       }
     }
 
-    function msg(text, streamId){
+    function msg(text, name, streamId){
       // quick messaging helper
-      messageStream('message', msgBuild(text), streamId);
+      messageStream('message', msgBuild(text, name), streamId);
     }
 
     function configSet(key, value, streamId){
@@ -170,20 +174,20 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
           break;
         case 'vol:up':
           event.trigger('controlVolUp');
-          msg('Volume ' + player.getVolume() + '%', streamId);
+          msg('Volume ' + player.getVolume() + '%', 'volume', streamId);
           break;
         case 'vol:down':
           event.trigger('controlVolDown');
-          msg('Volume ' + player.getVolume() + '%', streamId);
+          msg('Volume ' + player.getVolume() + '%', 'volume', streamId);
           break;
         case 'limit:up':
           event.trigger('queueLimitUp');
-          msg('Limit ' + queue.getLimit(), streamId);
+          msg('Limit ' + queue.getLimit(), 'limit', streamId);
           configSet('queueLimit', queue.getLimit());
           break;
         case 'limit:down':
           event.trigger('queueLimitDown');
-          msg('Limit ' + queue.getLimit(), streamId);
+          msg('Limit ' + queue.getLimit(), 'limit', streamId);
           configSet('queueLimit', queue.getLimit());
           break;
         case 'add':

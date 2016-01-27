@@ -16,6 +16,7 @@ define(['jquery', 'build', 'info', 'search'],
     var styleSize = 'medium';
     var styleTheme = 'night';
     var lastSearch = '';
+    var messages = {};
 
     var activePage;
     var menuDivs = [
@@ -527,17 +528,30 @@ define(['jquery', 'build', 'info', 'search'],
       display(build.buildAlbum(id));
     }
 
+    function message(msg) {
+      var text = msg.text;
+      var keep = msg.keep || false;
+      var name = msg.name;
 
-    function message(text, keep) {
+      if (name && messages[name]){
+        messages[name].remove();
+      }
+
       var $msg = $('<li>').text(text);
       $('#messages ul').append($msg);
 
       function destroy() {
         $msg.remove();
       }
+
       if (!keep) {
         setTimeout(destroy, MESSAGE_DISPLAY_TIME);
       }
+
+      if (name){
+        messages[name] = $msg;
+      }
+
       return $msg;
     }
 
@@ -579,9 +593,9 @@ define(['jquery', 'build', 'info', 'search'],
             $(this).find('input').blur();
             location.href = '#info';
             if (isAdmin) {
-              message('Admin enabled');
+              message({text: 'Admin enabled'});
             } else {
-              message('Password incorrect');
+              message({text: 'Password incorrect'});
             }
           });
           $('#password').click(function() {
@@ -613,7 +627,7 @@ define(['jquery', 'build', 'info', 'search'],
 
           break;
         case '#results':
-          var $msg = message('Searching...', true);
+          var $msg = message({text: 'Searching...', keep: true});
           var text = decodeURIComponent(hash[1]);
           search.search(text, function(results) {
             $msg.remove();

@@ -166,7 +166,7 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
       if (!initalized) {
         initalized = true;
         interface.init();
-        interface.message('All systems are go...');
+        interface.message({text: 'All systems are go...'});
       }
     }
 

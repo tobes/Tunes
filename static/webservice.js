@@ -129,12 +129,12 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
       if (track.track){
         messageStream(
           'message',
-          msgBuild(track.track + ' added')
+          msgBuild(track.track + ' added', 'added')
         );
       } else if (track.title){
         messageStream(
           'message',
-          msgBuild(track.title + ' added')
+          msgBuild(track.title + ' added', 'added')
         );
       }
     }
@@ -143,7 +143,7 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
       if (album.title){
         messageStream(
           'message',
-          msgBuild(album.artist + ' ' + album.title + ' added')
+          msgBuild(album.artist + ' ' + album.title + ' added', 'added')
         );
       }
     }

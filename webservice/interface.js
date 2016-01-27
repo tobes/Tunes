@@ -332,46 +332,6 @@ define(['jquery', 'build', 'info', 'search'],
     }
 
 
-    function trackInfo(event) {
-      event.stopPropagation();
-      var out = [];
-      var i;
-      var $element = $(this);
-      if (closeOpenInfo($element)) {
-        return;
-      }
-
-      var track = $element.data('track');
-      var album = $element.data('album');
-      if (track) {
-        track = info.track(track);
-        out.push('<div data-auto="delete" class="track-cmd clearfix">');
-        out.push('<ul>');
-        out.push(playButton(track.id));
-        if ($element.find('.track-artist').length) {
-          out.push(makeMenuLink('#artist-' + track.getArtist().id, 'Artist'));
-        }
-        if ($element.find('.track-album').length) {
-          out.push(makeMenuLink('#album-' + track.getAlbum().id, 'Album'));
-        }
-        out.push('</ul>');
-        out.push('</div>');
-      }
-      if (album) {
-        out.push('<div data-auto="delete" class="track-cmd">');
-        var albumTracks = info.album(album).getTracks();
-        for (i = 0; i < albumTracks.length; i++) {
-          track = info.track(albumTracks[i]);
-          out.push('<div data-track="' + track.id + '"><p>' + track.title + '</p></div>');
-        }
-        out.push('</div>');
-      }
-      $element.append(out.join(''));
-
-      scrollToView($element);
-    }
-
-
     function artistTrackSort(a, b) {
 
       a = info.track(a);
@@ -634,7 +594,6 @@ define(['jquery', 'build', 'info', 'search'],
       $('#page').css({display: 'block'});
 
       $('#hash').on('click', 'div[data-result]', resultInfo);
-      $('#hash').on('click', 'div[data-track]', trackInfo);
       $('#queue').on('click', 'div.queue-item', queueInfo);
       $('#hash').on('click', 'img[data-album]', albumInfo);
       $('#playing').on('click', 'img', currentInfo);

@@ -154,7 +154,7 @@ define(['jquery', 'info', 'search'], function($, info, search) {
     out.push('<div class="results">');
     for (i = 0; i < results.length; i++) {
       result = results[i];
-      if (result.rank === 0) {
+      if (result.rank === 0 || i === 100) {
         break;
       }
       out = out.concat(resultItem(result, text));

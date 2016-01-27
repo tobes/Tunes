@@ -51,8 +51,8 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
     function playingChange(current) {
       var item = current.item;
       $('#currentCover').attr('src', item.art);
-      $('#currentMainTitle').html(item.title);
-      $('#currentSubTitle').html(item.artist || item.user);
+      $('#currentMainTitle').html(build.escapeHtml(item.title || ''));
+      $('#currentSubTitle').html(build.escapeHtml(item.artist || item.user || ''));
       $('#currentSource').html(search.svg(item.type));
       currentTrack = item.id;
       $('#playing').data(item);

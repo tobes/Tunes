@@ -26,6 +26,10 @@ define(['jquery', 'build', 'info', 'search'],
       'styles',
     ];
 
+    function makeLinks(text){
+      return text.replace(/\b(https?:\/\/\S*)(?=\s)/gi, '<a href="$1">$1</a>');
+    }
+
     // ['play', 'pause', 'skip', 'vol:up', 'vol:down', 'add', 'delete', 'album', 'limit:up', 'limit:down'];
 
     function isNumeric(n) {
@@ -168,18 +172,8 @@ define(['jquery', 'build', 'info', 'search'],
       window.scrollTo(window.scrollX, pos);
     }
 
-    function escapeHtml(unsafe) {
-      return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-
     function makeMenuLink(link, title) {
-      return '<li><a href="' + link + '">' + escapeHtml(title) + '</a></li>';
+      return '<li><a href="' + link + '">' + build.escapeHtml(title) + '</a></li>';
     }
 
     function cmdValid(cmd) {
@@ -191,7 +185,7 @@ define(['jquery', 'build', 'info', 'search'],
       if (!cmdValid(cmd)) {
         return '';
       }
-      return '<li><a data-cmd="' + cmd + '"' + (noClose ? ' data-noclose="true"' : '') + '>' + escapeHtml(title) + '</a></li>';
+      return '<li><a data-cmd="' + cmd + '"' + (noClose ? ' data-noclose="true"' : '') + '>' + build.escapeHtml(title) + '</a></li>';
     }
 
     function closeOpenInfo($element) {
@@ -216,7 +210,7 @@ define(['jquery', 'build', 'info', 'search'],
 
       var item = $element.data();
       out.push('<div data-auto="delete" class="track-cmd clearfix">');
-      out.push('<ul>');
+      out.push('<ul class="clearfix">');
       if (item.artistId) {
         // FIXME
      //   out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
@@ -233,6 +227,21 @@ define(['jquery', 'build', 'info', 'search'],
       out.push(makeMenuCmd('limit:up', 'Limit +', true));
       out.push(makeMenuCmd('limit:down', 'Limit -', true));
       out.push('</ul>');
+      if (item.album){
+        out.push('<div>');
+        out.push('<b>Album:</b> ' + build.escapeHtml(item.album));
+        out.push('</div>');
+      }
+      if (item.trackNo){
+        out.push('<div>');
+        out.push('<b>Track number:</b> ' + item.trackNo);
+        out.push('</div>');
+      }
+      if (item.description){
+        out.push('<div>');
+        out.push('<b>Description:</b> ' + makeLinks(build.escapeHtml(item.description)));
+        out.push('</div>');
+      }
       out.push('</div>');
       //}
       $element.append(out.join(''));
@@ -267,7 +276,6 @@ define(['jquery', 'build', 'info', 'search'],
       var out = [];
       var $element = $(this);
       var item = $element.data();
-      console.log($element.data());
 
       if (closeOpenInfo($element)) {
         return;
@@ -285,8 +293,23 @@ define(['jquery', 'build', 'info', 'search'],
         }
         out.pushNotEmpty(makeMenuCmd('delete-' + item.id, 'Delete'));
         if (out.length){
-          out.unshift('<ul>');
+          out.unshift('<ul class="clearfix">');
           out.push('</ul>');
+        }
+        if (item.duration){
+          out.push('<div>');
+          out.push('<b>Duration:</b> ' + build.formatDuration(item.duration));
+          out.push('</div>');
+        }
+        if (item.trackNo){
+          out.push('<div>');
+          out.push('<b>Track number:</b> ' + item.trackNo);
+          out.push('</div>');
+        }
+        if (item.description){
+          out.push('<div>');
+          out.push('<b>Description:</b> ' + makeLinks(build.escapeHtml(item.description)));
+          out.push('</div>');
         }
       }
       if (out.length){
@@ -320,7 +343,7 @@ define(['jquery', 'build', 'info', 'search'],
       }
 
       out.push('<div data-auto="delete" class="track-cmd clearfix">');
-      out.push('<ul>');
+      out.push('<ul class="clearfix">');
       if (item.artistId) {
         // FIXME
      //   out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
@@ -331,6 +354,16 @@ define(['jquery', 'build', 'info', 'search'],
       }
       out.push(playButton(item.id));
       out.push('</ul>');
+      if (item.trackNo){
+        out.push('<div>');
+        out.push('<b>Track number:</b> ' + item.trackNo);
+        out.push('</div>');
+      }
+      if (item.description){
+        out.push('<div>');
+        out.push(makeLinks(build.escapeHtml(item.description)));
+        out.push('</div>');
+      }
       out.push('</div>');
       $element.append(out.join(''));
 
@@ -554,7 +587,7 @@ define(['jquery', 'build', 'info', 'search'],
           $('#password').click(function() {
             $(this).focus();
           });
-          $('#password').trigger('click').val(escapeHtml(lastSearch));
+          $('#password').trigger('click').val(build.escapeHtml(lastSearch));
           $('#admin-form a').click(function() {
             $('#admin-form').submit();
           });
@@ -573,7 +606,7 @@ define(['jquery', 'build', 'info', 'search'],
           $('#search-text').click(function() {
             $(this).focus();
           });
-          $('#search-text').trigger('click').val(escapeHtml(lastSearch));
+          $('#search-text').trigger('click').val(build.escapeHtml(lastSearch));
           $('#search-form a').click(function() {
             $('#search-form').submit();
           });

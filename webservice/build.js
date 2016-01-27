@@ -2,6 +2,15 @@
 
 define(['jquery', 'info', 'search'], function($, info, search) {
 
+  function escapeHtml(unsafe) {
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   function buildSearch() {
     var out = [];
     out.push('<form id="search-form">');
@@ -40,9 +49,7 @@ define(['jquery', 'info', 'search'], function($, info, search) {
 
 
   function highlight(info, text) {
-    // if (!info){
-    //   return '';
-    // }
+    info = escapeHtml(info || '');
     var i;
     var regex;
 
@@ -131,13 +138,8 @@ define(['jquery', 'info', 'search'], function($, info, search) {
     }
     if (item.user) {
       out.push('<div class="track-user">');
-      out.push(item.user);
+      out.push(escapeHtml(item.user));
       out.push('</div>');
-    }
-    if (false && item.description) {
-    out.push('<div class="track-artist">');
-    out.push(highlight(truncate(item.description, 150), text));
-    out.push('</div>');
     }
     out.push('</div>');
     return $(out.join('')).data(item);
@@ -433,20 +435,20 @@ define(['jquery', 'info', 'search'], function($, info, search) {
     out.push('">');
     out.push(count);
     out.push('</span> ');
-    out.push(item.title);
+    out.push(escapeHtml(item.title));
     if (item.artist) {
       out.push('<div class="track-artist">');
-      out.push(item.artist);
+      out.push(escapeHtml(item.artist));
       out.push('</div>');
     }
     if (item.album) {
       out.push('<div class="track-album">');
-      out.push(item.album);
+      out.push(escapeHtml(item.album));
       out.push('</div>');
     }
     if (item.user) {
       out.push('<div class="track-user">');
-      out.push(item.user);
+      out.push(escapeHtml(item.user));
       out.push('</div>');
     }
     out.push('</div>');
@@ -469,6 +471,8 @@ define(['jquery', 'info', 'search'], function($, info, search) {
   }
 
   return {
+    escapeHtml: escapeHtml,
+    formatDuration: formatDuration,
     buildArtistList: buildArtistList,
     buildAlbumList: buildAlbumList,
     buildArtist: buildArtist,

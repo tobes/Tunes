@@ -293,6 +293,10 @@ define(['jquery', 'build', 'info', 'search'],
           // out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
         }
         out.pushNotEmpty(makeMenuCmd('delete-' + item.id, 'Delete'));
+        out.pushNotEmpty(makeMenuCmd('queue:up-' + item.id, 'Up'));
+        out.pushNotEmpty(makeMenuCmd('queue:down-' + item.id, 'Down'));
+        out.pushNotEmpty(makeMenuCmd('queue:top-' + item.id, 'Top'));
+        out.pushNotEmpty(makeMenuCmd('queue:bottom-' + item.id, 'Bottom'));
         if (out.length){
           out.unshift('<ul class="clearfix">');
           out.push('</ul>');

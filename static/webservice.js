@@ -190,6 +190,18 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
           msg('Limit ' + queue.getLimit(), 'limit', streamId);
           configSet('queueLimit', queue.getLimit());
           break;
+        case 'queue:up':
+          queue.moveUp(parts[1]);
+          break;
+        case 'queue:down':
+          queue.moveDown(parts[1]);
+          break;
+        case 'queue:top':
+          queue.moveTop(parts[1]);
+          break;
+        case 'queue:bottom':
+          queue.moveBottom(parts[1]);
+          break;
         case 'add':
           queue.addTrackById(parts[1]);
           break;

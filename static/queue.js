@@ -24,6 +24,47 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
       return -1;
     }
 
+    function outOfRange(index){
+      return (index < 0 || index > queue.length - 1);
+    }
+
+    function moveItem(from, to) {
+      if (outOfRange(from) || outOfRange(to)){
+        return;
+      }
+      var item = queue[from];
+      if (item) {
+        queue.splice(from, 1);
+        queue.splice(to, 0, item);
+        event.trigger('playlistUpdate', queue);
+      }
+    }
+
+
+    function moveUp(id) {
+      id = fixId(id);
+      var index = findIndexForId(id);
+      moveItem(index, index - 1);
+    }
+
+    function moveDown(id) {
+      id = fixId(id);
+      var index = findIndexForId(id);
+      moveItem(index, index + 1);
+    }
+
+    function moveTop(id) {
+      id = fixId(id);
+      var index = findIndexForId(id);
+      moveItem(index, 0);
+    }
+
+    function moveBottom(id) {
+      id = fixId(id);
+      var index = findIndexForId(id);
+      moveItem(index, queue.length - 1);
+    }
+
     function removeById(id) {
       id = fixId(id);
       var index = findIndexForId(id);
@@ -227,6 +268,10 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
       addAlbumById: addAlbumById,
       get: get,
       getLimit: getLimit,
+      moveUp: moveUp,
+      moveDown: moveDown,
+      moveTop: moveTop,
+      moveBottom: moveBottom,
     };
 
   });

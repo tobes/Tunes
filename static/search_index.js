@@ -117,6 +117,7 @@ define(['info', 'latin'], function(info, latin) {
           title: track.title,
           artist: artist.name,
           artistId: artist.id,
+          trackNo: track.trackno,
           album: album.title,
           albumId: album.id,
           duration: track.duration << 0,

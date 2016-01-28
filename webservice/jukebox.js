@@ -9,7 +9,7 @@ define(['jquery'], function($) {
       q: text
     }, function(results) {
       callback(results);
-    });
+    }).fail(function () {callback([])});
   }
 
   return {

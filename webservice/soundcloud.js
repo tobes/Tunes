@@ -45,6 +45,9 @@ define(['info', 'scapi'], function(info, scapi) {
       limit: 50
     }).then(function(tracks) {
       makeResults(tracks, callback);
+    }, function() {
+      // failed
+      callback([])
     });
   }
 

@@ -118,10 +118,10 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
       }
     }
 
-    function addRemote(id) {
+    function addRemote(id, source) {
       remote.getInfo(id, function(item) {
         if (item) {
-          if (_queueAdd(item)) {
+          if (_queueAdd(item, source)) {
             remote.downloadAudio(item, setReady);
             event.trigger('playlistTrackAdded', item);
           }
@@ -159,14 +159,14 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
       }
     }
 
-    function addTrackById(id) {
+    function addTrackById(id, source) {
       id = fixId(id);
       if (/^(YT|SC):/.test(id)) {
-        addRemote(id);
+        addRemote(id, source);
         return;
       }
       db.get('track', id, function(track) {
-        queueAdd(track);
+        queueAdd(track, source);
       });
     }
 
@@ -191,9 +191,9 @@ define('queue', ['convert', 'event', 'random', 'config', 'db', 'remotes'],
     function tick() {
       // add track if needed
       if (queue.length < config.queueAutoMin) {
-        random.randomTrack(function(track) {
+        random.randomTrack(function(id) {
           console.log('Adding random track');
-          queueAdd(track, 'auto');
+          addTrackById(id, 'auto');
         });
       }
     }

@@ -12,18 +12,19 @@ define(['db'], function(db) {
 
   function randomTrack(callback) {
     db.count('track', function(count) {
-      var track = getRandomInt(0, count - 1);
-      console.log(track);
-      db.get('track', track, callback);
+      var id = getRandomInt(0, count - 1);
+      console.log('random track', id);
+      callback(id);
     });
   }
 
 
   function randomConverted(callback) {
     fs.readdir('converted', function(err, list) {
-      var track = parseInt(list[getRandomInt(0, list.length - 1)], 10);
-      console.log(track);
-      db.get('track', track, callback);
+      var id = list[getRandomInt(0, list.length - 1)];
+      id = id.split('.')[0];
+      console.log('random converted', id);
+      callback(id);
     });
   }
 

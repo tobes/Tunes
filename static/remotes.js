@@ -2,6 +2,9 @@
 
 define(['youtube', 'soundcloud'], function(youtube, soundcloud) {
 
+  const path = require('path');
+  const fs = require('fs');
+
   function getInfo(id, callback) {
     if (/^YT:/.test(id)) {
       youtube.getInfo(id, callback);
@@ -35,7 +38,16 @@ define(['youtube', 'soundcloud'], function(youtube, soundcloud) {
         soundcloud.downloadAudio(item, work);
       }
     }
-    work();
+
+    var file = path.join('converted', id + '.ogg');
+    fs.exists(file, function (exists){
+      if (exists){
+        callback(file, id);
+      } else {
+        work();
+      }
+    });
+
   }
 
   return {

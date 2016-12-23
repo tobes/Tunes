@@ -624,7 +624,7 @@ define(['jquery', 'build', 'info', 'search'],
           $('#search-text').click(function() {
             $(this).focus();
           });
-          $('#search-text').trigger('click').val(build.escapeHtml(lastSearch));
+          $('#search-text').trigger('click').val(lastSearch);
           $('#search-form a').click(function() {
             $('#search-form').submit();
           });

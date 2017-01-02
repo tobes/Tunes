@@ -161,7 +161,8 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
         result: 'success'
       };
       var streamId = data.get.streamId;
-      var parts = data.match[1].split('-');
+      // split at first -
+      var parts = data.match[1].split(/-(.+)/);
       switch (parts[0]) {
         case 'play':
           event.trigger('controlPlay');

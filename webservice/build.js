@@ -77,7 +77,7 @@ define(['jquery', 'info', 'search'], function($, info, search) {
         newText += '(' + chr + '|[^\x00-\x7F]+)';
       }
     }
-    text = newText.split(' ');
+    text = newText.split(/\s+/);
     return text;
   }
 

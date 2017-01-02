@@ -62,8 +62,6 @@ define(['info', 'gapi'], function(info, gapi) {
         }
         callback(out);
       });
-
-
     });
   }
 

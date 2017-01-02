@@ -54,7 +54,7 @@ define(['jquery', 'event', 'qrcode', 'webservice'],
         $('#currentTrack').html('');
         $('#currentAlbum').html(item.user);
       }
-      currentTrack = item.id;
+      var currentTrack = item.id;
       $('#playing').data('track', currentTrack);
     }
 

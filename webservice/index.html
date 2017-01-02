@@ -6,14 +6,28 @@
   <meta charset="utf-8">
   <meta name=viewport content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="normalize.css">
-  <link rel="stylesheet" type="text/css" href="tunes.css">
 
-  <script data-main="tunes.js" src="require.js"></script>
+  <link rel="stylesheet" type="text/css" href="tunes.css">
+  <style>
+    #loader {
+      height: 10em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #loader p {
+      margin: 0;
+      color:#999;
+    }
+  </style>
 </body>
   <title>Tunes!</title>
 </head>
 
-<body>
+<body bgcolor='#000000'>
+    <div id="loader">
+      <p style="">Tunes!<br>loading, please wait.</p>
+    </div>
     <div id="page" style="display:none;">
       <div id="menu-toggle">&#9834;</div>
       <div id="container">
@@ -68,7 +82,8 @@
       <div class="page listing" id="queue"></div>
       </div>
 
-  </div>
-  </div>
-  <div class="" id="console"></div>
+    </div>
+    </div>
+    <div class="" id="console"></div>
+    <script data-main="tunes.js" src="require.js"></script>
 </body>

@@ -648,6 +648,7 @@ define(['jquery', 'build', 'info', 'search'],
           styleSize = localStorage.styleSize || styleSize;
           setStyle();
       }
+      $('#loader').css({display: 'none'});
       $('#page').css({display: 'block'});
 
       $('#hash').on('click', 'div[data-result]', resultInfo);

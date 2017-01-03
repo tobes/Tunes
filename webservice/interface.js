@@ -561,7 +561,7 @@ define(['jquery', 'build', 'info', 'search'],
 
 
     function locationHashChanged() {
-      var hash = location.hash.split('-');
+      var hash = location.hash.split(/-(.+)/);
       if (lastHash === '#artist') {
         scrolls.artist = window.scrollY;
       }

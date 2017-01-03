@@ -66,6 +66,8 @@ define(['jquery', 'info', 'search'], function($, info, search) {
   function processSearchTerms(text) {
     text = text.toLowerCase();
     text = text.replace(/[^a-z0-9 ]/g, '');
+    // trim
+    text = text.replace(/^\s+|\s+$/g,'');
     var i;
     var newText = '';
     var chr;

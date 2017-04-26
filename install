@@ -1,3 +1,4 @@
+npm install nw
 npm install fluent-ffmpeg
 npm install musicmetadata
 npm install jimp

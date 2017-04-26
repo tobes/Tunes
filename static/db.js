@@ -17,7 +17,7 @@ define(function() {
     db = evt.target.result;
     console.log('db good');
     active = true;
-    activation();
+  //  activation();
   };
 
   dbOpen.onupgradeneeded = function(evt) {
@@ -52,24 +52,7 @@ define(function() {
     });
     console.log('db updated');
     active = true;
-    activation();
   };
-
-
-  function activation() {
-    // process callbacks when db enabled
-    var i;
-    for (i = 0; i < activateQueue.length; i++) {
-      activateQueue[i]();
-    }
-  }
-
-
-  function activate(callback) {
-    // db needs to initialise before it's first use
-    // we can set callbacks that will then be called
-    activateQueue.push(callback);
-  }
 
 
   function count(store, callback) {
@@ -216,7 +199,6 @@ define(function() {
     add: add,
     addOrId: addOrId,
     all: all,
-    activate: activate,
     active: active,
   };
 

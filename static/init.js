@@ -18,15 +18,9 @@ requirejs.config({
 });
 // initialize the database before we do anything
 requirejs(['db', 'event'], function(db, event) {
-  console.log('==============================');
-  db.activate(function() {
-    // database is initiated
-    console.log('DB ready');
-    // start things up
-    requirejs(['player', 'interface', 'import', 'webservice'], function(){
-    console.log('init ready');
-    event.trigger('init');
-    });
-
+  // start things up
+  requirejs(['player', 'interface', 'import', 'webservice'], function(){
+  console.log('calling init');
+  event.trigger('init');
   });
 });

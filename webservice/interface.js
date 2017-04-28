@@ -485,7 +485,7 @@ define(['jquery', 'build', 'info', 'search'],
     function resize() {
       var $toggle = $('#menu-toggle');
       $toggle.show();
-      var width = Math.min($('#container').width(), screen.width);
+      var width = Math.min($('#container').offset().left + $('#container').width(), screen.width);
       var toggleWidth = $toggle.outerWidth();
       $toggle.css('left', width - toggleWidth);
     }

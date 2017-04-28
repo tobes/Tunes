@@ -5,6 +5,12 @@ html.purple body {
   background-color: #FFF;
   height: 100%;
 }
+html.purple #main {
+  display: block;
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+}
 html.purple #page {
   width: 100%;
   max-width: 600px;
@@ -55,7 +61,6 @@ html.purple #menu-toggle {
   display: none;
 }
 html.purple div#qr {
-  /*   border: 2px solid @main-color; */
   padding: 10px;
   text-align: center;
 }
@@ -70,6 +75,7 @@ html.purple div#messages {
   top: 3em;
   z-index: 101;
   width: 100%;
+  max-width: 600px;
   pointer-events: none;
 }
 html.purple #messages ul li {
@@ -475,6 +481,12 @@ html.red body {
   background-color: #FFF;
   height: 100%;
 }
+html.red #main {
+  display: block;
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+}
 html.red #page {
   width: 100%;
   max-width: 600px;
@@ -525,7 +537,6 @@ html.red #menu-toggle {
   display: none;
 }
 html.red div#qr {
-  /*   border: 2px solid @main-color; */
   padding: 10px;
   text-align: center;
 }
@@ -540,6 +551,7 @@ html.red div#messages {
   top: 3em;
   z-index: 101;
   width: 100%;
+  max-width: 600px;
   pointer-events: none;
 }
 html.red #messages ul li {
@@ -945,6 +957,12 @@ html.green body {
   background-color: #FFF;
   height: 100%;
 }
+html.green #main {
+  display: block;
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+}
 html.green #page {
   width: 100%;
   max-width: 600px;
@@ -995,7 +1013,6 @@ html.green #menu-toggle {
   display: none;
 }
 html.green div#qr {
-  /*   border: 2px solid @main-color; */
   padding: 10px;
   text-align: center;
 }
@@ -1010,6 +1027,7 @@ html.green div#messages {
   top: 3em;
   z-index: 101;
   width: 100%;
+  max-width: 600px;
   pointer-events: none;
 }
 html.green #messages ul li {
@@ -1415,6 +1433,12 @@ html.purple-inverse body {
   background-color: #639;
   height: 100%;
 }
+html.purple-inverse #main {
+  display: block;
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+}
 html.purple-inverse #page {
   width: 100%;
   max-width: 600px;
@@ -1465,7 +1489,6 @@ html.purple-inverse #menu-toggle {
   display: none;
 }
 html.purple-inverse div#qr {
-  /*   border: 2px solid @main-color; */
   padding: 10px;
   text-align: center;
 }
@@ -1480,6 +1503,7 @@ html.purple-inverse div#messages {
   top: 3em;
   z-index: 101;
   width: 100%;
+  max-width: 600px;
   pointer-events: none;
 }
 html.purple-inverse #messages ul li {
@@ -1885,6 +1909,12 @@ html.night body {
   background-color: #222;
   height: 100%;
 }
+html.night #main {
+  display: block;
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+}
 html.night #page {
   width: 100%;
   max-width: 600px;
@@ -1935,7 +1965,6 @@ html.night #menu-toggle {
   display: none;
 }
 html.night div#qr {
-  /*   border: 2px solid @main-color; */
   padding: 10px;
   text-align: center;
 }
@@ -1950,6 +1979,7 @@ html.night div#messages {
   top: 3em;
   z-index: 101;
   width: 100%;
+  max-width: 600px;
   pointer-events: none;
 }
 html.night #messages ul li {

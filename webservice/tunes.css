@@ -2,7 +2,7 @@ html.purple body {
   font-family: Verdana, Geneva, sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #ffffff;
+  background-color: #FFF;
   height: 100%;
 }
 html.purple #page {
@@ -14,8 +14,8 @@ html.purple #page {
 html.purple #container {
   width: 100%;
   max-width: 600px;
-  color: #663399;
-  background-color: #ffffff;
+  color: #639;
+  background-color: #FFF;
   overflow: auto;
   position: relative;
 }
@@ -26,26 +26,26 @@ html.purple #container > div {
   position: relative;
 }
 html.purple .header {
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
 }
 html.purple #logo {
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
   padding-left: 10px;
 }
 html.purple #menu-toggle {
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
   z-index: 100;
   width: 1.2em;
   display: block;
@@ -53,6 +53,17 @@ html.purple #menu-toggle {
   top: 0;
   text-align: center;
   display: none;
+}
+html.purple div#qr {
+  /*   border: 2px solid @main-color; */
+  padding: 10px;
+  text-align: center;
+}
+html.purple div#qr img {
+  padding: 10px;
+  background: #FFF;
+  display: block;
+  margin: 0 auto;
 }
 html.purple div#messages {
   position: fixed;
@@ -62,13 +73,13 @@ html.purple div#messages {
   pointer-events: none;
 }
 html.purple #messages ul li {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #000;
+  color: #FFF;
   display: block;
   padding: 10px;
   margin: 10px;
   float: none;
-  border: 2px solid #cccccc;
+  border: 2px solid #CCC;
   box-sizing: border-box;
   border-radius: 25px;
   pointer-events: auto;
@@ -87,8 +98,8 @@ html.purple #intro {
   text-align: center;
 }
 html.purple .break-header {
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   text-align: center;
   padding: 10px;
   margin-left: 10px;
@@ -105,7 +116,7 @@ html.purple #album > a {
   padding-top: 10px;
   padding: 10px;
   border-bottom: 1px solid #ccbbdd;
-  color: #663399;
+  color: #639;
   text-decoration: none;
 }
 html.purple #artist > a:after {
@@ -121,7 +132,7 @@ html.purple #album > a.anchor {
 }
 html.purple #artist span {
   background-color: #ccbbdd;
-  color: #ffffff;
+  color: #FFF;
   padding: 3px 20px;
   border-radius: 25px;
   float: right;
@@ -143,7 +154,7 @@ html.purple ul li {
   float: left;
   box-sizing: border-box;
   text-align: center;
-  color: #ffffff;
+  color: #FFF;
 }
 html.purple ul.menu li {
   min-width: 50%;
@@ -153,8 +164,8 @@ html.purple ul.menu li {
 html.purple li a {
   display: block;
   text-decoration: none;
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   border-radius: 25px;
   padding: 10px;
 }
@@ -170,9 +181,9 @@ html.purple .album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #663399;
+  border: 1px solid #639;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 html.purple .album .album-title {
   margin-left: 148px;
@@ -207,9 +218,9 @@ html.purple .artist-album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #663399;
+  border: 1px solid #639;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 html.purple .artist-album > a {
   text-decoration: none;
@@ -229,7 +240,7 @@ html.purple div.artist-album > div:last-child {
 }
 html.purple .album-head {
   padding: 10px;
-  color: #ffffff;
+  color: #FFF;
   background-color: #ccbbdd;
 }
 html.purple .track-user {
@@ -248,8 +259,8 @@ html.purple div#queue img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
-  border: 1px solid #663399;
+  background-color: #FFF;
+  border: 1px solid #639;
 }
 html.purple .result-img {
   clear: both;
@@ -259,8 +270,8 @@ html.purple .result-img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
-  border: 1px solid #663399;
+  background-color: #FFF;
+  border: 1px solid #639;
 }
 html.purple .result-source {
   width: 64px;
@@ -269,9 +280,9 @@ html.purple .result-source {
   float: right;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
-  color: #663399;
-  border: 1px solid #663399;
+  background-color: #FFF;
+  color: #639;
+  border: 1px solid #639;
 }
 html.purple .result-duration {
   font-size: 0.75em;
@@ -286,7 +297,7 @@ html.purple svg {
   position: relative;
 }
 html.purple path {
-  fill: #663399;
+  fill: #639;
 }
 html.purple div.result-img {
   display: block;
@@ -297,8 +308,8 @@ html.purple div.result-img {
   position: relative;
   padding: 1px;
   margin-right: 10px;
-  border: 1px solid #663399;
-  background-color: #ffffff;
+  border: 1px solid #639;
+  background-color: #FFF;
   text-align: center;
 }
 html.purple div.results > div {
@@ -319,21 +330,21 @@ html.purple .result-type {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   margin-right: 10px;
   margin-bottom: 10px;
 }
 html.purple #search-text {
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
 }
 html.purple .queue-place {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   text-align: center;
 }
 html.purple .queue-content {
@@ -342,7 +353,7 @@ html.purple .queue-content {
 html.purple .queue-item {
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #663399;
+  border-bottom: 1px solid #639;
 }
 @-webkit-keyframes flash {
   0%,
@@ -379,7 +390,7 @@ html.purple .animation-flash {
   animation-name: flash;
 }
 html.purple #currentCover {
-  border: 1px solid #663399;
+  border: 1px solid #639;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
@@ -399,25 +410,25 @@ html.purple #currentSubTitle {
   text-align: center;
 }
 html.purple #currentProgress {
-  color: #663399;
-  border: 1px solid #663399;
-  background-color: #ffffff;
+  color: #639;
+  border: 1px solid #639;
+  background-color: #FFF;
   width: 100%;
   height: 0.5em;
   padding: 2px;
   box-sizing: margin-box;
 }
 html.purple progress::-moz-progress-bar {
-  background: #663399;
+  background: #639;
 }
 html.purple progress::-webkit-progress-value {
-  background: #663399;
+  background: #639;
 }
 html.purple progress::-webkit-progress-bar {
-  background: #ffffff;
+  background: #FFF;
 }
 html.purple progress {
-  color: #663399;
+  color: #639;
   width: 90%;
   box-sizing: border-box;
 }
@@ -451,17 +462,17 @@ li.style-menu.purple {
 li.style-menu.purple a {
   display: block;
   text-decoration: none;
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
   border-radius: 25px;
-  border: 2px solid #ffffff;
+  border: 2px solid #FFF;
   padding: 10px;
 }
 html.red body {
   font-family: Verdana, Geneva, sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #ffffff;
+  background-color: #FFF;
   height: 100%;
 }
 html.red #page {
@@ -473,8 +484,8 @@ html.red #page {
 html.red #container {
   width: 100%;
   max-width: 600px;
-  color: #990000;
-  background-color: #ffffff;
+  color: #900;
+  background-color: #FFF;
   overflow: auto;
   position: relative;
 }
@@ -485,26 +496,26 @@ html.red #container > div {
   position: relative;
 }
 html.red .header {
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
 }
 html.red #logo {
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
   padding-left: 10px;
 }
 html.red #menu-toggle {
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
   z-index: 100;
   width: 1.2em;
   display: block;
@@ -512,6 +523,17 @@ html.red #menu-toggle {
   top: 0;
   text-align: center;
   display: none;
+}
+html.red div#qr {
+  /*   border: 2px solid @main-color; */
+  padding: 10px;
+  text-align: center;
+}
+html.red div#qr img {
+  padding: 10px;
+  background: #FFF;
+  display: block;
+  margin: 0 auto;
 }
 html.red div#messages {
   position: fixed;
@@ -521,13 +543,13 @@ html.red div#messages {
   pointer-events: none;
 }
 html.red #messages ul li {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #000;
+  color: #FFF;
   display: block;
   padding: 10px;
   margin: 10px;
   float: none;
-  border: 2px solid #cccccc;
+  border: 2px solid #CCC;
   box-sizing: border-box;
   border-radius: 25px;
   pointer-events: auto;
@@ -546,8 +568,8 @@ html.red #intro {
   text-align: center;
 }
 html.red .break-header {
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   text-align: center;
   padding: 10px;
   margin-left: 10px;
@@ -564,7 +586,7 @@ html.red #album > a {
   padding-top: 10px;
   padding: 10px;
   border-bottom: 1px solid #ddaaaa;
-  color: #990000;
+  color: #900;
   text-decoration: none;
 }
 html.red #artist > a:after {
@@ -580,7 +602,7 @@ html.red #album > a.anchor {
 }
 html.red #artist span {
   background-color: #ddaaaa;
-  color: #ffffff;
+  color: #FFF;
   padding: 3px 20px;
   border-radius: 25px;
   float: right;
@@ -602,7 +624,7 @@ html.red ul li {
   float: left;
   box-sizing: border-box;
   text-align: center;
-  color: #ffffff;
+  color: #FFF;
 }
 html.red ul.menu li {
   min-width: 50%;
@@ -612,8 +634,8 @@ html.red ul.menu li {
 html.red li a {
   display: block;
   text-decoration: none;
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   border-radius: 25px;
   padding: 10px;
 }
@@ -629,9 +651,9 @@ html.red .album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #990000;
+  border: 1px solid #900;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 html.red .album .album-title {
   margin-left: 148px;
@@ -666,9 +688,9 @@ html.red .artist-album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #990000;
+  border: 1px solid #900;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 html.red .artist-album > a {
   text-decoration: none;
@@ -688,7 +710,7 @@ html.red div.artist-album > div:last-child {
 }
 html.red .album-head {
   padding: 10px;
-  color: #ffffff;
+  color: #FFF;
   background-color: #ddaaaa;
 }
 html.red .track-user {
@@ -707,8 +729,8 @@ html.red div#queue img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
-  border: 1px solid #990000;
+  background-color: #FFF;
+  border: 1px solid #900;
 }
 html.red .result-img {
   clear: both;
@@ -718,8 +740,8 @@ html.red .result-img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
-  border: 1px solid #990000;
+  background-color: #FFF;
+  border: 1px solid #900;
 }
 html.red .result-source {
   width: 64px;
@@ -728,9 +750,9 @@ html.red .result-source {
   float: right;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
-  color: #990000;
-  border: 1px solid #990000;
+  background-color: #FFF;
+  color: #900;
+  border: 1px solid #900;
 }
 html.red .result-duration {
   font-size: 0.75em;
@@ -745,7 +767,7 @@ html.red svg {
   position: relative;
 }
 html.red path {
-  fill: #990000;
+  fill: #900;
 }
 html.red div.result-img {
   display: block;
@@ -756,8 +778,8 @@ html.red div.result-img {
   position: relative;
   padding: 1px;
   margin-right: 10px;
-  border: 1px solid #990000;
-  background-color: #ffffff;
+  border: 1px solid #900;
+  background-color: #FFF;
   text-align: center;
 }
 html.red div.results > div {
@@ -778,21 +800,21 @@ html.red .result-type {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   margin-right: 10px;
   margin-bottom: 10px;
 }
 html.red #search-text {
-  background-color: #ffffff;
-  color: #990000;
+  background-color: #FFF;
+  color: #900;
 }
 html.red .queue-place {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   text-align: center;
 }
 html.red .queue-content {
@@ -801,7 +823,7 @@ html.red .queue-content {
 html.red .queue-item {
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #990000;
+  border-bottom: 1px solid #900;
 }
 @-webkit-keyframes flash {
   0%,
@@ -838,7 +860,7 @@ html.red .animation-flash {
   animation-name: flash;
 }
 html.red #currentCover {
-  border: 1px solid #990000;
+  border: 1px solid #900;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
@@ -858,25 +880,25 @@ html.red #currentSubTitle {
   text-align: center;
 }
 html.red #currentProgress {
-  color: #990000;
-  border: 1px solid #990000;
-  background-color: #ffffff;
+  color: #900;
+  border: 1px solid #900;
+  background-color: #FFF;
   width: 100%;
   height: 0.5em;
   padding: 2px;
   box-sizing: margin-box;
 }
 html.red progress::-moz-progress-bar {
-  background: #990000;
+  background: #900;
 }
 html.red progress::-webkit-progress-value {
-  background: #990000;
+  background: #900;
 }
 html.red progress::-webkit-progress-bar {
-  background: #ffffff;
+  background: #FFF;
 }
 html.red progress {
-  color: #990000;
+  color: #900;
   width: 90%;
   box-sizing: border-box;
 }
@@ -910,17 +932,17 @@ li.style-menu.red {
 li.style-menu.red a {
   display: block;
   text-decoration: none;
-  background-color: #990000;
-  color: #ffffff;
+  background-color: #900;
+  color: #FFF;
   border-radius: 25px;
-  border: 2px solid #ffffff;
+  border: 2px solid #FFF;
   padding: 10px;
 }
 html.green body {
   font-family: Verdana, Geneva, sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #ffffff;
+  background-color: #FFF;
   height: 100%;
 }
 html.green #page {
@@ -933,7 +955,7 @@ html.green #container {
   width: 100%;
   max-width: 600px;
   color: #006400;
-  background-color: #ffffff;
+  background-color: #FFF;
   overflow: auto;
   position: relative;
 }
@@ -945,25 +967,25 @@ html.green #container > div {
 }
 html.green .header {
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
 }
 html.green #logo {
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
   padding-left: 10px;
 }
 html.green #menu-toggle {
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #ffffff;
+  border: 3px solid #FFF;
   z-index: 100;
   width: 1.2em;
   display: block;
@@ -971,6 +993,17 @@ html.green #menu-toggle {
   top: 0;
   text-align: center;
   display: none;
+}
+html.green div#qr {
+  /*   border: 2px solid @main-color; */
+  padding: 10px;
+  text-align: center;
+}
+html.green div#qr img {
+  padding: 10px;
+  background: #FFF;
+  display: block;
+  margin: 0 auto;
 }
 html.green div#messages {
   position: fixed;
@@ -980,13 +1013,13 @@ html.green div#messages {
   pointer-events: none;
 }
 html.green #messages ul li {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #000;
+  color: #FFF;
   display: block;
   padding: 10px;
   margin: 10px;
   float: none;
-  border: 2px solid #cccccc;
+  border: 2px solid #CCC;
   box-sizing: border-box;
   border-radius: 5px;
   pointer-events: auto;
@@ -1006,7 +1039,7 @@ html.green #intro {
 }
 html.green .break-header {
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   text-align: center;
   padding: 10px;
   margin-left: 10px;
@@ -1039,7 +1072,7 @@ html.green #album > a.anchor {
 }
 html.green #artist span {
   background-color: #aacbaa;
-  color: #ffffff;
+  color: #FFF;
   padding: 3px 20px;
   border-radius: 5px;
   float: right;
@@ -1061,7 +1094,7 @@ html.green ul li {
   float: left;
   box-sizing: border-box;
   text-align: center;
-  color: #ffffff;
+  color: #FFF;
 }
 html.green ul.menu li {
   min-width: 50%;
@@ -1072,7 +1105,7 @@ html.green li a {
   display: block;
   text-decoration: none;
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   border-radius: 5px;
   padding: 10px;
 }
@@ -1090,7 +1123,7 @@ html.green .album img {
   position: relative;
   border: 1px solid #006400;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 html.green .album .album-title {
   margin-left: 148px;
@@ -1127,7 +1160,7 @@ html.green .artist-album img {
   position: relative;
   border: 1px solid #006400;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 html.green .artist-album > a {
   text-decoration: none;
@@ -1147,7 +1180,7 @@ html.green div.artist-album > div:last-child {
 }
 html.green .album-head {
   padding: 10px;
-  color: #ffffff;
+  color: #FFF;
   background-color: #aacbaa;
 }
 html.green .track-user {
@@ -1166,7 +1199,7 @@ html.green div#queue img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
   border: 1px solid #006400;
 }
 html.green .result-img {
@@ -1177,7 +1210,7 @@ html.green .result-img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
   border: 1px solid #006400;
 }
 html.green .result-source {
@@ -1187,7 +1220,7 @@ html.green .result-source {
   float: right;
   position: relative;
   padding: 1px;
-  background-color: #ffffff;
+  background-color: #FFF;
   color: #006400;
   border: 1px solid #006400;
 }
@@ -1216,7 +1249,7 @@ html.green div.result-img {
   padding: 1px;
   margin-right: 10px;
   border: 1px solid #006400;
-  background-color: #ffffff;
+  background-color: #FFF;
   text-align: center;
 }
 html.green div.results > div {
@@ -1238,12 +1271,12 @@ html.green .result-type {
   padding-right: 2px;
   padding-top: 2px;
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   margin-right: 10px;
   margin-bottom: 10px;
 }
 html.green #search-text {
-  background-color: #ffffff;
+  background-color: #FFF;
   color: #006400;
 }
 html.green .queue-place {
@@ -1251,7 +1284,7 @@ html.green .queue-place {
   padding-right: 2px;
   padding-top: 2px;
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   text-align: center;
 }
 html.green .queue-content {
@@ -1319,7 +1352,7 @@ html.green #currentSubTitle {
 html.green #currentProgress {
   color: #006400;
   border: 1px solid #006400;
-  background-color: #ffffff;
+  background-color: #FFF;
   width: 100%;
   height: 0.5em;
   padding: 2px;
@@ -1332,7 +1365,7 @@ html.green progress::-webkit-progress-value {
   background: #006400;
 }
 html.green progress::-webkit-progress-bar {
-  background: #ffffff;
+  background: #FFF;
 }
 html.green progress {
   color: #006400;
@@ -1370,16 +1403,16 @@ li.style-menu.green a {
   display: block;
   text-decoration: none;
   background-color: #006400;
-  color: #ffffff;
+  color: #FFF;
   border-radius: 5px;
-  border: 2px solid #ffffff;
+  border: 2px solid #FFF;
   padding: 10px;
 }
 html.purple-inverse body {
   font-family: Verdana, Geneva, sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #663399;
+  background-color: #639;
   height: 100%;
 }
 html.purple-inverse #page {
@@ -1391,8 +1424,8 @@ html.purple-inverse #page {
 html.purple-inverse #container {
   width: 100%;
   max-width: 600px;
-  color: #ffffff;
-  background-color: #663399;
+  color: #FFF;
+  background-color: #639;
   overflow: auto;
   position: relative;
 }
@@ -1403,26 +1436,26 @@ html.purple-inverse #container > div {
   position: relative;
 }
 html.purple-inverse .header {
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #663399;
+  border: 3px solid #639;
 }
 html.purple-inverse #logo {
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #663399;
+  border: 3px solid #639;
   padding-left: 10px;
 }
 html.purple-inverse #menu-toggle {
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #663399;
+  border: 3px solid #639;
   z-index: 100;
   width: 1.2em;
   display: block;
@@ -1430,6 +1463,17 @@ html.purple-inverse #menu-toggle {
   top: 0;
   text-align: center;
   display: none;
+}
+html.purple-inverse div#qr {
+  /*   border: 2px solid @main-color; */
+  padding: 10px;
+  text-align: center;
+}
+html.purple-inverse div#qr img {
+  padding: 10px;
+  background: #FFF;
+  display: block;
+  margin: 0 auto;
 }
 html.purple-inverse div#messages {
   position: fixed;
@@ -1439,13 +1483,13 @@ html.purple-inverse div#messages {
   pointer-events: none;
 }
 html.purple-inverse #messages ul li {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #000;
+  color: #FFF;
   display: block;
   padding: 10px;
   margin: 10px;
   float: none;
-  border: 2px solid #cccccc;
+  border: 2px solid #CCC;
   box-sizing: border-box;
   border-radius: 25px;
   pointer-events: auto;
@@ -1464,8 +1508,8 @@ html.purple-inverse #intro {
   text-align: center;
 }
 html.purple-inverse .break-header {
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   text-align: center;
   padding: 10px;
   margin-left: 10px;
@@ -1482,7 +1526,7 @@ html.purple-inverse #album > a {
   padding-top: 10px;
   padding: 10px;
   border-bottom: 1px solid #ffffff;
-  color: #ffffff;
+  color: #FFF;
   text-decoration: none;
 }
 html.purple-inverse #artist > a:after {
@@ -1498,7 +1542,7 @@ html.purple-inverse #album > a.anchor {
 }
 html.purple-inverse #artist span {
   background-color: #ffffff;
-  color: #663399;
+  color: #639;
   padding: 3px 20px;
   border-radius: 25px;
   float: right;
@@ -1520,7 +1564,7 @@ html.purple-inverse ul li {
   float: left;
   box-sizing: border-box;
   text-align: center;
-  color: #663399;
+  color: #639;
 }
 html.purple-inverse ul.menu li {
   min-width: 50%;
@@ -1530,8 +1574,8 @@ html.purple-inverse ul.menu li {
 html.purple-inverse li a {
   display: block;
   text-decoration: none;
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   border-radius: 25px;
   padding: 10px;
 }
@@ -1547,9 +1591,9 @@ html.purple-inverse .album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #ffffff;
+  border: 1px solid #FFF;
   padding: 1px;
-  background-color: #663399;
+  background-color: #639;
 }
 html.purple-inverse .album .album-title {
   margin-left: 148px;
@@ -1584,9 +1628,9 @@ html.purple-inverse .artist-album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #ffffff;
+  border: 1px solid #FFF;
   padding: 1px;
-  background-color: #663399;
+  background-color: #639;
 }
 html.purple-inverse .artist-album > a {
   text-decoration: none;
@@ -1606,7 +1650,7 @@ html.purple-inverse div.artist-album > div:last-child {
 }
 html.purple-inverse .album-head {
   padding: 10px;
-  color: #663399;
+  color: #639;
   background-color: #ffffff;
 }
 html.purple-inverse .track-user {
@@ -1625,8 +1669,8 @@ html.purple-inverse div#queue img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #663399;
-  border: 1px solid #ffffff;
+  background-color: #639;
+  border: 1px solid #FFF;
 }
 html.purple-inverse .result-img {
   clear: both;
@@ -1636,8 +1680,8 @@ html.purple-inverse .result-img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #663399;
-  border: 1px solid #ffffff;
+  background-color: #639;
+  border: 1px solid #FFF;
 }
 html.purple-inverse .result-source {
   width: 64px;
@@ -1646,9 +1690,9 @@ html.purple-inverse .result-source {
   float: right;
   position: relative;
   padding: 1px;
-  background-color: #663399;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: #639;
+  color: #FFF;
+  border: 1px solid #FFF;
 }
 html.purple-inverse .result-duration {
   font-size: 0.75em;
@@ -1663,7 +1707,7 @@ html.purple-inverse svg {
   position: relative;
 }
 html.purple-inverse path {
-  fill: #ffffff;
+  fill: #FFF;
 }
 html.purple-inverse div.result-img {
   display: block;
@@ -1674,8 +1718,8 @@ html.purple-inverse div.result-img {
   position: relative;
   padding: 1px;
   margin-right: 10px;
-  border: 1px solid #ffffff;
-  background-color: #663399;
+  border: 1px solid #FFF;
+  background-color: #639;
   text-align: center;
 }
 html.purple-inverse div.results > div {
@@ -1696,21 +1740,21 @@ html.purple-inverse .result-type {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   margin-right: 10px;
   margin-bottom: 10px;
 }
 html.purple-inverse #search-text {
-  background-color: #663399;
-  color: #ffffff;
+  background-color: #639;
+  color: #FFF;
 }
 html.purple-inverse .queue-place {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   text-align: center;
 }
 html.purple-inverse .queue-content {
@@ -1719,7 +1763,7 @@ html.purple-inverse .queue-content {
 html.purple-inverse .queue-item {
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #FFF;
 }
 @-webkit-keyframes flash {
   0%,
@@ -1756,7 +1800,7 @@ html.purple-inverse .animation-flash {
   animation-name: flash;
 }
 html.purple-inverse #currentCover {
-  border: 1px solid #ffffff;
+  border: 1px solid #FFF;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
@@ -1776,25 +1820,25 @@ html.purple-inverse #currentSubTitle {
   text-align: center;
 }
 html.purple-inverse #currentProgress {
-  color: #ffffff;
-  border: 1px solid #ffffff;
-  background-color: #663399;
+  color: #FFF;
+  border: 1px solid #FFF;
+  background-color: #639;
   width: 100%;
   height: 0.5em;
   padding: 2px;
   box-sizing: margin-box;
 }
 html.purple-inverse progress::-moz-progress-bar {
-  background: #ffffff;
+  background: #FFF;
 }
 html.purple-inverse progress::-webkit-progress-value {
-  background: #ffffff;
+  background: #FFF;
 }
 html.purple-inverse progress::-webkit-progress-bar {
-  background: #663399;
+  background: #639;
 }
 html.purple-inverse progress {
-  color: #ffffff;
+  color: #FFF;
   width: 90%;
   box-sizing: border-box;
 }
@@ -1828,17 +1872,17 @@ li.style-menu.purple-inverse {
 li.style-menu.purple-inverse a {
   display: block;
   text-decoration: none;
-  background-color: #ffffff;
-  color: #663399;
+  background-color: #FFF;
+  color: #639;
   border-radius: 25px;
-  border: 2px solid #663399;
+  border: 2px solid #639;
   padding: 10px;
 }
 html.night body {
   font-family: Verdana, Geneva, sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #222222;
+  background-color: #222;
   height: 100%;
 }
 html.night #page {
@@ -1850,8 +1894,8 @@ html.night #page {
 html.night #container {
   width: 100%;
   max-width: 600px;
-  color: #999999;
-  background-color: #222222;
+  color: #999;
+  background-color: #222;
   overflow: auto;
   position: relative;
 }
@@ -1862,26 +1906,26 @@ html.night #container > div {
   position: relative;
 }
 html.night .header {
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #222222;
+  border: 3px solid #222;
 }
 html.night #logo {
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #222222;
+  border: 3px solid #222;
   padding-left: 10px;
 }
 html.night #menu-toggle {
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   font-size: 3em;
   height: 1.2em;
-  border: 3px solid #222222;
+  border: 3px solid #222;
   z-index: 100;
   width: 1.2em;
   display: block;
@@ -1889,6 +1933,17 @@ html.night #menu-toggle {
   top: 0;
   text-align: center;
   display: none;
+}
+html.night div#qr {
+  /*   border: 2px solid @main-color; */
+  padding: 10px;
+  text-align: center;
+}
+html.night div#qr img {
+  padding: 10px;
+  background: #FFF;
+  display: block;
+  margin: 0 auto;
 }
 html.night div#messages {
   position: fixed;
@@ -1898,13 +1953,13 @@ html.night div#messages {
   pointer-events: none;
 }
 html.night #messages ul li {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #000;
+  color: #FFF;
   display: block;
   padding: 10px;
   margin: 10px;
   float: none;
-  border: 2px solid #cccccc;
+  border: 2px solid #CCC;
   box-sizing: border-box;
   border-radius: 25px;
   pointer-events: auto;
@@ -1923,8 +1978,8 @@ html.night #intro {
   text-align: center;
 }
 html.night .break-header {
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   text-align: center;
   padding: 10px;
   margin-left: 10px;
@@ -1941,7 +1996,7 @@ html.night #album > a {
   padding-top: 10px;
   padding: 10px;
   border-bottom: 1px solid #dddddd;
-  color: #999999;
+  color: #999;
   text-decoration: none;
 }
 html.night #artist > a:after {
@@ -1957,7 +2012,7 @@ html.night #album > a.anchor {
 }
 html.night #artist span {
   background-color: #dddddd;
-  color: #222222;
+  color: #222;
   padding: 3px 20px;
   border-radius: 25px;
   float: right;
@@ -1979,7 +2034,7 @@ html.night ul li {
   float: left;
   box-sizing: border-box;
   text-align: center;
-  color: #222222;
+  color: #222;
 }
 html.night ul.menu li {
   min-width: 50%;
@@ -1989,8 +2044,8 @@ html.night ul.menu li {
 html.night li a {
   display: block;
   text-decoration: none;
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   border-radius: 25px;
   padding: 10px;
 }
@@ -2006,9 +2061,9 @@ html.night .album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #999999;
+  border: 1px solid #999;
   padding: 1px;
-  background-color: #222222;
+  background-color: #222;
 }
 html.night .album .album-title {
   margin-left: 148px;
@@ -2043,9 +2098,9 @@ html.night .artist-album img {
   margin-right: 10px;
   float: left;
   position: relative;
-  border: 1px solid #999999;
+  border: 1px solid #999;
   padding: 1px;
-  background-color: #222222;
+  background-color: #222;
 }
 html.night .artist-album > a {
   text-decoration: none;
@@ -2065,7 +2120,7 @@ html.night div.artist-album > div:last-child {
 }
 html.night .album-head {
   padding: 10px;
-  color: #222222;
+  color: #222;
   background-color: #dddddd;
 }
 html.night .track-user {
@@ -2084,8 +2139,8 @@ html.night div#queue img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #222222;
-  border: 1px solid #999999;
+  background-color: #222;
+  border: 1px solid #999;
 }
 html.night .result-img {
   clear: both;
@@ -2095,8 +2150,8 @@ html.night .result-img {
   float: left;
   position: relative;
   padding: 1px;
-  background-color: #222222;
-  border: 1px solid #999999;
+  background-color: #222;
+  border: 1px solid #999;
 }
 html.night .result-source {
   width: 64px;
@@ -2105,9 +2160,9 @@ html.night .result-source {
   float: right;
   position: relative;
   padding: 1px;
-  background-color: #222222;
-  color: #999999;
-  border: 1px solid #999999;
+  background-color: #222;
+  color: #999;
+  border: 1px solid #999;
 }
 html.night .result-duration {
   font-size: 0.75em;
@@ -2122,7 +2177,7 @@ html.night svg {
   position: relative;
 }
 html.night path {
-  fill: #999999;
+  fill: #999;
 }
 html.night div.result-img {
   display: block;
@@ -2133,8 +2188,8 @@ html.night div.result-img {
   position: relative;
   padding: 1px;
   margin-right: 10px;
-  border: 1px solid #999999;
-  background-color: #222222;
+  border: 1px solid #999;
+  background-color: #222;
   text-align: center;
 }
 html.night div.results > div {
@@ -2155,21 +2210,21 @@ html.night .result-type {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   margin-right: 10px;
   margin-bottom: 10px;
 }
 html.night #search-text {
-  background-color: #222222;
-  color: #999999;
+  background-color: #222;
+  color: #999;
 }
 html.night .queue-place {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   text-align: center;
 }
 html.night .queue-content {
@@ -2178,7 +2233,7 @@ html.night .queue-content {
 html.night .queue-item {
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid #999;
 }
 @-webkit-keyframes flash {
   0%,
@@ -2215,7 +2270,7 @@ html.night .animation-flash {
   animation-name: flash;
 }
 html.night #currentCover {
-  border: 1px solid #999999;
+  border: 1px solid #999;
   padding: 3px;
   width: 80%;
   box-sizing: margin-box;
@@ -2235,25 +2290,25 @@ html.night #currentSubTitle {
   text-align: center;
 }
 html.night #currentProgress {
-  color: #999999;
-  border: 1px solid #999999;
-  background-color: #222222;
+  color: #999;
+  border: 1px solid #999;
+  background-color: #222;
   width: 100%;
   height: 0.5em;
   padding: 2px;
   box-sizing: margin-box;
 }
 html.night progress::-moz-progress-bar {
-  background: #999999;
+  background: #999;
 }
 html.night progress::-webkit-progress-value {
-  background: #999999;
+  background: #999;
 }
 html.night progress::-webkit-progress-bar {
-  background: #222222;
+  background: #222;
 }
 html.night progress {
-  color: #999999;
+  color: #999;
   width: 90%;
   box-sizing: border-box;
 }
@@ -2287,10 +2342,10 @@ li.style-menu.night {
 li.style-menu.night a {
   display: block;
   text-decoration: none;
-  background-color: #999999;
-  color: #222222;
+  background-color: #999;
+  color: #222;
   border-radius: 25px;
-  border: 2px solid #222222;
+  border: 2px solid #222;
   padding: 10px;
 }
 html.size-small .listing {

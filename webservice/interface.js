@@ -21,6 +21,7 @@ define(['jquery', 'build', 'info', 'search'],
     var activePage;
     var menuDivs = [
       'info',
+      'link',
       'artist',
       'album',
       'hash',
@@ -42,7 +43,7 @@ define(['jquery', 'build', 'info', 'search'],
         if (item){
           this.push(item);
         }
-      }
+      };
     }
 
     function showPage(page) {
@@ -587,6 +588,9 @@ define(['jquery', 'build', 'info', 'search'],
           break;
         case '#info':
           showPage('info');
+          break;
+        case '#link':
+          showPage('link');
           break;
         case '#admin':
           display(build.buildAdmin());

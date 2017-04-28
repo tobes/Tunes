@@ -30,6 +30,26 @@ div.queue-item p {
     margin-left: 60px
 }
 
+body {
+  border: 0;
+  margin: 0;
+}
+
+#content {
+    width:100%;
+    height:100%;
+    position:absolute;
+    display:block;
+    top:0;
+}
+
+iframe {
+  margin: 0 auto;
+  display:block;
+  height:100%;
+  width:100%;
+}
+
 audio {
   display:none;
 }

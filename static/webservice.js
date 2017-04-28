@@ -87,6 +87,7 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
       configSet('queueLimit', queue.getLimit(), streamId);
       configSet('ytApiKey', config.ytApiKey, streamId);
       configSet('soundcloudApiKey', config.soundcloudApiKey, streamId);
+      configSet('baseUrl', getUrl(), streamId);
       message(response, 'init', '');
     }
 
@@ -328,6 +329,8 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
       }
       var port = config.webservicePort;
       var protocol = config.webserviceSecure ? 'https' : 'http';
+      var defaultLocation = config.webserviceDefault;
+
       if (config.webserviceSecure) {
         var options = {
           key: fs.readFileSync(config.webserviceSecureKey),
@@ -340,7 +343,7 @@ define(['event', 'config', 'search_index', 'queue', 'player'],
         server = http.createServer(processRequest).listen(port);
       }
 
-      url = protocol + '://' + ipAddress[0].ip + ':' + port;
+      url = protocol + '://' + ipAddress[0].ip + ':' + port + defaultLocation;
       console.log('Webservice serving on ' + url);
     }
 

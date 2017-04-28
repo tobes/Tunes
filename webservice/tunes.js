@@ -12,12 +12,15 @@ requirejs.config({
     },
     gapi: {
       exports: 'gapi'
+    },
+    qrcode: {
+      exports: 'QRCode'
     }
   }
 });
 
-requirejs(['jquery', 'build', 'info', 'interface', 'search'],
-  function($, build, info, interface, search) {
+requirejs(['jquery', 'build', 'info', 'interface', 'search', 'qrcode'],
+  function($, build, info, interface, search, qrcode) {
 
     var TICK_INTERVAL = 250;
     var ERROR_TIMEOUT = 10000;
@@ -47,6 +50,23 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
       }
     }
 
+
+    function QR() {
+      var url = info.configGet('baseUrl');
+      if (url) {
+        var $qrcode = $('<div>');
+        new qrcode($qrcode[0], {
+          text: url,
+          width: 128,
+          height: 128,
+          colorDark: '#000',
+          colorLight: '#fff',
+          correctLevel: qrcode.CorrectLevel.L
+        });
+        $('#qr').append($qrcode);
+        $('#qr').append('<p>' + url + '</p>');
+      }
+    }
 
     function playingChange(current) {
       var item = current.item;
@@ -169,6 +189,7 @@ requirejs(['jquery', 'build', 'info', 'interface', 'search'],
         initalized = true;
         interface.init();
         interface.message({text: 'All systems are go...'});
+        QR();
       }
     }
 

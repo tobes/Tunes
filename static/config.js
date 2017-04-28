@@ -16,6 +16,7 @@ define(function() {
     webserviceSecure: 0,
     webserviceSecureKey: 'ssl/key.pem',
     webserviceSecureCert: 'ssl/cert.pem',
+    webserviceDefault: '#info',
 
     importAudioExtensions: ['.mp3', '.flac', '.ogg', '.wav'],
     importImageExtensions: ['.jpg', '.png', '.gif'],

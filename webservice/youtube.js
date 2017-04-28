@@ -51,9 +51,18 @@ define(['info', 'gapi'], function(info, gapi) {
         var duration;
         var out = [];
         var dataItem;
+        var restrict;
         items = response.items;
         for (i = 0; i < items.length; i++) {
           item = items[i];
+          restrict = item.contentDetails.regionRestriction;
+          if (restrict){
+            console.log(item);
+            console.log(restrict);
+            if (restrict.blocked && restrict.blocked.indexOf('GB') !== -1){
+              console.log('GB RESTRICTED');
+            }
+          }
           id = item.id;
           duration = decodeISO8601(item.contentDetails.duration);
           dataItem = data[id];

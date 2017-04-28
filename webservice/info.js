@@ -235,7 +235,7 @@ define(function() {
   }
 
   function configGet(key) {
-    return config[key];
+    return config[key] || 'unknown';
   }
 
   function configSet(key, value) {
@@ -244,9 +244,9 @@ define(function() {
 
   return {
     process: process,
-    alphaBit: alphaBit,
-    alphasArtist: alphasArtist,
-    alphasAlbum: alphasAlbum,
+//    alphaBit: alphaBit,
+//    alphasArtist: alphasArtist,
+//    alphasAlbum: alphasAlbum,
 
     setQueue: setQueue,
     inQueue: inQueue,

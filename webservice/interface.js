@@ -22,8 +22,6 @@ define(['jquery', 'build', 'info', 'search'],
     var menuDivs = [
       'playing',
       'info',
-      'artist',
-      'album',
       'hash',
       'styles',
     ];
@@ -48,6 +46,9 @@ define(['jquery', 'build', 'info', 'search'],
 
     function showPage(page) {
       var i;
+      if (page === undefined){
+        page = activePage;
+      }
       for (i = 0; i < menuDivs.length; i++) {
         if (page !== menuDivs[i]) {
           $('#' + menuDivs[i]).hide();
@@ -55,8 +56,12 @@ define(['jquery', 'build', 'info', 'search'],
       }
       $('#' + page).show();
       if (page) {
-        $('#menu').hide();
-        activePage = page;
+        if (page !== 'menu'){
+          activePage = page;
+          $('#menu').hide();
+        } else {
+          $('#menu').show();
+        }
       }
     }
 
@@ -64,23 +69,9 @@ define(['jquery', 'build', 'info', 'search'],
     function toggleMenu() {
       var $menu = $('#menu');
       if ($menu.css('display') !== 'none') {
-        $menu.hide();
-      } else {
-        var hash = location.hash.split('-')[0];
-        var $alpha = $('#menu-alpha');
-        if (hash === '#artist') {
-          showPage(activePage);
-          $alpha.attr('href', '#alpha-artist');
-          $alpha.parent().show();
-        } else if (hash === '#album') {
-          $alpha.attr('href', '#alpha-album');
-          $alpha.parent().show();
-        } else {
-          $alpha.parent().hide();
-        }
-
-        $menu.show();
         showPage();
+      } else {
+        showPage('menu');
       }
     }
 

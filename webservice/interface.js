@@ -20,8 +20,8 @@ define(['jquery', 'build', 'info', 'search'],
 
     var activePage;
     var menuDivs = [
+      'playing',
       'info',
-      'link',
       'artist',
       'album',
       'hash',
@@ -100,11 +100,9 @@ define(['jquery', 'build', 'info', 'search'],
       var $element = $(this);
       var page = $element.data('page');
       if (page) {
-        // location.hash = '#' + page;
         showPage(page);
         // hide menu
         $('#menu').hide();
-        // $('#hash').show();
         return;
       }
       var cmd = $element.data('cmd');
@@ -114,10 +112,6 @@ define(['jquery', 'build', 'info', 'search'],
           streamId: streamId
         });
       }
-      // hide any auto-hiding elements (button container)
-      // if ($element.data('noclose') !== true){
-      //$('div[data-auto=delete]').remove();
-      // }
       showPage(activePage);
     }
 
@@ -213,14 +207,6 @@ define(['jquery', 'build', 'info', 'search'],
       var item = $element.data();
       out.push('<div data-auto="delete" class="track-cmd clearfix">');
       out.push('<ul class="clearfix">');
-      if (item.artistId) {
-        // FIXME
-     //   out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
-      }
-      if (item.albumId) {
-        // FIXME
-      //  out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
-      }
       out.push(makeMenuCmd('play', 'Play'));
       out.push(makeMenuCmd('pause', 'Pause'));
       out.push(makeMenuCmd('skip', 'skip'));
@@ -245,7 +231,6 @@ define(['jquery', 'build', 'info', 'search'],
         out.push('</div>');
       }
       out.push('</div>');
-      //}
       $element.append(out.join(''));
 
       scrollToView($element);
@@ -285,14 +270,6 @@ define(['jquery', 'build', 'info', 'search'],
 
       $('div.track-cmd').remove();
       if (item) {
-        if (item.artistId){
-          // FIXME
-          // out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
-        }
-        if (item.albumId){
-          // FIXME
-          // out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
-        }
         out.pushNotEmpty(makeMenuCmd('delete-' + item.id, 'Delete'));
         out.pushNotEmpty(makeMenuCmd('queue:up-' + item.id, 'Up'));
         out.pushNotEmpty(makeMenuCmd('queue:down-' + item.id, 'Down'));
@@ -350,14 +327,6 @@ define(['jquery', 'build', 'info', 'search'],
 
       out.push('<div data-auto="delete" class="track-cmd clearfix">');
       out.push('<ul class="clearfix">');
-      if (item.artistId) {
-        // FIXME
-     //   out.push(makeMenuLink('#artist-' + item.artistId, 'Artist'));
-      }
-      if (item.albumId) {
-        // FIXME
-      //  out.push(makeMenuLink('#album-' + item.albumId, 'Album'));
-      }
       out.push(playButton(item.id));
       out.push('</ul>');
       if (item.trackNo){
@@ -493,7 +462,6 @@ define(['jquery', 'build', 'info', 'search'],
     function display(html) {
       $('#hash').empty().append(html);
       showPage('hash');
-      //$('#container').scrollTop(0);
       scrollTop(0);
     }
 
@@ -574,23 +542,14 @@ define(['jquery', 'build', 'info', 'search'],
       }
       lastHash = location.hash;
       switch (hash[0]) {
-        case '#artist':
-          showArtist(hash[1]);
-          break;
-        case '#album':
-          showAlbum(hash[1]);
-          break;
-        case '#alpha':
-          display(build.buildAlpha(hash[1]));
-          break;
         case '#styles':
           showPage('styles');
           break;
+        case '#playing':
+          showPage('playing');
+          break;
         case '#info':
           showPage('info');
-          break;
-        case '#link':
-          showPage('link');
           break;
         case '#admin':
           display(build.buildAdmin());
@@ -599,7 +558,7 @@ define(['jquery', 'build', 'info', 'search'],
             var pw = $('#password').val();
             isAdmin = (pw === PASSWORD);
             $(this).find('input').blur();
-            location.href = '#info';
+            location.href = '#playing';
             if (isAdmin) {
               message({text: 'Admin enabled'});
             } else {
@@ -684,7 +643,6 @@ define(['jquery', 'build', 'info', 'search'],
     return {
       message: message,
       init: init
-        // showPage: showPage
     };
 
   });

@@ -1,4 +1,4 @@
-/*global define, document, window, location, screen */
+/*global define, document, window, location, screen, localStorage */
 
 
 
@@ -136,15 +136,6 @@ define(['jquery', 'build', 'info', 'search'],
       progressSet();
     }
 
-    function artistScroll(name) {
-      // setTimeout to ensure the element is displayed
-      // before scrolling
-      setTimeout(function() {
-        var node = document.getElementById(name);
-        node.scrollIntoView();
-      }, 1);
-    }
-
     function scrollToView(element) {
       var offset = element.offset().top;
       var height = element.innerHeight();
@@ -163,10 +154,6 @@ define(['jquery', 'build', 'info', 'search'],
 
     function scrollTop(pos) {
       window.scrollTo(window.scrollX, pos);
-    }
-
-    function makeMenuLink(link, title) {
-      return '<li><a href="' + link + '">' + build.escapeHtml(title) + '</a></li>';
     }
 
     function cmdValid(cmd) {
@@ -394,26 +381,6 @@ define(['jquery', 'build', 'info', 'search'],
       return out.join('');
     }
 
-    function artistInfo() {
-      var $element = $(this).children('p');
-      if ($element.next().length) {
-        $element.next().remove();
-        return;
-      }
-      var artistId = $element.data('artist');
-      $('div.track-list').remove();
-      var listing = [];
-      listing = listing.concat([
-        '<div class="track-list">',
-        tracklistArtist(artistId),
-        '</div>'
-      ]);
-      $element.after(listing.join(''));
-      $element.parent()[0].scrollIntoView();
-    }
-
-
-
     function toggleFullscreen() {
       // fullscreen thanks to http://davidwalsh.name/fullscreen
 
@@ -460,42 +427,6 @@ define(['jquery', 'build', 'info', 'search'],
       $('#hash').empty().append(html);
       showPage('hash', title);
       scrollTop(0);
-    }
-
-
-    function showArtist(id) {
-      if (!isNumeric(id)) {
-        showPage('artist');
-        if (id) {
-          if (/^[A-Z\#]$/.test(id)) {
-            artistScroll('artist-' + id);
-          } else {
-            scrollTop(0);
-          }
-        } else {
-          scrollTop(scrolls.artist || 0);
-        }
-        return;
-      }
-      display(build.buildArtist(id));
-    }
-
-
-    function showAlbum(id) {
-      if (!isNumeric(id)) {
-        showPage('album');
-        if (id) {
-          if (/^[A-Z\#]$/.test(id)) {
-            artistScroll('album-' + id);
-          } else {
-            scrollTop(0);
-          }
-        } else {
-          scrollTop(scrolls.album || 0);
-        }
-        return;
-      }
-      display(build.buildAlbum(id));
     }
 
     function message(msg) {

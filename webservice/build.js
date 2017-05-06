@@ -14,7 +14,6 @@ define(['jquery', 'info', 'search'], function($, info, search) {
   function buildSearch() {
     var out = [];
     out.push('<form id="search-form">');
-    out.push('<h1>Search</h1>');
     out.push('<p>');
     out.push('<input id="search-text" type="text">');
     out.push('<ul><li><a>Go</a></li></ul>');

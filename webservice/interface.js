@@ -19,6 +19,7 @@ define(['jquery', 'build', 'info', 'search'],
     var messages = {};
 
     var activePage;
+    var activeTitle;
     var menuDivs = [
       'playing',
       'info',
@@ -44,24 +45,29 @@ define(['jquery', 'build', 'info', 'search'],
       };
     }
 
-    function showPage(page) {
+    function showPage(page, title) {
       var i;
       if (page === undefined){
         page = activePage;
+        title = activeTitle;
       }
       for (i = 0; i < menuDivs.length; i++) {
         if (page !== menuDivs[i]) {
           $('#' + menuDivs[i]).hide();
         }
       }
+
+      title = title || 'Tunes!';
+      $('#title').text(title);
+
       $('#' + page).show();
-      if (page) {
-        if (page !== 'menu'){
-          activePage = page;
-          $('#menu').hide();
-        } else {
-          $('#menu').show();
-        }
+
+      if (page !== 'menu'){
+        activePage = page;
+        activeTitle = title;
+        $('#menu').hide();
+      } else {
+        $('#menu').show();
       }
     }
 
@@ -103,7 +109,7 @@ define(['jquery', 'build', 'info', 'search'],
           streamId: streamId
         });
       }
-      showPage(activePage);
+      showPage();
     }
 
 
@@ -450,9 +456,9 @@ define(['jquery', 'build', 'info', 'search'],
       $toggle.css('left', width - toggleWidth);
     }
 
-    function display(html) {
+    function display(html, title) {
       $('#hash').empty().append(html);
-      showPage('hash');
+      showPage('hash', title);
       scrollTop(0);
     }
 
@@ -534,16 +540,16 @@ define(['jquery', 'build', 'info', 'search'],
       lastHash = location.hash;
       switch (hash[0]) {
         case '#styles':
-          showPage('styles');
+          showPage('styles', 'Styles');
           break;
         case '#playing':
           showPage('playing');
           break;
         case '#info':
-          showPage('info');
+          showPage('info', 'Info');
           break;
         case '#admin':
-          display(build.buildAdmin());
+          display(build.buildAdmin(), 'Admin');
           $('#admin-form').submit(function(event) {
             event.preventDefault();
             var pw = $('#password').val();
@@ -566,7 +572,7 @@ define(['jquery', 'build', 'info', 'search'],
 
           break;
         case '#search':
-          display(build.buildSearch());
+          display(build.buildSearch(), 'Search');
           $('#search-form').submit(function(event) {
             event.preventDefault();
             var text = $('#search-text').val();
@@ -589,7 +595,7 @@ define(['jquery', 'build', 'info', 'search'],
           var text = decodeURIComponent(hash[1]);
           search.search(text, function(results) {
             $msg.remove();
-            display(build.buildResults(results, text));
+            display(build.buildResults(results, text), 'Results');
             scrollTop(scrolls.results || 0);
           });
           break;
@@ -610,10 +616,7 @@ define(['jquery', 'build', 'info', 'search'],
       $('#hash').on('click', 'img[data-album]', albumInfo);
       $('#playing').on('click', 'img', currentInfo);
       resize();
-      $('#logo').click(toggleFullscreen);
-      $('#menu a').click(function() {
-        showPage(activePage);
-      });
+      $('#title').click(toggleFullscreen);
       $('#menu-toggle').click(toggleMenu);
       $('#page').on('click', 'a', buttonClick);
       $('#currentProgressDiv').click(progressClick);

@@ -38,7 +38,7 @@ html.purple .header {
   height: 1.2em;
   border: 3px solid #FFF;
 }
-html.purple #logo {
+html.purple #title {
   background-color: #639;
   color: #FFF;
   font-size: 3em;
@@ -514,7 +514,7 @@ html.red .header {
   height: 1.2em;
   border: 3px solid #FFF;
 }
-html.red #logo {
+html.red #title {
   background-color: #900;
   color: #FFF;
   font-size: 3em;
@@ -990,7 +990,7 @@ html.green .header {
   height: 1.2em;
   border: 3px solid #FFF;
 }
-html.green #logo {
+html.green #title {
   background-color: #006400;
   color: #FFF;
   font-size: 3em;
@@ -1466,7 +1466,7 @@ html.purple-inverse .header {
   height: 1.2em;
   border: 3px solid #639;
 }
-html.purple-inverse #logo {
+html.purple-inverse #title {
   background-color: #FFF;
   color: #639;
   font-size: 3em;
@@ -1942,7 +1942,7 @@ html.night .header {
   height: 1.2em;
   border: 3px solid #222;
 }
-html.night #logo {
+html.night #title {
   background-color: #999;
   color: #222;
   font-size: 3em;

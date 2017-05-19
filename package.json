@@ -1,5 +1,11 @@
 {
     "name": "tunes",
+    "description": "Tunes! jukebox",
+    "repository" :
+      { "type" : "git"
+      , "url" : "https://github.com/tobes/Tunes.git"
+      },
+    "license" : "GPL-2.0",
     "version": "0.0.1",
     "main": "index.html"
 }

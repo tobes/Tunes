@@ -22,7 +22,7 @@ define(function() {
     importImageExtensions: ['.jpg', '.png', '.gif'],
     importLimiter: 100,
 
-    ytApiKey: 'AIzaSyALdttsiV7C' + 'mv2fNmDEGmvG6MF4aIHigiA',
+    ytApiKey: 'AIzaSyDvRcBTvq22QCsPwJ' + '-9CKT7IOMxZeN76cI',
 
     soundcloudApiKey: 'a0cf2b817456e65d' + '0355fa27a478b9b2',
   };

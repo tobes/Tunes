@@ -1,11 +1,23 @@
 {
     "name": "tunes",
     "description": "Tunes! jukebox",
-    "repository" :
-      { "type" : "git"
-      , "url" : "https://github.com/tobes/Tunes.git"
-      },
-    "license" : "GPL-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tobes/Tunes.git"
+    },
+    "license": "GPL-2.0",
     "version": "0.0.1",
-    "main": "index.html"
+    "main": "index.html",
+    "bin": {
+        "tunes": "index.js"
+    },
+    "dependencies": {
+        "fluent-ffmpeg": "^2.1.2",
+        "jimp": "^0.5.6",
+        "musicmetadata": "^2.0.5",
+        "node-soundcloud": "0.0.6",
+        "nw": "^0.40.2",
+        "youtube-node": "^1.3.3",
+        "ytdl-core": "^0.27.1"
+    }
 }
